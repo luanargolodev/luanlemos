@@ -90,6 +90,26 @@ body * {
   border-radius: 9999px;
 }
 
+#about {
+  padding: 20px 0;
+}
+
+#about h1 {
+  font-size: 15px;
+  margin-bottom: 10px;
+  text-align: center;
+  font-weight: 400;
+}
+
+#about p {
+  font-size: 14px;
+  line-height: 24px;
+}
+
+#about a {
+  color: #52bf4d;
+}
+
 #links {
   list-style: none;
   display: flex;
