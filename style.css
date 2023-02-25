@@ -29,7 +29,7 @@ body {
 }
 
 body * {
-  font-family: "Inter", sans-serif;
+  font-family: 'Inter', sans-serif;
   color: var(--text-color);
 }
 
@@ -105,6 +105,11 @@ body * {
   font-size: 14px;
   line-height: 24px;
   text-align: justify;
+  margin-bottom: 8px;
+}
+
+#about p:last-child {
+  margin-bottom: 0;
 }
 
 #about a {
