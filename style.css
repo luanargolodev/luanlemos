@@ -169,3 +169,7 @@ body * {
   text-align: center;
   font-size: 14px;
 }
+
+#footer span {
+  color: red;
+}
