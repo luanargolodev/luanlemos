@@ -5,6 +5,14 @@ import Image from 'next/image'
 import { projects } from '../../utils/projects'
 
 export default function Projects() {
+  const handleClick = (id: number) => () => {
+    const project = projects.find((project) => project.id === id)
+
+    if (project) {
+      window.open(project.link, '_blank')
+    }
+  }
+
   return (
     <section className="mt-16 scroll-smooth" id="projects">
       <Title title="Projetos" />
@@ -13,12 +21,13 @@ export default function Projects() {
         {projects.map((project: ProjectProps) => (
           <div
             key={project.id}
-            className="bg-[#222525] rounded-lg shadow-lg p-4"
+            className="bg-[#222525] rounded-lg shadow-lg p-4 cursor-pointer"
+            onClick={handleClick(project.id)}
           >
             <Image
               src={project.image}
               alt={project.title}
-              className="rounded-lg"
+              className="h-[184px] rounded-lg object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 ease-in-out hover:animate-bounce"
             />
 
             <h3 className="text-xl font-medium mt-4 uppercase">
