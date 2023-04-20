@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import Title from '../Title'
+
 import personSvg from '../../assets/icons/person.svg'
 
 export default function About() {
@@ -22,7 +24,7 @@ export default function About() {
       </button>
 
       <div className="w-full mt-16">
-        <h3 className="text-2xl font-semibold mb-5">Sobre mim</h3>
+        <Title title="Sobre mim" />
         <p className="text-lg tracking-wider">
           Sou desenvolvedor front-end, apaixonado por tecnologia e programação.
           Formado em Análise e Desenvolvimento de Sistemas, sempre me interessei
