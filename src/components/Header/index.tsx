@@ -1,5 +1,7 @@
 import Image from 'next/image'
 
+import Button from '../Button'
+
 import logoSvg from '../../assets/icons/logo.svg'
 
 export default function Header() {
@@ -12,8 +14,8 @@ export default function Header() {
           <a href="#">Projetos</a>
         </li>
 
-        <li className="bg-[#5222D0] w-[105px] h-[45px] flex items-center justify-center rounded-[6px]">
-          <a href="#">Contato</a>
+        <li className="w-[105px] h-[45px] flex items-center justify-center rounded-[6px]">
+          <Button title="Contato" />
         </li>
       </ul>
     </header>

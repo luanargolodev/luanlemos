@@ -8,7 +8,7 @@ export default function Skills() {
     <section className="mt-16">
       <Title title="Tecnologias" />
 
-      <div className="flex flex-wrap gap-12 items-center justify-center">
+      <div className="flex flex-wrap gap-6 items-center justify-center">
         {skills.map((skill: SkillProps) => (
           <div
             key={skill.id}

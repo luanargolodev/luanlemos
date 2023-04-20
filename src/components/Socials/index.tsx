@@ -12,7 +12,7 @@ export default function SocialItem() {
   }
 
   return (
-    <section className="flex w-full justify-between mt-16">
+    <section className="flex w-full justify-between">
       {socials.map((social: SocialItemProps) => (
         <div
           key={social.id}
