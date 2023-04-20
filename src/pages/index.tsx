@@ -10,7 +10,7 @@ const montserrat = Montserrat({ subsets: ['latin'] })
 
 export default function Home() {
   return (
-    <main className={`${montserrat.className} mx-6`}>
+    <main className={`${montserrat.className} mx-6 lg:w-[1100px] lg:mx-auto`}>
       <Header />
       <About />
       <Projects />

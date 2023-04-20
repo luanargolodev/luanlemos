@@ -16,7 +16,7 @@ export default function SocialItem() {
       {socials.map((social: SocialItemProps) => (
         <div
           key={social.id}
-          className="flex flex-col items-center"
+          className="flex flex-col items-center cursor-pointer"
           onClick={handleSocials(social.id)}
         >
           <Image src={social.icon} alt={social.title} />

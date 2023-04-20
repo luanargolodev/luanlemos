@@ -9,14 +9,14 @@ export default function Header() {
     <header className="flex items-center justify-between">
       <Image src={logoSvg} alt="Logo" width={100} />
 
-      <ul className="flex lg:flex-col gap-8 items-center">
+      <ul className="flex gap-8 items-center">
         <li>
-          <a href="#">Projetos</a>
+          <a href="#projects">Projetos</a>
         </li>
 
-        <li className="w-[105px] h-[45px] flex items-center justify-center rounded-[6px]">
+        {/* <li className="w-[105px] h-[45px] flex items-center justify-center rounded-[6px]">
           <Button title="Contato" />
-        </li>
+        </li> */}
       </ul>
     </header>
   )
