@@ -13,10 +13,6 @@ export default function Header() {
         <li>
           <a href="#projects">Projetos</a>
         </li>
-
-        {/* <li className="w-[105px] h-[45px] flex items-center justify-center rounded-[6px]">
-          <Button title="Contato" />
-        </li> */}
       </ul>
     </header>
   )

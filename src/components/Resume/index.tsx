@@ -20,7 +20,9 @@ export default function Resume() {
           equipe 😄
         </p>
 
-        <Button title="Fale comigo" />
+        <a href="#contacts">
+          <Button title="Fale comigo" />
+        </a>
       </div>
     </section>
   )
