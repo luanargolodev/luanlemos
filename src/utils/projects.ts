@@ -76,7 +76,7 @@ export const projects = [
     description:
       'Mosaico de imagens desenvolvido para a loja da Vestrio Lingerie',
     techs: ['html', 'sass', 'javascript'],
-    link: 'https://www.vestrionlingerie.com.br',
+    link: 'https://www.vestriolingerie.com.br/',
   },
   {
     id: 8,
