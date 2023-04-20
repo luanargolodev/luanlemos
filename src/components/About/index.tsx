@@ -20,6 +20,15 @@ export default function About() {
       <button className="mt-4 w-[134px] h-[45px] bg-[#5222d0] rounded-[6px]">
         Fale comigo
       </button>
+
+      <div className="w-full mt-16">
+        <h3 className="text-2xl font-semibold mb-5">Sobre mim</h3>
+        <p className="text-lg tracking-wider">
+          Sou desenvolvedor front-end, apaixonado por tecnologia e programação.
+          Formado em Análise e Desenvolvimento de Sistemas, sempre me interessei
+          a aprender sobre programação e desenvolvimento.
+        </p>
+      </div>
     </section>
   )
 }
