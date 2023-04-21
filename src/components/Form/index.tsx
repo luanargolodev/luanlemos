@@ -1,5 +1,6 @@
 import { FormEvent, useState } from 'react'
 import emailjs from '@emailjs/browser'
+import { toast } from 'react-toastify'
 
 import Button from '../Button'
 import Label from '../Label'
@@ -15,7 +16,11 @@ export default function Form() {
     event.preventDefault()
 
     if (email === '' || message === '' || name === '') {
-      alert('Preencha todos os campos')
+      toast('Preencha todos os campos', {
+        hideProgressBar: true,
+        autoClose: 2000,
+        type: 'error',
+      })
       return
     }
 
@@ -33,13 +38,21 @@ export default function Form() {
       )
       .then(
         (response) => {
-          console.log('E-mail enviado', response.status, response.text)
+          toast('E-mail enviado com sucesso', {
+            hideProgressBar: true,
+            autoClose: 2000,
+            type: 'success',
+          })
           setEmail('')
           setMessage('')
           setName('')
         },
         (err) => {
-          console.log('E-mail não enviado', err)
+          toast('Ocorreu um erro ao enviar o e-mail', {
+            hideProgressBar: true,
+            autoClose: 2000,
+            type: 'error',
+          })
         }
       )
   }
