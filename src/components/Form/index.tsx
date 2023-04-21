@@ -1,3 +1,5 @@
+import emailjs from '@emailjs/browser'
+
 import Button from '../Button'
 import Label from '../Label'
 import Input from '../Input'
@@ -12,9 +14,33 @@ export default function Form() {
 
     const data = Object.fromEntries(formData)
 
-    console.log(data)
+    const { email, message, name } = data
 
-    alert('Ocorreu um erro ao enviar o e-mail')
+    if (email === '' || message === '' || name === '') {
+      alert('Preencha todos os campos')
+      return
+    }
+
+    const templateParams = {
+      from_name: name,
+      message: message,
+      email: email,
+    }
+    emailjs
+      .send(
+        'service_fb3d0l3',
+        'template_3n89eg7',
+        templateParams,
+        '_il3aP7krhrAp6pX8'
+      )
+      .then(
+        (response) => {
+          console.log('E-mail enviado', response.status, response.text)
+        },
+        (err) => {
+          console.log('E-mail não enviado', err)
+        }
+      )
   }
 
   return (
