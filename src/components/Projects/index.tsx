@@ -27,7 +27,7 @@ export default function Projects() {
             <Image
               src={project.image}
               alt={project.title}
-              className="h-[184px] rounded-lg object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 ease-in-out lg:hover:animate-bounce"
+              className="h-[184px] rounded-lg object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 ease-in-out"
             />
 
             <h3 className="text-xl font-medium mt-4 uppercase">
