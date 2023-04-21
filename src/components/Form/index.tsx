@@ -1,3 +1,4 @@
+import { FormEvent, useState } from 'react'
 import emailjs from '@emailjs/browser'
 
 import Button from '../Button'
@@ -6,15 +7,12 @@ import Input from '../Input'
 import Textarea from '../Textarea'
 
 export default function Form() {
+  const [email, setEmail] = useState('')
+  const [message, setMessage] = useState('')
+  const [name, setName] = useState('')
+
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
-
-    const form = event.currentTarget
-    const formData = new FormData(form)
-
-    const data = Object.fromEntries(formData)
-
-    const { email, message, name } = data
 
     if (email === '' || message === '' || name === '') {
       alert('Preencha todos os campos')
@@ -36,6 +34,9 @@ export default function Form() {
       .then(
         (response) => {
           console.log('E-mail enviado', response.status, response.text)
+          setEmail('')
+          setMessage('')
+          setName('')
         },
         (err) => {
           console.log('E-mail não enviado', err)
@@ -47,13 +48,37 @@ export default function Form() {
     <section className="mt-16 mb-5 lg:w-[532px] h-[427px] mx-auto">
       <form className="flex flex-col w-full" onSubmit={handleSubmit}>
         <Label id="name" title="Nome" />
-        <Input type="text" id="name" placeholder="Seu nome" />
+        <Input
+          type="text"
+          id="name"
+          placeholder="Seu nome"
+          value={name}
+          onChange={(e: FormEvent<HTMLInputElement>) =>
+            setName(e.currentTarget.value)
+          }
+        />
 
         <Label id="email" title="E-mail" />
-        <Input type="email" id="email" placeholder="Seu e-mail" />
+        <Input
+          type="email"
+          id="email"
+          placeholder="Seu e-mail"
+          value={email}
+          onChange={(e: FormEvent<HTMLInputElement>) =>
+            setEmail(e.currentTarget.value)
+          }
+        />
 
         <Label id="message" title="Mensagem" />
-        <Textarea id="message" name="message" placeholder="Sua mensagem" />
+        <Textarea
+          id="message"
+          name="message"
+          placeholder="Sua mensagem"
+          value={message}
+          onChange={(e: FormEvent<HTMLTextAreaElement>) =>
+            setMessage(e.currentTarget.value)
+          }
+        />
 
         <button className="mt-4 h-[48px] bg-gradient-to-b from-[#00F5A0] to-[#00D9F5] rounded-[6px] text-[#252728]">
           Enviar

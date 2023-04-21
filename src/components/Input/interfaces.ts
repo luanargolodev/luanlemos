@@ -1,5 +1,4 @@
-export interface InputProps {
+export interface InputProps extends React.HTMLProps<HTMLInputElement> {
   type: string
   id: string
-  placeholder?: string
 }
