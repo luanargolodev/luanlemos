@@ -6,6 +6,7 @@ import reactSvg from '../assets/skills/react.svg'
 import typescriptSvg from '../assets/skills/typescript.svg'
 import styledcomponentsSvg from '../assets/skills/styled-components.svg'
 import tailwindcssSvg from '../assets/skills/tailwindcss.svg'
+import vtexSvg from '../assets/skills/vtex.svg'
 
 export interface SkillProps {
   id: number
@@ -16,13 +17,13 @@ export interface SkillProps {
 export const skills = [
   {
     id: 0,
-    name: 'Git',
-    icon: gitSvg,
+    name: 'VTEX',
+    icon: vtexSvg,
   },
   {
     id: 1,
-    name: 'JavaScript',
-    icon: javascriptSvg,
+    name: 'Git',
+    icon: gitSvg,
   },
   {
     id: 2,
@@ -36,8 +37,8 @@ export const skills = [
   },
   {
     id: 4,
-    name: 'React',
-    icon: reactSvg,
+    name: 'JavaScript',
+    icon: javascriptSvg,
   },
   {
     id: 5,
@@ -46,11 +47,16 @@ export const skills = [
   },
   {
     id: 6,
+    name: 'React',
+    icon: reactSvg,
+  },
+  {
+    id: 7,
     name: 'Styled Components',
     icon: styledcomponentsSvg,
   },
   {
-    id: 7,
+    id: 8,
     name: 'Tailwind CSS',
     icon: tailwindcssSvg,
   },
