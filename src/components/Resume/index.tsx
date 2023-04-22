@@ -20,8 +20,11 @@ export default function Resume() {
           equipe 😄
         </p>
 
-        <a href="#contacts">
-          <Button title="Fale comigo" />
+        <a
+          href="https://drive.google.com/file/d/1qGqKyTjGiVE1s1xEfRl2T_q-xxy9bKAa/view"
+          target="_blank"
+        >
+          <Button title="Download CV" />
         </a>
       </div>
     </section>
