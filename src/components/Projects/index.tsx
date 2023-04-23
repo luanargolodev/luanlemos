@@ -1,10 +1,19 @@
+import { useState } from 'react'
 import Title from '../Title'
 import { ProjectProps } from './interfaces'
-import Image from 'next/image'
+import Image, { StaticImageData } from 'next/image'
+import Modal from '../Modal'
+import useModal from '@/hooks/useModal'
+import Button from '../Button'
 
 import { projects } from '../../utils/projects'
 
+import linkSvg from '../../assets/icons/link.svg'
+
 export default function Projects() {
+  const { isOpen, toggle } = useModal()
+  const [imageModal, setImageModal] = useState<StaticImageData | string>('')
+
   const handleClick = (id: number) => () => {
     const project = projects.find((project) => project.id === id)
 
@@ -13,8 +22,13 @@ export default function Projects() {
     }
   }
 
+  const handleClickImage = (id: number) => () => {
+    toggle()
+    setImageModal(projects[id].image)
+  }
+
   return (
-    <section className="mt-16 scroll-smooth" id="projects">
+    <section className="mt-16 scroll-smooth relative" id="projects">
       <Title title="Projetos" />
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
@@ -22,12 +36,12 @@ export default function Projects() {
           <div
             key={project.id}
             className="bg-[#222525] rounded-lg shadow-lg p-4 cursor-pointer"
-            onClick={handleClick(project.id)}
           >
             <Image
               src={project.image}
               alt={project.title}
               className="h-[184px] rounded-lg object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 ease-in-out"
+              onClick={handleClickImage(project.id)}
             />
 
             <h3 className="text-xl font-medium mt-4 uppercase">
@@ -45,12 +59,41 @@ export default function Projects() {
               ))}
             </div>
 
-            <p className="text-[#BDEBEA] mt-5 tracking-[0.04em] text-[#BDEBEA]">
+            <p className="text-[#BDEBEA] mt-5 tracking-[0.04em] mb-4 text-[#BDEBEA]">
               {project.description}
             </p>
+
+            <span
+              className="flex items-center gap-3"
+              onClick={handleClick(project.id)}
+            >
+              <Image src={linkSvg} alt="Link" className="w-6 h-6" />
+              Ver projeto
+            </span>
           </div>
         ))}
       </div>
+
+      <Modal isOpen={isOpen} toggle={toggle}>
+        <div className="fixed inset-0 bg-black/50">
+          <div
+            className="absolute inset-0 flex items-center justify-center mx-3"
+            onClick={toggle}
+          >
+            <Image
+              src={imageModal}
+              alt="Project"
+              className="relative h-[500px] rounded-lg object-contain"
+            />
+            <div
+              className="absolute top-0 right-0 p-4 cursor-pointer"
+              onClick={toggle}
+            >
+              <span>Fechar</span>
+            </div>
+          </div>
+        </div>
+      </Modal>
     </section>
   )
 }
