@@ -1,4 +1,5 @@
 import Socials from '../Socials'
+import GoTop from '../GoTop'
 
 export default function Footer() {
   return (
@@ -8,6 +9,8 @@ export default function Footer() {
       <span className="w-full block mt-7 mb-7 text-center uppercase text-sm tracking-[0.04em] text-[#bdebea]">
         Feito com ♥ por Luan Lemos
       </span>
+
+      <GoTop />
     </footer>
   )
 }
