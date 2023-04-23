@@ -37,12 +37,12 @@ export default function Projects() {
         {projects.map((project: ProjectProps) => (
           <div
             key={project.id}
-            className="bg-[#222525] rounded-lg shadow-lg p-4 cursor-pointer"
+            className="bg-[#222525] rounded-lg shadow-lg p-4"
           >
             <Image
               src={project.image}
               alt={project.title}
-              className="h-[184px] rounded-lg object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 ease-in-out"
+              className="h-[184px] cursor-pointer rounded-lg object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 ease-in-out"
               onClick={handleClickImage(project.id)}
               id={project.id.toString()}
             />
@@ -74,7 +74,7 @@ export default function Projects() {
             </p>
 
             <span
-              className="flex items-center gap-3"
+              className="flex items-center gap-3 cursor-pointer"
               onClick={handleClick(project.id)}
             >
               <Image src={linkSvg} alt="Link" className="w-6 h-6" />
