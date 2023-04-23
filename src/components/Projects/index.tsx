@@ -5,6 +5,8 @@ import Image, { StaticImageData } from 'next/image'
 import Modal from '../Modal'
 import useModal from '@/hooks/useModal'
 import Button from '../Button'
+import 'react-tooltip/dist/react-tooltip.css'
+import { Tooltip } from 'react-tooltip'
 
 import { projects } from '../../utils/projects'
 
@@ -42,6 +44,14 @@ export default function Projects() {
               alt={project.title}
               className="h-[184px] rounded-lg object-contain opacity-80 hover:opacity-100 transition-opacity duration-300 ease-in-out"
               onClick={handleClickImage(project.id)}
+              id={project.id.toString()}
+            />
+
+            <Tooltip
+              anchorId={project.id.toString()}
+              place="top"
+              content="Clique para visualizar a imagem"
+              variant="info"
             />
 
             <h3 className="text-xl font-medium mt-4 uppercase">
