@@ -4,7 +4,6 @@ import { ProjectProps } from './interfaces'
 import Image, { StaticImageData } from 'next/image'
 import Modal from '../Modal'
 import useModal from '@/hooks/useModal'
-import Button from '../Button'
 import 'react-tooltip/dist/react-tooltip.css'
 import { Tooltip } from 'react-tooltip'
 
@@ -69,7 +68,7 @@ export default function Projects() {
               ))}
             </div>
 
-            <p className="text-[#BDEBEA] mt-5 tracking-[0.04em] mb-4 text-[#BDEBEA]">
+            <p className="text-[#BDEBEA] mt-5 tracking-[0.04em] mb-4">
               {project.description}
             </p>
 
@@ -92,7 +91,7 @@ export default function Projects() {
           >
             <Image
               src={imageModal}
-              alt="Project"
+              alt="Imagem do projeto"
               className="relative h-[500px] rounded-lg object-contain"
             />
             <div

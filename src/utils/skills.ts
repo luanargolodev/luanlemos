@@ -14,7 +14,7 @@ export interface SkillProps {
   icon: string
 }
 
-export const skills = [
+export const skills: SkillProps[] = [
   {
     id: 0,
     name: 'VTEX',
