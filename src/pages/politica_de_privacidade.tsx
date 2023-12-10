@@ -89,7 +89,7 @@ export default function Home() {
           conosco em [seu endereço de e-mail de suporte].
         </p>
 
-        <p>Data de vigência: [data de vigência da política]</p>
+        <p>Data de vigência: 10/12/2023</p>
 
         <p>
           Obrigado por escolher o Round6 - Jogo da Memória! Divirta-se jogando!
