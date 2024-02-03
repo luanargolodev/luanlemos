@@ -29,7 +29,7 @@ export default function Resume() {
         </p>
 
         <a
-          href="https://drive.google.com/file/d/1qGqKyTjGiVE1s1xEfRl2T_q-xxy9bKAa/view"
+          href="https://drive.google.com/file/d/16c6mYIV90lPtJhVbMvb-u7a_JdiT5Npk/view?usp=sharing"
           target="_blank"
         >
           <Button title="Download CV" />
