@@ -66,7 +66,7 @@ export const projects = [
     image: kaueplussizeImg,
     title: 'Kaue Plus Size',
     description: 'Menu desenvolvido para a loja da Kaue Plus Size',
-    techs: ['html', 'sass', 'javascript'],
+    techs: ['react', 'VTEX IO'],
     link: 'https://www.kaueplussize.com.br/',
   },
   {
