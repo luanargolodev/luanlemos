@@ -10,8 +10,8 @@ export default function Resume() {
       <Image src={personSvg} alt="Person" className="lg:order-1" />
 
       <div className="flex flex-col items-center lg:items-start">
-        <h2 className="text-2xl mt-6 font-bold">
-          Desenvolvedor Front-end |{' '}
+        <h2 className="text-2xl mt-6 font-bold text-center">
+          Desenvolvedor Front-end {' '}
           <a
             href="https://www.zeedog.com.br"
             target="_blank"
