@@ -18,6 +18,7 @@ export default function Awards() {
               src={prize.image}
               alt={prize.title}
               id={prize.id.toString()}
+              className="min-w-[324px] min-h-[324px]"
             />
 
             <h3 className="text-xl font-medium mt-4 uppercase">
