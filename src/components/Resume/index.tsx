@@ -25,7 +25,7 @@ export default function Resume() {
         </h1>
 
         <p className="text-sm mt-3 text-center mb-4 w-[400px] lg:text-left">
-          Stacks: Preact, React, TailwindCSS & Deno | Deco.cx
+          Stacks: Preact, React, TailwindCSS, Deno & Deco.cx
         </p>
 
         <a
