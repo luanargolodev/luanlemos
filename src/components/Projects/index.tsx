@@ -57,7 +57,7 @@ export default function Projects() {
               {project.title}
             </h3>
 
-            <div className="flex mt-3">
+            <div className="grid grid-cols-2 gap-2 mt-2">
               {project.techs.map((tech) => (
                 <span
                   key={tech}
