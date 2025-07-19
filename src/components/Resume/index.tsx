@@ -11,7 +11,7 @@ export default function Resume() {
 
       <div className="flex flex-col items-center lg:items-start">
         <h2 className="text-2xl mt-6 font-bold text-center">
-          Desenvolvedor Front-end {' '}
+          Desenvolvedor Front-end Pleno {' '}
           <a
             href="https://www.zeedog.com.br"
             target="_blank"
