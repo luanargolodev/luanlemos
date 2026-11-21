@@ -33,7 +33,7 @@ export function TechStack() {
                 </p>
               </div>
 
-              <ul className="flex flex-wrap gap-2.5">
+              <ul className="flex flex-wrap items-start gap-2.5 self-start">
                 {group.items.map((item) => (
                   <li
                     key={item.name}
@@ -45,11 +45,7 @@ export function TechStack() {
                       width={20}
                       height={20}
                       loading="lazy"
-                      className={
-                        item.icon === 'deco'
-                          ? 'h-4 w-8 object-contain'
-                          : 'size-5 object-contain'
-                      }
+                      className="size-5 shrink-0 object-contain"
                     />
                     {item.name}
                   </li>
