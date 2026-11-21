@@ -69,6 +69,9 @@ export function About() {
               <span>VTEX</span>
               <span>Shopify</span>
               <span>Liquid</span>
+              <span>BFF</span>
+              <span>GTM</span>
+              <span>GA4</span>
               <span>Tailwind CSS</span>
             </div>
           </div>

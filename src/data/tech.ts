@@ -37,13 +37,28 @@ export const techGroups: TechGroup[] = [
     ],
   },
   {
+    label: 'Backend & dados',
+    description: 'Orquestração, APIs e camada de dados.',
+    items: [
+      { name: 'BFF (Backend for Frontend)', icon: 'bff' },
+      { name: 'Node.js', icon: 'node' },
+      { name: 'Drizzle', icon: 'drizzle' },
+    ],
+  },
+  {
+    label: 'Analytics & tracking',
+    description: 'Eventos, tags, mensuração e integrações.',
+    items: [
+      { name: 'Google Tag Manager', icon: 'googletagmanager' },
+      { name: 'Google Analytics 4', icon: 'googleanalytics' },
+    ],
+  },
+  {
     label: 'Runtime & ferramentas',
-    description: 'Execução, dados e fluxo de trabalho.',
+    description: 'Execução e fluxo de trabalho.',
     items: [
       { name: 'Deno', icon: 'deno' },
       { name: 'Bun', icon: 'bun' },
-      { name: 'Node.js', icon: 'node' },
-      { name: 'Drizzle', icon: 'drizzle' },
       { name: 'Git', icon: 'git' },
     ],
   },
@@ -64,6 +79,9 @@ export const techIcons: Record<string, string> = {
   vtex: '/icons/tech/vtex.svg',
   shopify: '/icons/tech/shopify.svg',
   liquid: '/icons/tech/liquid.svg',
+  bff: '/icons/tech/bff.svg',
+  googletagmanager: '/icons/tech/googletagmanager.svg',
+  googleanalytics: '/icons/tech/googleanalytics.svg',
   deno: '/icons/tech/deno.svg',
   bun: '/icons/tech/bun.svg',
   node: '/icons/tech/node.svg',

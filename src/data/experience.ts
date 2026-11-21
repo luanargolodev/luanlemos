@@ -20,12 +20,21 @@ export const experiences: ExperienceItem[] = [
     summary:
       'Desenvolvimento da loja Zee.Dog na Deco.cx, com foco em consistência visual, performance e evolução contínua da experiência de compra.',
     achievements: [
+      'Um dos responsáveis pelo BFF de todo o ecossistema Zee.Dog e Zee.Now, centralizando integrações e dados consumidos pelo front-end.',
       'Implementação de páginas e componentes reutilizáveis em Preact, TypeScript e Tailwind CSS.',
       'Integrações com o backend da Deco.cx para vitrines, conteúdo e fluxo de compra.',
       'Integrações com Shopify nas lojas internacionais da Zee.Dog (Japão, Europa, Austrália e Peru).',
       'Atuação próxima de design, produto e engenharia na priorização de melhorias da loja.',
     ],
-    stack: ['Deco.cx', 'Preact', 'TypeScript', 'Deno', 'Tailwind CSS', 'Shopify'],
+    stack: [
+      'Deco.cx',
+      'Preact',
+      'TypeScript',
+      'Deno',
+      'Tailwind CSS',
+      'Shopify',
+      'BFF',
+    ],
   },
   {
     role: 'Desenvolvedor Front-end Júnior',
