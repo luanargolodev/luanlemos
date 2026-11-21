@@ -12,6 +12,11 @@ export const resume = {
   location: profile.location,
   availability: profile.availability,
   updatedAt,
+  desiredRole: 'Desenvolvedor Front-end Pleno (Frontend)',
+  objective:
+    'Atuar como Desenvolvedor Front-end Pleno (Frontend) em times de produto e e-commerce, com React.js, Next.js, TypeScript, Deco.cx, VTEX e Shopify.',
+  keySkills:
+    'React.js, Next.js, TypeScript, JavaScript, Preact, Tailwind CSS, HTML5, CSS3, Sass, Deco.cx, VTEX, VTEX IO, Shopify, Liquid, Deno, Node.js, Git, performance web, acessibilidade (WCAG) e desenvolvimento Front-end / Frontend.',
   summary:
     'Desenvolvedor Front-end Pleno com 4+ anos de experiência em e-commerce de marcas de alcance nacional e operações internacionais. Atuação de ponta a ponta em lojas como Zee.Dog, Zee.Now e Nannacay, com React.js, Next.js, TypeScript, JavaScript, Preact, Tailwind CSS, Deco.cx, VTEX e Shopify. Experiência com temas Shopify em Liquid, componentes reutilizáveis, performance, acessibilidade e colaboração próxima a design e produto. Busco oportunidades pleno/sênior em times de produto ou e-commerce, em modelo remoto ou híbrido.',
   skillGroups: [

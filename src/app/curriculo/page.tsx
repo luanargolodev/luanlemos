@@ -14,6 +14,24 @@ export const metadata: Metadata = {
       'Currículo — Luan Argolo Lemos | Desenvolvedor Front-end Pleno',
   },
   description: resume.summary,
+  keywords: [
+    'desenvolvedor front-end pleno',
+    'front-end',
+    'frontend',
+    'React.js',
+    'Next.js',
+    'TypeScript',
+    'JavaScript',
+    'Preact',
+    'Tailwind CSS',
+    'Deco.cx',
+    'VTEX',
+    'Shopify',
+    'Liquid',
+    'Deno',
+    'e-commerce',
+    'currículo',
+  ],
   alternates: {
     canonical: '/curriculo',
     types: {
@@ -102,6 +120,10 @@ export default function ResumePage() {
             <p className="mt-1 text-[15px] font-medium text-zinc-700">
               {resume.title}
             </p>
+            <p className="mt-1 text-[12.5px] leading-relaxed text-zinc-600">
+              <strong className="font-semibold text-zinc-700">Objetivo:</strong>{' '}
+              {resume.objective}
+            </p>
             <p className="mt-3 text-[13px] leading-relaxed text-zinc-600">
               {resume.availability} · {resume.location}
             </p>
@@ -153,6 +175,18 @@ export default function ResumePage() {
             </h2>
             <p className="mt-2.5 text-[13px] leading-relaxed text-zinc-700">
               {resume.summary}
+            </p>
+          </section>
+
+          <section className="cv-section mt-6" aria-labelledby="cv-competencias">
+            <h2
+              id="cv-competencias"
+              className="cv-section-title border-b border-zinc-200 pb-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.16em] text-zinc-500"
+            >
+              Competências Principais
+            </h2>
+            <p className="mt-2.5 text-[13px] leading-relaxed text-zinc-700">
+              {resume.keySkills}
             </p>
           </section>
 

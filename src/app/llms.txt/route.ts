@@ -26,6 +26,8 @@ export function GET() {
     `- Cargo: ${profile.role}`,
     `- Local: ${profile.location}`,
     `- Disponibilidade: ${profile.availability}`,
+    `- Objetivo: ${resume.objective}`,
+    `- Competências principais: ${resume.keySkills}`,
     `- Busca: oportunidade como Desenvolvedor Front-end Pleno ou Sênior, remoto ou híbrido`,
     `- E-mail: ${profile.email}`,
     `- WhatsApp: ${profile.phone}`,
