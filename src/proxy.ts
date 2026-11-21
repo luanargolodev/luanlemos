@@ -10,6 +10,20 @@ import {
 const BOT_PATTERN =
   /bot|crawler|spider|slurp|bingpreview|facebookexternalhit|twitterbot|linkedinbot|slackbot|whatsapp|telegrambot|discordbot|pinterest|redditbot|applebot|google-inspectiontool|semrush|ahrefs|petalbot|lighthouse|headlesschrome/i
 
+function localeFromPrefix(pathname: string) {
+  const first = pathname.split('/').filter(Boolean)[0] ?? ''
+  const match = [...locales]
+    .sort((a, b) => b.code.length - a.code.length)
+    .find((locale) => first.startsWith(locale.code))
+  if (!match) return null
+
+  const rest = first.slice(match.code.length)
+  return {
+    locale: match.code,
+    pathname: rest ? `/${rest}` : '/',
+  }
+}
+
 function detectLocale(header: string | null) {
   if (!header) return defaultLocale
 
@@ -40,6 +54,16 @@ export function proxy(request: NextRequest) {
   // This keeps unknown locales such as /xx on a localized 404 instead of
   // throwing from the root layout.
   if (pathname !== '/') {
+    const prefix = localeFromPrefix(pathname)
+    if (prefix) {
+      const response = NextResponse.redirect(
+        new URL(`/${prefix.locale}${prefix.pathname}${search}`, request.url),
+        307,
+      )
+      response.headers.set('Cache-Control', 'private, no-store')
+      return response
+    }
+
     const locale = isBot
       ? defaultLocale
       : isLocale(cookie)
