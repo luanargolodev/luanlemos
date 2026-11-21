@@ -80,11 +80,13 @@ export function SiteFooter() {
               <li>
                 <a
                   href={profile.cvUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
                 >
                   Currículo em PDF
                   <span aria-hidden="true" className="text-[10px] text-faint">
-                    ↓
+                    ↗
                   </span>
                 </a>
               </li>

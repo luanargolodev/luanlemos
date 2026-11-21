@@ -90,7 +90,8 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
             </a>
             <a
               href={cvUrl}
-              download
+              target="_blank"
+              rel="noopener noreferrer"
               onClick={() => setOpen(false)}
               className="inline-flex flex-col items-center justify-center gap-0.5 rounded-xl bg-fg px-3 py-3 text-[13px] font-semibold text-canvas"
             >

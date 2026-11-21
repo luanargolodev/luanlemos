@@ -4,7 +4,7 @@ import { useEffect, useId, useRef, useState } from 'react'
 
 import { profile } from '@/data/profile'
 
-import { ArrowUpRight, Download } from '@/components/ui/icons'
+import { ArrowUpRight, FileText } from '@/components/ui/icons'
 
 export function CvMenu() {
   const [open, setOpen] = useState(false)
@@ -93,19 +93,20 @@ export function CvMenu() {
 
           <a
             href={profile.cvUrl}
-            download
+            target="_blank"
+            rel="noopener noreferrer"
             onClick={close}
             className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-surface-2"
           >
             <span className="mt-0.5 grid size-7 shrink-0 place-items-center rounded-md border border-line/70 bg-canvas text-accent">
-              <Download className="size-3.5" />
+              <FileText className="size-3.5" />
             </span>
             <span>
               <span className="block text-[13px] font-medium text-fg">
                 Versão PDF
               </span>
               <span className="mt-0.5 block text-[11px] leading-snug text-muted">
-                Baixar o arquivo para anexar em candidaturas
+                Visualizar o arquivo no navegador
               </span>
             </span>
           </a>
