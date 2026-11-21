@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
 
-import type { LocaleMeta } from '@/i18n/config'
+import { locales as allLocales, type LocaleMeta } from '@/i18n/config'
 import { alternateLinks, homeHref, matchPathname } from '@/i18n/routing'
 
 import { Check } from '@/components/ui/icons'
@@ -20,6 +20,17 @@ interface LanguageSwitcherProps {
     currentLanguage: string
   }
   variant?: 'popover' | 'inline'
+}
+
+function fallbackLinks(pathname: string) {
+  const segments = pathname.split('/').filter(Boolean)
+  const rest = allLocales.some((item) => item.code === segments[0])
+    ? segments.slice(1)
+    : segments
+  const suffix = rest.length > 0 ? `/${rest.join('/')}` : ''
+  return Object.fromEntries(
+    allLocales.map((item) => [item.htmlLang, `/${item.code}${suffix}`]),
+  )
 }
 
 function setLocaleCookie(code: string) {
@@ -40,7 +51,7 @@ export function LanguageSwitcher({
   const match = matchPathname(pathname)
   const links = match
     ? alternateLinks(match.key, match.params)
-    : alternateLinks('home')
+    : fallbackLinks(pathname)
 
   useEffect(() => {
     if (!open) return

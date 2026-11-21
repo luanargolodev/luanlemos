@@ -146,6 +146,7 @@ Recomeçar o site em **Next.js App Router estático**, com foco em:
 | `/sitemap.xml`, `/robots.txt` | 30 URLs com hreflang | Estática |
 | `/pt/opengraph-image`, `/en/opengraph-image` | OG localizada | Estática |
 | `/pt/cv`, `/en/cv` | Alias interno do CV (redireciona para o caminho público) | Redirect |
+| `/[locale]/*` inexistente | 404 localizado, com shell e design system | Dinâmica/404 |
 
 Slugs dos cases: `zee-dog`, `zee-now`, `blog-zee-now`, `zee-dog-japao`, `zee-dog-europa`, `zee-dog-australia`, `zee-dog-peru`, `nannacay`.
 
@@ -161,8 +162,7 @@ src/app/[locale]/
   cv.json/route.ts
   llms.txt/route.ts
   opengraph-image.tsx
-  not-found.tsx
-src/app/global-not-found.tsx
+  not-found.tsx              # 404 localizado com header/footer
 src/app/sitemap.ts robots.ts manifest.ts
 src/proxy.ts                 # matcher "/" apenas
 src/views/                   # Home, About, Experience, Projects, Project, Stack, Contact, Resume
@@ -348,6 +348,7 @@ npm run brand        # ícones e marca do OG
 - [ ] `/pt` e `/en` 200; todas as páginas nos dois idiomas.
 - [ ] `/` humano → 307 para idioma; bot → 200 pt sem redirect.
 - [ ] `/pt/about` e `/en/sobre` → 404.
+- [ ] 404 em `/pt/*` e `/en/*` traduzido, com header/footer, design system e `noindex`.
 - [ ] URLs antigas → 301 para pt.
 - [ ] Troca de idioma preserva a página, sem reload, atualiza `html lang` e cookie.
 - [ ] Nenhum `[data-reveal]` visível com opacity 0; scroll começa no topo.

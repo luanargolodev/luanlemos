@@ -63,13 +63,13 @@ src/
       layout.tsx              # root layout: html lang, fontes, tema, motion, JSON-LD
       (site)/
         layout.tsx            # header + main + footer
+        not-found.tsx         # 404 localizado com o shell do site
         [[...path]]/page.tsx  # resolve rotas localizadas + metadata
       cv/page.tsx             # currículo web (sem shell)
       cv.json/route.ts        # currículo JSON por idioma
       llms.txt/route.ts       # resumo para LLMs por idioma
       opengraph-image.tsx     # OG localizada
       not-found.tsx
-    global-not-found.tsx      # 404 global (fora do layout)
     sitemap.ts
     robots.ts
   components/
@@ -180,3 +180,4 @@ Pull requests e branches geram preview deployments automaticamente.
 - Imagens em WebP, com `sizes` e blur placeholder
 - Navegação por teclado, skip link e foco visível
 - HTML completo e traduzido no primeiro carregamento (sem depender de JS)
+- 404 localizado, com header/footer e design system, para páginas inexistentes em pt/en

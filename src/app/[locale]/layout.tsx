@@ -33,8 +33,6 @@ const jetbrains = JetBrains_Mono({
   display: 'swap',
 })
 
-export const dynamicParams = false
-
 export function generateStaticParams() {
   return locales.map((locale) => ({ locale: locale.code }))
 }

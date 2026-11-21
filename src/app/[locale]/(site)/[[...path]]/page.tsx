@@ -14,8 +14,6 @@ import { ProjectView } from '@/views/project'
 import { ProjectsView } from '@/views/projects'
 import { StackView } from '@/views/stack'
 
-export const dynamicParams = false
-
 export async function generateStaticParams({
   params,
 }: {
@@ -36,12 +34,22 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale, path } = await params
   const match = resolveRoute(locale, path)
-  if (!match || match.key === 'resume') return {}
-
   const [messages, content] = await Promise.all([
     getMessages(locale),
     getContent(locale),
   ])
+
+  const missingProject =
+    match?.key === 'project' &&
+    !content.projects.some((project) => project.slug === match.params.slug)
+
+  if (!match || match.key === 'resume' || missingProject) {
+    return {
+      title: { absolute: `${messages.notFound.title} — Luan Lemos` },
+      description: messages.notFound.description,
+      robots: { index: false, follow: false },
+    }
+  }
 
   return buildMetadata({
     locale,

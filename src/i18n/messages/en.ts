@@ -325,6 +325,7 @@ const en: Messages = {
   },
   notFound: {
     eyebrow: '404',
+    explore: 'Keep exploring',
     title: 'Page not found.',
     description:
       'The link may have changed or never existed. Go back to the beginning to keep exploring the portfolio.',

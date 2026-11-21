@@ -323,6 +323,7 @@ const pt = {
   },
   notFound: {
     eyebrow: '404',
+    explore: 'Continue explorando',
     title: 'Página não encontrada.',
     description:
       'O link pode ter mudado ou nunca ter existido. Volte ao início para continuar explorando o portfólio.',

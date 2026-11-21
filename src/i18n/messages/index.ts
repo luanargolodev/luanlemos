@@ -1,5 +1,7 @@
 import 'server-only'
 
+import { defaultLocale, isLocale } from '@/i18n/config'
+
 import defaultMessages, { type Messages } from './pt'
 
 type Loader = () => Promise<{ default: Messages }>
@@ -27,7 +29,8 @@ function mergeWithFallback<T>(fallback: T, value: unknown): T {
 }
 
 export async function getMessages(locale: string): Promise<Messages> {
-  const loader = loaders[locale] ?? loaders.pt
+  const safeLocale = isLocale(locale) ? locale : defaultLocale
+  const loader = loaders[safeLocale] ?? loaders.pt
   const messages = (await loader()).default
   return mergeWithFallback(defaultMessages, messages)
 }

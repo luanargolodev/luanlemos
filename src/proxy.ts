@@ -26,7 +26,18 @@ function detectLocale(header: string | null) {
 }
 
 export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent') ?? ''
+
+  // Any path without a supported locale belongs to the default locale.
+  // This keeps unknown locales such as /xx on a localized 404 instead of
+  // throwing from the root layout.
+  if (pathname !== '/') {
+    return NextResponse.redirect(
+      new URL(`/${defaultLocale}${pathname}`, request.url),
+      308,
+    )
+  }
 
   // Crawlers and previews always receive the default locale with a 200,
   // never a language-based redirect.
@@ -56,5 +67,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/',
+  matcher: '/((?!pt(?:/|$)|en(?:/|$)|_next|api|.*\\..*).*)',
 }

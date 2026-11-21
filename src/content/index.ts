@@ -1,6 +1,6 @@
 import 'server-only'
 
-import { getLocaleMeta } from '@/i18n/config'
+import { defaultLocale, getLocaleMeta, isLocale } from '@/i18n/config'
 import { formatLongMonth } from '@/i18n/format'
 import { site } from '@/data/site'
 
@@ -91,9 +91,10 @@ function buildContent(locale: string, text: ContentText): Content {
 }
 
 export async function getContent(locale: string): Promise<Content> {
-  const loader = loaders[locale] ?? loaders.pt
+  const safeLocale = isLocale(locale) ? locale : defaultLocale
+  const loader = loaders[safeLocale] ?? loaders.pt
   const text = (await loader()).default
-  return buildContent(locale, text)
+  return buildContent(safeLocale, text)
 }
 
 export function featuredProjects(content: Content) {
