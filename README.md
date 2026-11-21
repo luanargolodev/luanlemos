@@ -87,6 +87,7 @@ O script gera as versões WebP em `public/images/projects/` e os blur placeholde
 - Reveals no scroll com `IntersectionObserver` e stagger nos cards.
 - Marquee de tecnologias, progresso de leitura e item ativo na navegação.
 - Glow que segue o cursor no hero, tilt + spotlight nos cards e parallax sutil no retrato.
+- Botão “voltar ao topo” no canto inferior direito, com scroll suave e respeito a `prefers-reduced-motion`.
 - Tudo desativado em `prefers-reduced-motion`; sem JavaScript, o conteúdo continua visível.
 
 ## Currículo

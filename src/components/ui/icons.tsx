@@ -35,6 +35,14 @@ export function ArrowDown({ className = 'size-4', ...props }: IconProps) {
   )
 }
 
+export function ArrowUp({ className = 'size-4', ...props }: IconProps) {
+  return (
+    <svg viewBox="0 0 24 24" className={className} {...strokeProps} {...props}>
+      <path d="M12 20V4M6 10l6-6 6 6" />
+    </svg>
+  )
+}
+
 export function Mail({ className = 'size-4', ...props }: IconProps) {
   return (
     <svg viewBox="0 0 24 24" className={className} {...strokeProps} {...props}>
