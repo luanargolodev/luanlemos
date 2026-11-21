@@ -1,5 +1,6 @@
 'use client'
 
+import { usePathname } from 'next/navigation'
 import { useEffect, useRef } from 'react'
 
 function isInView(element: HTMLElement) {
@@ -8,9 +9,12 @@ function isInView(element: HTMLElement) {
 }
 
 export function MotionEffects() {
+  const pathname = usePathname()
   const progressRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
+    if (!pathname) return
+
     const root = document.documentElement
     const reducedMotion = window.matchMedia(
       '(prefers-reduced-motion: reduce)',
@@ -159,7 +163,7 @@ export function MotionEffects() {
       for (const cleanup of cleanups) cleanup()
       root.classList.remove('motion-ready')
     }
-  }, [])
+  }, [pathname])
 
   return (
     <div aria-hidden="true" className="scroll-progress">

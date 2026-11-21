@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 
 import { ThemeProvider } from '@/components/layout/ThemeProvider'
 import { BackToTop } from '@/components/layout/BackToTop'
+import { ScrollToTop } from '@/components/layout/ScrollToTop'
 import { MotionEffects } from '@/components/motion/MotionEffects'
 import { buildJsonLd, metadata, serializeJsonLd } from '@/lib/seo'
 
@@ -60,6 +61,7 @@ export default function RootLayout({
           </a>
           {children}
         </ThemeProvider>
+        <ScrollToTop />
         <MotionEffects />
         <BackToTop />
         <script
