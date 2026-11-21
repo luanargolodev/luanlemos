@@ -132,7 +132,7 @@ export default async function LocaleLayout({
             {messages.common.skipToContent}
           </a>
           {children}
-          <LocaleCookie locale={locale} />
+          <LocaleCookie />
         </ThemeProvider>
         <ScrollToTop />
         <MotionEffects />

@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { locale as rootLocale } from 'next/root-params'
 
+import { LocaleMismatchRedirect } from '@/components/i18n/LocaleMismatchRedirect'
 import { DocumentTitle } from '@/components/seo/DocumentTitle'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { ButtonLink } from '@/components/ui/ButtonLink'
@@ -35,6 +36,7 @@ export default async function NotFound() {
   return (
     <>
       <DocumentTitle title={`${messages.notFound.title} — Luan Lemos`} />
+      <LocaleMismatchRedirect locale={locale} />
 
       <section className="relative overflow-hidden border-b border-line/60 pb-16 pt-28 md:pb-20 md:pt-36">
         <div aria-hidden="true" className="grid-bg absolute inset-0" />

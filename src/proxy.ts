@@ -15,7 +15,7 @@ function localeFromPrefix(pathname: string) {
   const match = [...locales]
     .sort((a, b) => b.code.length - a.code.length)
     .find((locale) => first.startsWith(locale.code))
-  if (!match) return null
+  if (!match || first === match.code) return null
 
   const rest = first.slice(match.code.length)
   return {
@@ -44,63 +44,69 @@ function detectLocale(header: string | null) {
   return defaultLocale
 }
 
+function invalidPathRedirect(
+  request: NextRequest,
+  locale: string,
+  pathname: string,
+) {
+  const response = NextResponse.redirect(
+    new URL(`/${locale}${pathname}${request.nextUrl.search}`, request.url),
+    307,
+  )
+  response.headers.set('Cache-Control', 'private, no-store')
+  return response
+}
+
 export function proxy(request: NextRequest) {
-  const { pathname, search } = request.nextUrl
+  const { pathname } = request.nextUrl
   const userAgent = request.headers.get('user-agent') ?? ''
   const isBot = BOT_PATTERN.test(userAgent)
   const cookie = request.cookies.get(localeCookieName)?.value
 
-  // Any path without a supported locale belongs to the current locale.
-  // This keeps unknown locales such as /xx on a localized 404 instead of
-  // throwing from the root layout.
-  if (pathname !== '/') {
-    const prefix = localeFromPrefix(pathname)
-    if (prefix) {
-      const response = NextResponse.redirect(
-        new URL(`/${prefix.locale}${prefix.pathname}${search}`, request.url),
-        307,
+  if (pathname === '/') {
+    // Crawlers and previews always receive the default locale with a 200,
+    // never a language-based redirect.
+    if (isBot) {
+      const response = NextResponse.rewrite(
+        new URL(`/${defaultLocale}`, request.url),
       )
-      response.headers.set('Cache-Control', 'private, no-store')
+      response.headers.set('Vary', 'User-Agent, Accept-Language, Cookie')
       return response
     }
 
-    const locale = isBot
-      ? defaultLocale
-      : isLocale(cookie)
-        ? cookie
-        : detectLocale(request.headers.get('accept-language'))
+    const locale = isLocale(cookie)
+      ? cookie
+      : detectLocale(request.headers.get('accept-language'))
+
     const response = NextResponse.redirect(
-      new URL(`/${locale}${pathname}${search}`, request.url),
+      new URL(`/${locale}`, request.url),
       307,
     )
+    response.cookies.set(localeCookieName, locale, {
+      path: '/',
+      maxAge: 60 * 60 * 24 * 365,
+      sameSite: 'lax',
+    })
+    response.headers.set('Vary', 'User-Agent, Accept-Language, Cookie')
     response.headers.set('Cache-Control', 'private, no-store')
     return response
   }
 
-  // Crawlers and previews always receive the default locale with a 200,
-  // never a language-based redirect.
-  if (isBot) {
-    const response = NextResponse.rewrite(new URL(`/${defaultLocale}`, request.url))
-    response.headers.set('Vary', 'User-Agent, Accept-Language, Cookie')
-    return response
+  // /ena, /ptx and similar malformed locale prefixes: keep the prefix.
+  const prefix = localeFromPrefix(pathname)
+  if (prefix) {
+    return invalidPathRedirect(request, prefix.locale, prefix.pathname)
   }
 
-  const locale = isLocale(cookie)
-    ? cookie
-    : detectLocale(request.headers.get('accept-language'))
+  // No locale in the URL: use the current language, falling back to the
+  // default locale for bots.
+  const locale = isBot
+    ? defaultLocale
+    : isLocale(cookie)
+      ? cookie
+      : detectLocale(request.headers.get('accept-language'))
 
-  const response = NextResponse.redirect(
-    new URL(`/${locale}`, request.url),
-    307,
-  )
-  response.cookies.set(localeCookieName, locale, {
-    path: '/',
-    maxAge: 60 * 60 * 24 * 365,
-    sameSite: 'lax',
-  })
-  response.headers.set('Vary', 'User-Agent, Accept-Language, Cookie')
-  response.headers.set('Cache-Control', 'private, no-store')
-  return response
+  return invalidPathRedirect(request, locale, pathname)
 }
 
 export const config = {
