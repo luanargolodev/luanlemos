@@ -59,7 +59,7 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
       {open ? (
         <div
           id={panelId}
-          className="absolute inset-x-0 top-16 border-b border-line bg-canvas/95 px-5 py-5 shadow-2xl backdrop-blur-xl"
+          className="absolute inset-x-0 top-16 max-h-[calc(100svh-4rem)] overflow-y-auto border-b border-line bg-canvas px-5 py-5 shadow-2xl"
         >
           <nav aria-label="Navegação principal" className="flex flex-col">
             {links.map((link) => (
@@ -77,16 +77,34 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
             ))}
           </nav>
 
-          <div className="mt-5 flex items-center gap-3">
+          <div className="mt-5 grid grid-cols-2 gap-2">
             <a
-              href={cvUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex flex-1 items-center justify-center gap-2 rounded-full bg-fg px-5 py-3 text-sm font-medium text-canvas"
+              href="/curriculo"
+              onClick={() => setOpen(false)}
+              className="inline-flex flex-col items-center justify-center gap-0.5 rounded-xl border border-line bg-surface px-3 py-3 text-[13px] font-semibold text-fg"
             >
               Currículo
-              <span aria-hidden="true">↗</span>
+              <span className="font-mono text-[9px] font-normal uppercase tracking-[0.12em] text-muted">
+                Versão web
+              </span>
             </a>
+            <a
+              href={cvUrl}
+              download
+              onClick={() => setOpen(false)}
+              className="inline-flex flex-col items-center justify-center gap-0.5 rounded-xl bg-fg px-3 py-3 text-[13px] font-semibold text-canvas"
+            >
+              Currículo
+              <span className="font-mono text-[9px] font-normal uppercase tracking-[0.12em] text-canvas/70">
+                Versão PDF
+              </span>
+            </a>
+          </div>
+
+          <div className="mt-4 flex items-center justify-between border-t border-line/60 pt-4">
+            <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint">
+              Tema
+            </span>
             <ThemeToggle />
           </div>
         </div>

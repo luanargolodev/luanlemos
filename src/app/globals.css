@@ -615,3 +615,25 @@ html.motion-ready [data-reveal].is-revealed {
     color: #444 !important;
   }
 }
+
+.cv-menu {
+  transform-origin: top right;
+  animation: menu-in 0.18s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cv-menu {
+    animation: none;
+  }
+}

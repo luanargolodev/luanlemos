@@ -1,6 +1,7 @@
 import { profile } from '@/data/profile'
 import { site } from '@/data/site'
 
+import { CvMenu } from './CvMenu'
 import { MobileNav } from './MobileNav'
 import { ThemeToggle } from './ThemeToggle'
 
@@ -56,17 +57,7 @@ export function SiteHeader() {
           <div className="hidden md:block">
             <ThemeToggle />
           </div>
-          <a
-            href={profile.cvUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden items-center gap-1.5 rounded-full border border-line/80 px-4 py-2 text-[13px] font-medium text-fg transition-colors hover:border-accent/60 hover:bg-accent-soft sm:inline-flex"
-          >
-            Currículo
-            <span aria-hidden="true" className="text-[11px] text-faint">
-              ↗
-            </span>
-          </a>
+          <CvMenu />
           <MobileNav links={site.nav} cvUrl={profile.cvUrl} />
         </div>
       </div>
