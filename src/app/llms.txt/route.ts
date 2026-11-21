@@ -55,6 +55,7 @@ export function GET() {
     `- Currículo web: ${site.url}/curriculo`,
     `- Currículo PDF: ${site.url}${profile.cvUrl}`,
     `- Currículo JSON: ${site.url}/cv.json`,
+    '',
     '## Stack',
     ...techGroups.map(
       (group) => `- ${group.label}: ${group.items.map((item) => item.name).join(', ')}`,

@@ -2,6 +2,10 @@
 
 Portfólio pessoal de Luan Lemos, desenvolvedor front-end. O site é focado em recrutamento e networking: apresenta quem ele é, a trajetória, os projetos selecionados, a stack e os canais de contato.
 
+## Documentação
+
+O plano completo do site está em [`docs/PLANO-DO-SITE.md`](docs/PLANO-DO-SITE.md): objetivo, plano inicial, histórico de fases, arquitetura, decisões, invariantes de conteúdo/SEO/acessibilidade, checklist de validação e roadmap. Leia antes de mudanças estruturais.
+
 ## Stack
 
 - [Next.js 16](https://nextjs.org) (App Router) com renderização estática
@@ -118,6 +122,7 @@ O script gera as versões WebP em `public/images/projects/` e os blur placeholde
 - Reveals no scroll com `IntersectionObserver` e stagger nos cards.
 - Marquee de tecnologias, progresso de leitura e item ativo na navegação.
 - Glow que segue o cursor no hero, tilt + spotlight nos cards e parallax sutil no retrato.
+- Menu mobile com wipe, stagger dos itens e morph do ícone hambúrguer ↔ X.
 - Botão “voltar ao topo” no canto inferior direito, com scroll suave e respeito a `prefers-reduced-motion`.
 - Tudo desativado em `prefers-reduced-motion`; sem JavaScript, o conteúdo continua visível.
 
@@ -154,7 +159,7 @@ Os assets da marca são gerados por `npm run brand`:
 
 - Metadata completa em `src/app/layout.tsx` (via `src/lib/seo.ts`)
 - Open Graph dinâmico em `src/app/opengraph-image.tsx` (1200×630)
-- JSON-LD `Person`, `WebSite` e `ProfilePage`
+- JSON-LD global (`Person`, `WebSite`, `ProfilePage`) e por página (`AboutPage`, `CollectionPage` + `ItemList`, `CreativeWork`, `ContactPage`, `BreadcrumbList`)
 - `sitemap.xml`, `robots.txt` (com crawlers de IA liberados) e `llms.txt`
 - Conteúdo principal renderizado estaticamente, com HTML semântico
 
