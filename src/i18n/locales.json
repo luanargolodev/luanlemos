@@ -1,0 +1,45 @@
+{
+  "defaultLocale": "pt",
+  "locales": [
+    {
+      "code": "pt",
+      "label": "Português",
+      "shortLabel": "PT",
+      "flag": "br",
+      "htmlLang": "pt-BR",
+      "ogLocale": "pt_BR",
+      "dateLocale": "pt-BR",
+      "dir": "ltr",
+      "cvPath": "curriculo",
+      "cvFile": "luan-argolo-lemos-desenvolvedor-front-end.pdf",
+      "routes": {
+        "about": "sobre",
+        "experience": "experiencia",
+        "projects": "projetos",
+        "project": "projeto/:slug",
+        "stack": "tecnologias",
+        "contact": "contato"
+      }
+    },
+    {
+      "code": "en",
+      "label": "English",
+      "shortLabel": "EN",
+      "flag": "us",
+      "htmlLang": "en",
+      "ogLocale": "en_US",
+      "dateLocale": "en-US",
+      "dir": "ltr",
+      "cvPath": "resume",
+      "cvFile": "luan-argolo-lemos-front-end-developer.pdf",
+      "routes": {
+        "about": "about",
+        "experience": "experience",
+        "projects": "projects",
+        "project": "project/:slug",
+        "stack": "stack",
+        "contact": "contact"
+      }
+    }
+  ]
+}
