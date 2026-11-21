@@ -68,6 +68,7 @@ export function About() {
               <span>Deco.cx</span>
               <span>VTEX</span>
               <span>Shopify</span>
+              <span>Liquid</span>
               <span>Tailwind CSS</span>
             </div>
           </div>

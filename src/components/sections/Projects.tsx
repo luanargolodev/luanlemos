@@ -35,9 +35,15 @@ export function Projects() {
           <div className="md:col-span-2">
             <ProjectCard project={leadProject} wide />
           </div>
-          {restProjects.map((project) => (
-            <ProjectCard key={project.slug} project={project} />
-          ))}
+          {restProjects.map((project, index) => {
+            const isLast = index === restProjects.length - 1
+
+            return (
+              <div key={project.slug} className={isLast ? 'md:col-span-2' : ''}>
+                <ProjectCard project={project} wide={isLast} />
+              </div>
+            )
+          })}
         </div>
       </div>
     </section>

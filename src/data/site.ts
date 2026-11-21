@@ -20,6 +20,7 @@ export const site = {
     'Deco.cx',
     'VTEX',
     'Shopify',
+    'Liquid',
     'e-commerce',
     'portfólio',
     'Luan Lemos',

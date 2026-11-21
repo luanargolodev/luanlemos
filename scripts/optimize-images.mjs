@@ -20,6 +20,7 @@ const projectSlugs = [
   'zeedog-eu',
   'zeedog-au',
   'zeedog-pe',
+  'nannacay',
 ]
 
 const blurData = {}

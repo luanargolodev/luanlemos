@@ -33,6 +33,7 @@ export const techGroups: TechGroup[] = [
       { name: 'Deco.cx', icon: 'deco' },
       { name: 'VTEX', icon: 'vtex' },
       { name: 'Shopify', icon: 'shopify' },
+      { name: 'Liquid', icon: 'liquid' },
     ],
   },
   {
@@ -62,6 +63,7 @@ export const techIcons: Record<string, string> = {
   deco: '/icons/tech/deco.svg',
   vtex: '/icons/tech/vtex.svg',
   shopify: '/icons/tech/shopify.svg',
+  liquid: '/icons/tech/liquid.svg',
   deno: '/icons/tech/deno.svg',
   bun: '/icons/tech/bun.svg',
   node: '/icons/tech/node.svg',
