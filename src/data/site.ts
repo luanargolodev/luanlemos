@@ -4,9 +4,9 @@ export const site = {
   title:
     'Luan Lemos — Desenvolvedor Front-end | React, Next.js & E-commerce',
   description:
-    'Portfólio de Luan Lemos, desenvolvedor front-end com experiência em e-commerces de alto tráfego. React, Next.js, TypeScript, Tailwind CSS, Deco.cx e VTEX.',
+    'Portfólio de Luan Lemos, desenvolvedor front-end com experiência em e-commerce. React, Next.js, TypeScript, Tailwind CSS, Deco.cx, VTEX e Shopify.',
   shortDescription:
-    'Desenvolvedor front-end especializado em e-commerce, React, Next.js, Deco.cx e VTEX.',
+    'Desenvolvedor front-end especializado em e-commerce, React, Next.js, Deco.cx, VTEX e Shopify.',
   keywords: [
     'desenvolvedor front-end',
     'front-end developer',
@@ -19,6 +19,7 @@ export const site = {
     'Deno',
     'Deco.cx',
     'VTEX',
+    'Shopify',
     'e-commerce',
     'portfólio',
     'Luan Lemos',

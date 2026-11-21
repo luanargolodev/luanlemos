@@ -4,7 +4,7 @@ export const profile: Profile = {
   name: 'Luan Lemos',
   role: 'Desenvolvedor Front-end',
   headline:
-    'Construo e-commerces rápidos e acessíveis com React, Next.js, Deco.cx e VTEX.',
+    'Construo e-commerces rápidos e acessíveis com React, Next.js, Deco.cx, VTEX e Shopify.',
   headlineHighlight: 'e-commerces rápidos e acessíveis',
   summary:
     'Desenvolvedor front-end com experiência em e-commerce. Hoje na Zee.Dog, transformando design em interfaces rápidas, acessíveis e fáceis de manter.',

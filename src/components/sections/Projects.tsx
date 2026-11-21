@@ -1,7 +1,7 @@
-import { featuredProjects, otherProjects } from '@/data/projects'
+import { featuredProjects } from '@/data/projects'
 
 import { SectionHeading } from '@/components/ui/SectionHeading'
-import { OtherProjectRow, ProjectCard } from '@/components/ui/ProjectCard'
+import { ProjectCard } from '@/components/ui/ProjectCard'
 import { ArrowUpRight, GitHub } from '@/components/ui/icons'
 
 export function Projects() {
@@ -15,7 +15,7 @@ export function Projects() {
             index="03"
             label="Projetos"
             title="Trabalho selecionado."
-            description="Uma seleção do que construí em e-commerce: plataformas, campanhas e detalhes de interface que fazem diferença na experiência de compra."
+            description="Uma seleção do que construí em e-commerce: operações no Brasil e lojas internacionais, com foco em performance, consistência e detalhe."
           />
 
           <a
@@ -35,32 +35,9 @@ export function Projects() {
           <div className="md:col-span-2">
             <ProjectCard project={leadProject} wide />
           </div>
-          {restProjects.map((project, index) => {
-            const isLast = index === restProjects.length - 1
-
-            return (
-              <div key={project.slug} className={isLast ? 'md:col-span-2' : ''}>
-                <ProjectCard project={project} wide={isLast} />
-              </div>
-            )
-          })}
-        </div>
-
-        <div className="reveal mt-16">
-          <div className="flex flex-wrap items-baseline justify-between gap-3">
-            <h3 className="font-display text-xl font-semibold tracking-tight">
-              Outros trabalhos
-            </h3>
-            <p className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-              {otherProjects.length} projetos · 2022
-            </p>
-          </div>
-
-          <ul className="mt-4 border-t border-line/70">
-            {otherProjects.map((project) => (
-              <OtherProjectRow key={project.title} project={project} />
-            ))}
-          </ul>
+          {restProjects.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
         </div>
       </div>
     </section>

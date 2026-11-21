@@ -1,4 +1,4 @@
-import { mkdir, readdir, writeFile } from 'node:fs/promises'
+import { mkdir, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 
 import sharp from 'sharp'
@@ -12,15 +12,20 @@ const blurFile = path.join(root, 'src/data/image-blur.json')
 
 await mkdir(projectOutput, { recursive: true })
 
-const files = (await readdir(projectSource)).filter((file) =>
-  file.endsWith('.png'),
-)
+const projectSlugs = [
+  'zeedog',
+  'zeenow',
+  'blog',
+  'zeedog-jp',
+  'zeedog-eu',
+  'zeedog-au',
+  'zeedog-pe',
+]
 
 const blurData = {}
 
-for (const file of files) {
-  const slug = file.replace(/\.png$/, '')
-  const input = path.join(projectSource, file)
+for (const slug of projectSlugs) {
+  const input = path.join(projectSource, `${slug}.png`)
   const output = path.join(projectOutput, `${slug}.webp`)
 
   await sharp(input)

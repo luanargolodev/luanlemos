@@ -1,7 +1,7 @@
 import { certifications } from '@/data/certifications'
 import { experiences } from '@/data/experience'
 import { profile } from '@/data/profile'
-import { featuredProjects, otherProjects } from '@/data/projects'
+import { featuredProjects } from '@/data/projects'
 import { site } from '@/data/site'
 import { techGroups } from '@/data/tech'
 import { formatPeriod } from '@/lib/dates'
@@ -36,12 +36,6 @@ export function GET() {
     ...featuredProjects.flatMap((project) => [
       `- ${project.title} — ${project.client} (${project.year}): ${project.summary} Stack: ${project.stack.join(', ')}.${project.url ? ` Link: ${project.url}` : ' Case sem link público.'}`,
     ]),
-    '',
-    '## Outros trabalhos',
-    ...otherProjects.map(
-      (project) =>
-        `- ${project.title} — ${project.client} (${project.year}): ${project.stack.join(', ')}.${project.url ? ` Link: ${project.url}` : ''}`,
-    ),
     '',
     '## Stack',
     ...techGroups.map(

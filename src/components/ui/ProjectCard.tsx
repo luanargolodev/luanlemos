@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
 import blurData from '@/data/image-blur.json'
-import type { OtherProject, Project } from '@/data/projects'
+import type { Project } from '@/data/projects'
 import { cn } from '@/lib/utils'
 
 const blurPlaceholders = blurData as Record<string, string>
@@ -144,42 +144,5 @@ export function ProjectCard({
         </div>
       </div>
     </article>
-  )
-}
-
-export function OtherProjectRow({ project }: { project: OtherProject }) {
-  return (
-    <li className="group grid grid-cols-[1fr_auto] items-baseline gap-x-4 gap-y-1.5 border-b border-line/70 py-4 last:border-none sm:grid-cols-[1.3fr_1fr_1fr_auto] sm:gap-x-6">
-      <div className="col-start-1 row-start-1 flex flex-wrap items-baseline gap-x-3 gap-y-1">
-        <h3 className="text-[15px] font-medium text-fg">{project.title}</h3>
-        <span className="font-mono text-[10px] text-faint">{project.year}</span>
-      </div>
-
-      {project.url ? (
-        <a
-          href={project.url}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="col-start-2 row-start-1 inline-flex items-center gap-1 justify-self-end text-[12px] text-muted transition-colors hover:text-accent sm:col-start-4"
-        >
-          Ver
-          <ArrowUpRight className="size-3" />
-          <span className="sr-only">
-            {project.title} (abre em nova aba)
-          </span>
-        </a>
-      ) : (
-        <span className="col-start-2 row-start-1 hidden justify-self-end font-mono text-[9px] uppercase tracking-[0.08em] text-faint sm:col-start-4 sm:block">
-          —
-        </span>
-      )}
-
-      <p className="col-span-2 row-start-2 text-[12px] text-muted sm:col-span-1 sm:col-start-2 sm:row-start-1 sm:text-[13px]">
-        {project.client}
-      </p>
-      <p className="col-span-2 row-start-3 font-mono text-[10px] uppercase tracking-[0.06em] text-faint sm:col-span-1 sm:col-start-3 sm:row-start-1">
-        {project.stack.join(' · ')}
-      </p>
-    </li>
   )
 }

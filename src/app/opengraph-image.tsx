@@ -11,7 +11,7 @@ export const alt = site.ogAlt
 export const size = { width: 1200, height: 630 }
 export const contentType = 'image/png'
 
-const stack = ['React', 'Next.js', 'TypeScript', 'Deco.cx', 'VTEX']
+const stack = ['React', 'Next.js', 'TypeScript', 'Deco.cx', 'VTEX', 'Shopify']
 
 export default async function OpengraphImage() {
   const [regular, semibold, mark] = await Promise.all([

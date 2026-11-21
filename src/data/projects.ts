@@ -17,7 +17,7 @@ export const featuredProjects: Project[] = [
   {
     slug: 'zeedog',
     title: 'Zee.Dog',
-    client: 'Zee.Dog · Grupo PetzCobasi',
+    client: 'Zee.Dog · Brasil',
     year: 2025,
     summary:
       'Loja de e-commerce completa na Deco.cx, da vitrine ao checkout.',
@@ -25,14 +25,14 @@ export const featuredProjects: Project[] = [
       'Operação diária em uma marca de alcance nacional: componentes, conteúdo e performance de ponta a ponta.',
     stack: ['Deco.cx', 'Preact', 'TypeScript', 'Deno', 'Tailwind CSS'],
     image: '/images/projects/zeedog.webp',
-    imageAlt: 'Página inicial da loja Zee.Dog',
+    imageAlt: 'Página inicial da loja Zee.Dog no Brasil',
     url: 'https://www.zeedog.com.br',
     featured: true,
   },
   {
     slug: 'zeenow',
     title: 'Zee.Now',
-    client: 'Zee.Dog · Grupo PetzCobasi',
+    client: 'Zee.Dog · Brasil',
     year: 2025,
     summary:
       'E-commerce de entrega rápida para o mercado pet, também na Deco.cx.',
@@ -47,7 +47,7 @@ export const featuredProjects: Project[] = [
   {
     slug: 'blog',
     title: 'Blog Zee.Now',
-    client: 'Zee.Dog · Grupo PetzCobasi',
+    client: 'Zee.Dog · Brasil',
     year: 2025,
     summary:
       'Blog completo na Deco.cx, com conteúdo editorial, busca e CMS.',
@@ -56,107 +56,67 @@ export const featuredProjects: Project[] = [
     stack: ['Deco.cx', 'Preact', 'TypeScript', 'Drizzle', 'Tailwind CSS'],
     image: '/images/projects/blog.webp',
     imageAlt: 'Página inicial do blog Zee.Now',
+    url: 'https://www.zeenow.com.br/blog',
     featured: true,
   },
   {
-    slug: 'quick-view',
-    title: 'Quick View',
-    client: 'Náutika · Agência e-Plus',
-    year: 2022,
+    slug: 'zeedog-jp',
+    title: 'Zee.Dog Japão',
+    client: 'Zee.Dog · Japão',
+    year: 2026,
     summary:
-      'Visualização rápida de produto com galeria, variações e compra sem sair da vitrine.',
+      'Loja internacional da Zee.Dog no Japão, na Deco.cx com catálogo e checkout na Shopify.',
     outcome:
-      'Menos cliques até o carrinho — e meu primeiro grande desafio de interação em VTEX.',
-    stack: ['HTML', 'Sass', 'JavaScript', 'VTEX'],
-    image: '/images/projects/quick-view.webp',
-    imageAlt: 'Modal de quick view da loja Náutika',
-    url: 'https://www.nautikalazer.com.br/camping',
+      'Expansão para um novo mercado e idioma, mantendo a experiência de marca e a operação de catálogo na Shopify.',
+    stack: ['Deco.cx', 'Deno', 'Preact', 'Tailwind CSS', 'Shopify'],
+    image: '/images/projects/zeedog-jp.webp',
+    imageAlt: 'Página inicial da loja Zee.Dog no Japão',
+    url: 'https://www.zeedog.jp',
     featured: true,
   },
   {
-    slug: 'openbox',
-    title: 'Black Friday Openbox',
-    client: 'Openbox · Agência e-Plus',
-    year: 2022,
+    slug: 'zeedog-eu',
+    title: 'Zee.Dog Europa',
+    client: 'Zee.Dog · Europa',
+    year: 2026,
     summary:
-      'Landing page de campanha com captura de leads e navegação por departamentos.',
+      'Loja europeia da Zee.Dog com catálogo em inglês, envio internacional e checkout na Shopify.',
     outcome:
-      'Uma campanha sazonal de alto tráfego, construída para carregar rápido e converter.',
-    stack: ['HTML', 'Sass', 'JavaScript'],
-    image: '/images/projects/lp-openbox.webp',
-    imageAlt: 'Landing page de Black Friday da Openbox',
-    url: 'https://www.openbox2.com.br/blackfriday',
+      'Uma operação multi-mercado na Deco.cx, com conteúdo e comércio coordenados entre Brasil e Europa.',
+    stack: ['Deco.cx', 'Deno', 'Preact', 'Tailwind CSS', 'Shopify'],
+    image: '/images/projects/zeedog-eu.webp',
+    imageAlt: 'Página inicial da loja Zee.Dog na Europa',
+    url: 'https://www.zeedog.eu',
     featured: true,
   },
   {
-    slug: 'cavenaghi',
-    title: 'Commander Cavenaghi',
-    client: 'Cavenaghi · Agência e-Plus',
-    year: 2022,
+    slug: 'zeedog-au',
+    title: 'Zee.Dog Austrália',
+    client: 'Zee.Dog · Austrália',
+    year: 2026,
     summary:
-      'Página de lançamento do Jeep Commander adaptado, com narrativa visual e hotspots.',
+      'Loja australiana da Zee.Dog, com catálogo local, moeda própria e checkout na Shopify.',
     outcome:
-      'Contar um produto complexo com scroll e detalhes sem perder legibilidade no mobile.',
-    stack: ['HTML', 'Sass', 'JavaScript'],
-    image: '/images/projects/lp-cavenaghi.webp',
-    imageAlt: 'Landing page do Jeep Commander adaptado da Cavenaghi',
+      'Adaptação de moeda, frete e catálogo para o mercado australiano sem duplicar a arquitetura.',
+    stack: ['Deco.cx', 'Deno', 'Preact', 'Tailwind CSS', 'Shopify'],
+    image: '/images/projects/zeedog-au.webp',
+    imageAlt: 'Página inicial da loja Zee.Dog na Austrália',
+    url: 'https://www.zeedog.au',
     featured: true,
   },
-]
-
-export interface OtherProject {
-  title: string
-  client: string
-  year: number
-  stack: string[]
-  url?: string
-}
-
-export const otherProjects: OtherProject[] = [
   {
-    title: 'Menu Êbba Móveis',
-    client: 'Êbba Móveis',
-    year: 2022,
-    stack: ['HTML', 'Sass', 'JavaScript'],
-    url: 'https://www.ebbamoveis.com.br/',
-  },
-  {
-    title: 'Menu Todo Moda',
-    client: 'Todo Moda',
-    year: 2022,
-    stack: ['HTML', 'Sass', 'JavaScript'],
-    url: 'https://br.todomoda.com/',
-  },
-  {
-    title: 'Busca Atacadão',
-    client: 'Atacadão Sexy Shop',
-    year: 2022,
-    stack: ['React', 'VTEX IO'],
-    url: 'https://www.sexshopatacadao.com.br/cabresto?_q=cabresto&map=ft',
-  },
-  {
-    title: 'Popup Todo Moda',
-    client: 'Todo Moda',
-    year: 2022,
-    stack: ['HTML', 'Sass', 'JavaScript'],
-    url: 'https://br.todomoda.com/',
-  },
-  {
-    title: 'Mosaico Vestrio',
-    client: 'Vestrio Lingerie',
-    year: 2022,
-    stack: ['HTML', 'Sass', 'JavaScript'],
-  },
-  {
-    title: 'Menu Kaue Plus Size',
-    client: 'Kaue Plus Size',
-    year: 2022,
-    stack: ['HTML', 'Sass', 'JavaScript'],
-  },
-  {
-    title: 'Ampliar Foto Vestrio',
-    client: 'Vestrio Lingerie',
-    year: 2022,
-    stack: ['HTML', 'Sass', 'JavaScript'],
+    slug: 'zeedog-pe',
+    title: 'Zee.Dog Peru',
+    client: 'Zee.Dog · Peru',
+    year: 2026,
+    summary:
+      'Loja peruana da Zee.Dog, com preços em soles, entrega local e checkout na Shopify.',
+    outcome:
+      'Novo mercado na América Latina com a mesma base de componentes e integração Shopify.',
+    stack: ['Deco.cx', 'Deno', 'Preact', 'Tailwind CSS', 'Shopify'],
+    image: '/images/projects/zeedog-pe.webp',
+    imageAlt: 'Página inicial da loja Zee.Dog no Peru',
+    url: 'https://www.zeedog.pe',
+    featured: true,
   },
 ]

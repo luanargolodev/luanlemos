@@ -22,9 +22,10 @@ export const experiences: ExperienceItem[] = [
     achievements: [
       'Implementação de páginas e componentes reutilizáveis em Preact, TypeScript e Tailwind CSS.',
       'Integrações com o backend da Deco.cx para vitrines, conteúdo e fluxo de compra.',
+      'Integrações com Shopify nas lojas internacionais da Zee.Dog (Japão, Europa, Austrália e Peru).',
       'Atuação próxima de design, produto e engenharia na priorização de melhorias da loja.',
     ],
-    stack: ['Deco.cx', 'Preact', 'TypeScript', 'Deno', 'Tailwind CSS'],
+    stack: ['Deco.cx', 'Preact', 'TypeScript', 'Deno', 'Tailwind CSS', 'Shopify'],
   },
   {
     role: 'Desenvolvedor Front-end Júnior',

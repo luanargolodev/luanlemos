@@ -63,7 +63,7 @@ Todo o conteúdo fica em `src/data/`:
 | --- | --- |
 | `profile.ts` | nome, bio, e-mail, telefone, links, CV, formação, início da carreira |
 | `experience.ts` | cargos, empresas, períodos, resultados e stack |
-| `projects.ts` | projetos em destaque e "outros trabalhos" |
+| `projects.ts` | projetos em destaque (nacionais e internacionais) |
 | `tech.ts` | grupos de tecnologias e ícones |
 | `certifications.ts` | certificados, hackathons e reconhecimentos |
 | `site.ts` | URL canônica, navegação, keywords e textos de SEO |
