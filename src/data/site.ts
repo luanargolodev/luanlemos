@@ -2,14 +2,17 @@ export const site = {
   url: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://luanlemos.dev',
   name: 'Luan Lemos',
   title:
-    'Luan Lemos — Desenvolvedor Front-end | React, Next.js & E-commerce',
+    'Luan Lemos — Desenvolvedor Front-end Pleno | React, Next.js & E-commerce',
   description:
-    'Portfólio de Luan Lemos, desenvolvedor front-end com experiência em e-commerce. React, Next.js, TypeScript, Tailwind CSS, Deco.cx, VTEX e Shopify.',
+    'Portfólio de Luan Lemos, desenvolvedor front-end pleno com experiência em e-commerce. React, Next.js, TypeScript, Tailwind CSS, Deco.cx, VTEX e Shopify.',
   shortDescription:
-    'Desenvolvedor front-end especializado em e-commerce, React, Next.js, Deco.cx, VTEX e Shopify.',
+    'Desenvolvedor front-end pleno especializado em e-commerce, React, Next.js, Deco.cx, VTEX e Shopify.',
   keywords: [
     'desenvolvedor front-end',
+    'desenvolvedor front-end pleno',
+    'front-end pleno',
     'front-end developer',
+    'desenvolvedor frontend',
     'React',
     'Next.js',
     'TypeScript',
@@ -19,11 +22,16 @@ export const site = {
     'Deno',
     'Deco.cx',
     'VTEX',
+    'VTEX IO',
     'Shopify',
     'Liquid',
+    'Node.js',
+    'Bun',
     'e-commerce',
     'portfólio',
+    'currículo desenvolvedor front-end',
     'Luan Lemos',
+    'Luan Argolo Lemos',
   ],
   locale: 'pt_BR',
   nav: [
@@ -34,5 +42,5 @@ export const site = {
     { href: '#contato', label: 'Contato' },
   ],
   ogAlt:
-    'Luan Lemos — Desenvolvedor Front-end especializado em React, Next.js e e-commerce.',
+    'Luan Lemos — Desenvolvedor Front-end Pleno especializado em React, Next.js e e-commerce.',
 } as const

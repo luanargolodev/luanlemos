@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 
+import { certifications } from '@/data/certifications'
 import { profile } from '@/data/profile'
 import { site } from '@/data/site'
 import { techGroups } from '@/data/tech'
@@ -12,12 +13,16 @@ export const metadata: Metadata = {
   },
   description: site.description,
   keywords: [...site.keywords],
-  authors: [{ name: profile.name, url: site.url }],
-  creator: profile.name,
-  publisher: profile.name,
+  authors: [{ name: profile.fullName, url: site.url }],
+  creator: profile.fullName,
+  publisher: profile.fullName,
   applicationName: site.name,
   alternates: {
     canonical: '/',
+    types: {
+      'application/pdf': profile.cvUrl,
+      'application/json': '/cv.json',
+    },
   },
   openGraph: {
     type: 'profile',
@@ -63,13 +68,30 @@ export function buildJsonLd() {
       {
         '@type': 'Person',
         '@id': personId,
-        name: profile.name,
+        name: profile.fullName,
+        alternateName: profile.name,
         url: site.url,
         image: `${site.url}${profile.avatar}`,
         jobTitle: profile.role,
         description: profile.summary,
         email: `mailto:${profile.email}`,
+        telephone: profile.phone,
         knowsAbout: knowAbout,
+        seeks: {
+          '@type': 'Demand',
+          name: 'Oportunidade como Desenvolvedor Front-end Pleno ou Sênior',
+          description:
+            'Oportunidades em times de produto ou e-commerce, em modelo remoto ou híbrido.',
+        },
+        hasOccupation: {
+          '@type': 'Occupation',
+          name: profile.role,
+          occupationLocation: {
+            '@type': 'Country',
+            name: 'Brasil',
+          },
+          skills: knowAbout.join(', '),
+        },
         worksFor: {
           '@type': 'Organization',
           name: 'Zee.Dog',
@@ -78,6 +100,22 @@ export function buildJsonLd() {
         alumniOf: {
           '@type': 'CollegeOrUniversity',
           name: profile.education.institution,
+        },
+        hasCredential: certifications.map((certification) => ({
+          '@type': 'EducationalOccupationalCredential',
+          name: certification.title,
+          credentialCategory: certification.type,
+          description: certification.description,
+          recognizedBy: {
+            '@type': 'Organization',
+            name: certification.issuer,
+          },
+        })),
+        subjectOf: {
+          '@type': 'DigitalDocument',
+          name: 'Currículo — Luan Argolo Lemos — Desenvolvedor Front-end Pleno',
+          encodingFormat: 'application/pdf',
+          url: `${site.url}${profile.cvUrl}`,
         },
         address: {
           '@type': 'PostalAddress',

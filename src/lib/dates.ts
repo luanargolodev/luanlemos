@@ -29,6 +29,15 @@ export function formatPeriod(start: string, end?: string) {
   return `${formatMonth(start)} — ${end ? formatMonth(end) : 'atual'}`
 }
 
+export function formatNumericMonth(value: string) {
+  const { year, month } = parseMonth(value)
+  return `${String(month).padStart(2, '0')}/${year}`
+}
+
+export function formatNumericPeriod(start: string, end?: string) {
+  return `${formatNumericMonth(start)} — ${end ? formatNumericMonth(end) : 'atual'}`
+}
+
 export function getExperienceMonths(start = profile.startDate, now = new Date()) {
   const { year, month } = parseMonth(start)
   return Math.max(

@@ -139,7 +139,7 @@ export default async function OpengraphImage() {
               color: '#a5b4fc',
             }}
           >
-            Desenvolvedor Front-end
+            {profile.role}
           </div>
           <div
             style={{

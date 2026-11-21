@@ -2,6 +2,7 @@ import { certifications } from '@/data/certifications'
 import { experiences } from '@/data/experience'
 import { profile } from '@/data/profile'
 import { featuredProjects } from '@/data/projects'
+import { resume } from '@/data/resume'
 import { site } from '@/data/site'
 import { techGroups } from '@/data/tech'
 import { formatPeriod } from '@/lib/dates'
@@ -10,20 +11,26 @@ export const dynamic = 'force-static'
 
 export function GET() {
   const lines: string[] = [
-    `# ${profile.name} — ${profile.role}`,
+    `# ${profile.fullName} (${profile.name}) — ${profile.role}`,
     '',
-    `> ${profile.summary}`,
+    `> ${resume.summary}`,
+    '',
+    '## Currículo e dados estruturados',
+    `- Currículo web: ${site.url}/curriculo`,
+    `- Currículo em PDF: ${site.url}${profile.cvUrl}`,
+    `- Currículo em JSON: ${site.url}/cv.json`,
     '',
     '## Perfil',
-    `- Nome: ${profile.name}`,
+    `- Nome completo: ${profile.fullName}`,
+    `- Nome público: ${profile.name}`,
     `- Cargo: ${profile.role}`,
     `- Local: ${profile.location}`,
     `- Disponibilidade: ${profile.availability}`,
+    `- Busca: oportunidade como Desenvolvedor Front-end Pleno ou Sênior, remoto ou híbrido`,
     `- E-mail: ${profile.email}`,
     `- WhatsApp: ${profile.phone}`,
     `- LinkedIn: ${profile.socials[0].href}`,
     `- GitHub: ${profile.socials[1].href}`,
-    `- Currículo: ${profile.cvUrl}`,
     `- Formação: ${profile.education.course}, ${profile.education.institution} (${profile.education.period})`,
     '',
     '## Experiência',
@@ -42,6 +49,9 @@ export function GET() {
       (group) => `- ${group.label}: ${group.items.map((item) => item.name).join(', ')}`,
     ),
     '',
+    '## Competências para ATS',
+    ...resume.skillGroups.map((group) => `- ${group.label}: ${group.items}`),
+    '',
     '## Certificados e reconhecimentos',
     ...certifications.map(
       (item) =>
@@ -50,6 +60,9 @@ export function GET() {
     '',
     '## Links',
     `- Site: ${site.url}`,
+    `- Currículo web: ${site.url}/curriculo`,
+    `- Currículo PDF: ${site.url}${profile.cvUrl}`,
+    `- Currículo JSON: ${site.url}/cv.json`,
     `- Sitemap: ${site.url}/sitemap.xml`,
     `- GitHub: ${profile.socials[1].href}`,
     `- LinkedIn: ${profile.socials[0].href}`,

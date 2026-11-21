@@ -68,6 +68,28 @@ export function SiteFooter() {
               ))}
               <li>
                 <a
+                  href="/curriculo"
+                  className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
+                >
+                  Currículo web
+                  <span aria-hidden="true" className="text-[10px] text-faint">
+                    →
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
+                  href={profile.cvUrl}
+                  className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
+                >
+                  Currículo em PDF
+                  <span aria-hidden="true" className="text-[10px] text-faint">
+                    ↓
+                  </span>
+                </a>
+              </li>
+              <li>
+                <a
                   href={`mailto:${profile.email}`}
                   className="text-sm text-muted transition-colors hover:text-fg"
                 >

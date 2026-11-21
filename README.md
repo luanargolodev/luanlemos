@@ -31,6 +31,7 @@ npm run start      # serve o build de produção
 npm run lint       # oxlint
 npm run typecheck  # TypeScript sem emitir arquivos
 npm run images     # otimiza screenshots e avatar para WebP + blur placeholders
+npm run cv         # regenera o PDF do currículo a partir de /curriculo
 ```
 
 ## Estrutura
@@ -66,6 +67,7 @@ Todo o conteúdo fica em `src/data/`:
 | `projects.ts` | projetos em destaque (nacionais e internacionais) |
 | `tech.ts` | grupos de tecnologias e ícones |
 | `certifications.ts` | certificados, hackathons e reconhecimentos |
+| `resume.ts` | resumo, competências e projetos do currículo |
 | `site.ts` | URL canônica, navegação, keywords e textos de SEO |
 
 O tempo total de experiência é calculado automaticamente a partir de `profile.startDate` em `src/lib/dates.ts`. Para atualizar o valor, basta ajustar a data de início (formato `AAAA-MM`). O cálculo é feito em tempo de build; um novo deploy atualiza o número.
@@ -86,6 +88,24 @@ O script gera as versões WebP em `public/images/projects/` e os blur placeholde
 - Marquee de tecnologias, progresso de leitura e item ativo na navegação.
 - Glow que segue o cursor no hero, tilt + spotlight nos cards e parallax sutil no retrato.
 - Tudo desativado em `prefers-reduced-motion`; sem JavaScript, o conteúdo continua visível.
+
+## Currículo
+
+O currículo tem três formatos, todos gerados a partir do mesmo conteúdo:
+
+- **Web:** `/curriculo` — HTML semântico, indexável e fácil de ler por agentes.
+- **PDF:** `/cv/luan-argolo-lemos-desenvolvedor-front-end.pdf` — layout de uma coluna, fonte padrão e texto selecionável, pensado para ATS/Gupy.
+- **JSON:** `/cv.json` — dados estruturados para automações e agentes de IA.
+
+Para regenerar o PDF depois de editar `src/data/resume.ts` ou `/curriculo`:
+
+```bash
+npm run build
+npm start          # em outro terminal
+npm run cv
+```
+
+O script usa o Chrome instalado (`channel: 'chrome'`) ou o caminho em `CHROME_PATH`, imprime a página `/curriculo` em A4 e grava os metadados do PDF.
 
 ## SEO
 

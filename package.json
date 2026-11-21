@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "oxlint src scripts",
     "typecheck": "tsc --noEmit",
-    "images": "node scripts/optimize-images.mjs"
+    "images": "node scripts/optimize-images.mjs",
+    "cv": "node scripts/generate-cv.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",
@@ -23,6 +24,8 @@
     "@types/react": "^19.2.17",
     "@types/react-dom": "^19.2.3",
     "oxlint": "^1.71.0",
+    "pdf-lib": "^1.17.1",
+    "playwright-core": "^1.65.1",
     "sharp": "^0.35.5",
     "tailwindcss": "^4.3.5",
     "typescript": "~5.9.3"

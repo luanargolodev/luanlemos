@@ -33,7 +33,7 @@ const contactRows = [
   },
   {
     label: 'Currículo',
-    value: 'PDF · Google Drive',
+    value: 'PDF · 2 páginas',
     href: profile.cvUrl,
     icon: Download,
   },

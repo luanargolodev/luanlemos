@@ -5,6 +5,7 @@ export interface SocialLink {
 }
 
 export interface Profile {
+  fullName: string
   name: string
   role: string
   headline: string
