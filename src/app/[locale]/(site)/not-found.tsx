@@ -35,8 +35,9 @@ export default async function NotFound() {
 
   return (
     <>
+      <script dangerouslySetInnerHTML={{ __html: `(function(){try{var m=document.cookie.match(/(?:^|; )NEXT_LOCALE=(pt|en)(?:;|$)/);var s=location.pathname.split('/').filter(Boolean);var c=s[0];if(c!=='pt'&&c!=='en')return;var p=m?m[1]:(navigator.language.toLowerCase().indexOf('en')===0?'en':'pt');if(p===c)return;var r=s.slice(1).join('/');location.replace('/'+p+(r?'/'+r:'')+location.search)}catch(e){}})()` }} />
       <DocumentTitle title={`${messages.notFound.title} — Luan Lemos`} />
-      <LocaleMismatchRedirect locale={locale} />
+      <LocaleMismatchRedirect />
 
       <section className="relative overflow-hidden border-b border-line/60 pb-16 pt-28 md:pb-20 md:pt-36">
         <div aria-hidden="true" className="grid-bg absolute inset-0" />

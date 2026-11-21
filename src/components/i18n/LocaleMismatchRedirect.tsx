@@ -11,7 +11,7 @@ function cookieLocale() {
   return match?.[1]
 }
 
-export function LocaleMismatchRedirect({ locale }: { locale: string }) {
+export function LocaleMismatchRedirect() {
   useLayoutEffect(() => {
     const segments = window.location.pathname.split('/').filter(Boolean)
     const current = segments[0]
@@ -29,7 +29,7 @@ export function LocaleMismatchRedirect({ locale }: { locale: string }) {
     const rest = segments.slice(1).join('/')
     const target = `/${preferred}${rest ? `/${rest}` : ''}${window.location.search}`
     window.location.replace(target)
-  }, [locale])
+  }, [])
 
   return null
 }

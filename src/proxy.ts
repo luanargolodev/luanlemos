@@ -6,6 +6,7 @@ import {
   localeCookieName,
   locales,
 } from '@/i18n/config'
+import { matchPathname } from '@/i18n/routing'
 
 const BOT_PATTERN =
   /bot|crawler|spider|slurp|bingpreview|facebookexternalhit|twitterbot|linkedinbot|slackbot|whatsapp|telegrambot|discordbot|pinterest|redditbot|applebot|google-inspectiontool|semrush|ahrefs|petalbot|lighthouse|headlesschrome/i
@@ -13,7 +14,7 @@ const BOT_PATTERN =
 function localeFromPrefix(pathname: string) {
   const first = pathname.split('/').filter(Boolean)[0] ?? ''
   const match = [...locales]
-    .sort((a, b) => b.code.length - a.code.length)
+    .toSorted((a, b) => b.code.length - a.code.length)
     .find((locale) => first.startsWith(locale.code))
   if (!match || first === match.code) return null
 
@@ -92,6 +93,21 @@ export function proxy(request: NextRequest) {
     return response
   }
 
+  const segments = pathname.split('/').filter(Boolean)
+  const first = segments[0]
+
+  if (isLocale(first)) {
+    if (first !== cookie && !isBot && isLocale(cookie) && !matchPathname(pathname)) {
+      const rest = segments.slice(1).join('/')
+      return invalidPathRedirect(
+        request,
+        cookie,
+        rest ? `/${rest}` : '/',
+      )
+    }
+    return NextResponse.next()
+  }
+
   // /ena, /ptx and similar malformed locale prefixes: keep the prefix.
   const prefix = localeFromPrefix(pathname)
   if (prefix) {
@@ -110,5 +126,9 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: '/((?!pt(?:/|$)|en(?:/|$)|_next|api|.*\\..*).*)',
+  matcher: [
+    '/((?!pt(?:/|$)|en(?:/|$)|_next|api|.*\\..*).*)',
+    '/pt/((?!sobre(?:/|$)|experiencia(?:/|$)|projetos(?:/|$)|projeto(?:/|$)|stack(?:/|$)|contato(?:/|$)|curriculo(?:/|$)|cv(?:/|$)|opengraph-image(?:/|$)|.*\\..*).*)',
+    '/en/((?!about(?:/|$)|experience(?:/|$)|projects(?:/|$)|project(?:/|$)|stack(?:/|$)|contact(?:/|$)|resume(?:/|$)|cv(?:/|$)|opengraph-image(?:/|$)|.*\\..*).*)',
+  ],
 }
