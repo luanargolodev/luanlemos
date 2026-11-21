@@ -4,7 +4,11 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState } from 'react'
 
-import { locales as allLocales, type LocaleMeta } from '@/i18n/config'
+import {
+  localeCookieName,
+  locales as allLocales,
+  type LocaleMeta,
+} from '@/i18n/config'
 import { alternateLinks, homeHref, matchPathname } from '@/i18n/routing'
 
 import { Check } from '@/components/ui/icons'
@@ -34,7 +38,7 @@ function fallbackLinks(pathname: string) {
 }
 
 function setLocaleCookie(code: string) {
-  document.cookie = `NEXT_LOCALE=${code}; path=/; max-age=31536000; samesite=lax`
+  document.cookie = `${localeCookieName}=${code}; path=/; max-age=31536000; samesite=lax`
 }
 
 export function LanguageSwitcher({

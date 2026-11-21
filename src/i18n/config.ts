@@ -35,6 +35,7 @@ export interface LocaleMeta {
   routes: LocaleRoutes
 }
 
+export const localeCookieName = 'NEXT_LOCALE'
 export const defaultLocale: string = rawConfig.defaultLocale
 export const locales: LocaleMeta[] = rawConfig.locales as LocaleMeta[]
 export const localeCodes = locales.map((locale) => locale.code)

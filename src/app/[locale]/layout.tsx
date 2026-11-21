@@ -5,6 +5,7 @@ import { notFound } from 'next/navigation'
 
 import { ThemeProvider } from '@/components/layout/ThemeProvider'
 import { BackToTop } from '@/components/layout/BackToTop'
+import { LocaleCookie } from '@/components/layout/LocaleCookie'
 import { ScrollToTop } from '@/components/layout/ScrollToTop'
 import { MotionEffects } from '@/components/motion/MotionEffects'
 import { getContent } from '@/content'
@@ -131,6 +132,7 @@ export default async function LocaleLayout({
             {messages.common.skipToContent}
           </a>
           {children}
+          <LocaleCookie locale={locale} />
         </ThemeProvider>
         <ScrollToTop />
         <MotionEffects />

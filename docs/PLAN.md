@@ -148,6 +148,7 @@ Recomeçar o site em **Next.js App Router estático**, com foco em:
 | `/pt/opengraph-image`, `/en/opengraph-image` | OG localizada | Estática |
 | `/pt/cv`, `/en/cv` | Alias interno do CV (redireciona para o caminho público) | Redirect |
 | `/[locale]/*` inexistente | 404 localizado, com shell e design system | Dinâmica/404 |
+| `/ena`, `/xx` e afins | Redireciona para o idioma atual (cookie/`Accept-Language`; bots usam pt) e cai no 404 localizado | 307 + 404 |
 
 Slugs dos cases: `zee-dog`, `zee-now`, `blog-zee-now`, `zee-dog-japao`, `zee-dog-europa`, `zee-dog-australia`, `zee-dog-peru`, `nannacay`.
 
@@ -165,7 +166,7 @@ src/app/[locale]/
   opengraph-image.tsx
   not-found.tsx              # 404 localizado com header/footer
 src/app/sitemap.ts robots.ts manifest.ts
-src/proxy.ts                 # matcher "/" apenas
+src/proxy.ts                 # raiz + caminhos sem locale válido
 src/views/                   # Home, About, Experience, Projects, Project, Stack, Contact, Resume
 src/components/              # layout, sections, ui, i18n, seo, motion
 src/content/                 # facts + pt/en + types + getContent

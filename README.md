@@ -51,6 +51,7 @@ npm run brand       # regenera favicon, apple icon, ícone 512 e marca do OG
 
 - `/` detecta o idioma apenas na primeira visita e respeita o cookie `NEXT_LOCALE`; bots recebem `/pt` com **200 e sem redirect**.
 - URLs antigas sem prefixo (`/sobre`, `/projetos`, `/projeto/[slug]`, `/curriculo`) redirecionam para pt.
+- Caminhos sem locale válido (`/ena`, `/xx`) são redirecionados para o idioma atual (cookie/`Accept-Language`) e caem no 404 localizado; bots usam pt.
 - Cada página tem canonical, `hreflang` (`pt-BR`, `en`, `x-default`), metadata e JSON-LD próprios.
 - A troca de idioma é navegação client-side e preserva a página atual.
 
