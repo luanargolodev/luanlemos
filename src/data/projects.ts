@@ -125,7 +125,7 @@ export const featuredProjects: Project[] = [
     client: 'Nannacay',
     year: 2026,
     summary:
-      'Loja da marca de moda Nannacay, construída do zero com Liquid e Shopify.',
+      'Loja da marca de moda Nannacay, construída com Liquid e Shopify.',
     outcome:
       'Projeto de ponta a ponta: tema em Liquid, vitrines, páginas de produto e jornada de compra sob medida na Shopify.',
     stack: ['Liquid', 'Shopify'],
