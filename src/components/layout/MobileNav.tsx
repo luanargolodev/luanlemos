@@ -37,7 +37,7 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
         aria-expanded={open}
         aria-controls={panelId}
         aria-label={open ? 'Fechar menu' : 'Abrir menu'}
-        className="grid size-9 place-items-center rounded-full border border-line/70 text-muted transition-colors hover:border-accent/50 hover:text-fg"
+        className="grid size-9 cursor-pointer place-items-center rounded-full border border-line/70 text-muted transition-colors hover:border-accent/50 hover:text-fg"
       >
         <svg
           aria-hidden="true"
