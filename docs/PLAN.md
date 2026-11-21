@@ -36,7 +36,7 @@ Um portfólio de **front-end de e-commerce**, em português e inglês, que prova
 | Recrutador técnico | Cargo, senioridade, stack, tempo de experiência, PDF do CV | Home, `/pt/sobre` ou `/en/about`, `/pt/experiencia`, CV no header |
 | Recrutador não técnico | O que ele faz, para quais marcas, se está disponível | Hero, cards de projeto, contato |
 | Liderança de produto/engenharia | Como ele pensa e resolve problemas reais | `/projeto/[slug]` (contexto, desafio, abordagem, resultado) |
-| Par / comunidade | Stack, posicionamento, links | `/stack`, GitHub, LinkedIn |
+| Par / comunidade | Stack, posicionamento, links | `/pt/tecnologias`, GitHub, LinkedIn |
 | Máquina (Google, ATS, LLM) | Fatos estruturados, rotas canônicas, idioma | `sitemap.xml`, JSON-LD, `/llms.txt`, `/cv.json` |
 
 ### 1.4 Métricas de sucesso
@@ -93,7 +93,7 @@ Recomeçar o site em **Next.js App Router estático**, com foco em:
 | Currículo web + PDF + JSON | Entregue nos dois idiomas | `/pt/curriculo`, `/en/resume`, `public/cv/*.pdf`, `/cv.json` |
 | Motion layer | Entregue | `MotionEffects`, `globals.css` |
 | Marca | Entregue | `src/app/icon.svg`, `scripts/generate-brand.mjs` |
-| Páginas dedicadas e cases | Entregue | `sobre`, `experiencia`, `projetos`, `projeto/[slug]`, `stack`, `contato` |
+| Páginas dedicadas e cases | Entregue | `sobre`, `experiencia`, `projetos`, `projeto/[slug]`, `tecnologias`/`stack`, `contato` |
 | i18n pt/en | Entregue | `src/i18n`, `src/content`, `src/proxy.ts`, seletor de idioma |
 | Deploy em produção | **Pendente (bloqueio externo)** | Seção 8.1 |
 
@@ -139,7 +139,7 @@ Recomeçar o site em **Next.js App Router estático**, com foco em:
 | `/pt/experiencia`, `/en/experience` | Destaques, timeline, certificações | Estática |
 | `/pt/projetos`, `/en/projects` | 8 cases com filtros | Estática + filtro client-side |
 | `/pt/projeto/[slug]`, `/en/project/[slug]` | Case individual | SSG |
-| `/pt/stack`, `/en/stack` | Tecnologias e aplicação | Estática |
+| `/pt/tecnologias`, `/en/stack` | Tecnologias e aplicação | Estática |
 | `/pt/contato`, `/en/contact` | Contato | Estática |
 | `/pt/curriculo`, `/en/resume` | Currículo web (sem shell) | Estática; rewrite para `/cv` |
 | `/pt/cv.json`, `/en/cv.json` | Currículo estruturado | Route handler estático |

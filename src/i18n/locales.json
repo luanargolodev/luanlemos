@@ -17,7 +17,7 @@
         "experience": "experiencia",
         "projects": "projetos",
         "project": "projeto/:slug",
-        "stack": "stack",
+        "stack": "tecnologias",
         "contact": "contato"
       }
     },

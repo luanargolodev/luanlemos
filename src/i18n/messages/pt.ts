@@ -34,7 +34,7 @@ const pt = {
     about: 'Sobre',
     experience: 'Experiência',
     projects: 'Projetos',
-    stack: 'Stack',
+    stack: 'Tecnologias',
     contact: 'Contato',
   },
   header: {
@@ -216,14 +216,14 @@ const pt = {
   },
   stack: {
     index: '04',
-    label: 'Stack',
+    label: 'Tecnologias',
     title: 'Ferramentas do dia a dia.',
     pageTitle: 'Ferramentas que colocam produto no ar.',
     description:
       'A base técnica que uso para colocar interfaces em produção e integrar lojas.',
     pageIntro:
       'Não é uma lista de logos: é o que uso para construir interfaces, integrar lojas e manter o código sustentável.',
-    viewAll: 'Ver stack completa',
+    viewAll: 'Ver tecnologias',
     detailedTitle: 'Ferramentas por área.',
     detailedDescription:
       'Agrupadas por onde entram no trabalho: interface, loja, backend e mensuração.',
@@ -315,7 +315,7 @@ const pt = {
     experience: 'Experiência',
     projects: 'Projetos selecionados',
     pages: 'Páginas',
-    stack: 'Stack',
+    stack: 'Tecnologias',
     ats: 'Competências para ATS',
     certifications: 'Certificados e reconhecimentos',
     links: 'Links',
@@ -352,9 +352,9 @@ const pt = {
         'Cases de Luan Lemos em e-commerce: Zee.Dog, Zee.Now, operações internacionais Shopify, blog na Deco.cx e tema Liquid para Nannacay.',
     },
     stack: {
-      title: 'Stack — Luan Lemos | React, Next.js, BFF, GTM e GA4',
+      title: 'Tecnologias — Luan Lemos | React, Next.js, BFF, GTM e GA4',
       description:
-        'Stack de Luan Lemos: React, Next.js, TypeScript, Tailwind CSS, Deco.cx, VTEX, Shopify, Liquid, BFF, Google Tag Manager e Google Analytics 4.',
+        'Tecnologias de Luan Lemos: React, Next.js, TypeScript, Tailwind CSS, Deco.cx, VTEX, Shopify, Liquid, BFF, Google Tag Manager e Google Analytics 4.',
     },
     contact: {
       title: 'Contato — Luan Lemos | Desenvolvedor Front-end Pleno',

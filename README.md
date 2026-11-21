@@ -44,13 +44,13 @@ npm run brand       # regenera favicon, apple icon, ícone 512 e marca do OG
 
 ## Idiomas e rotas
 
-| Idioma | Home | Sobre | Experiência | Projetos | Case | Stack | Contato | Currículo |
+| Idioma | Home | Sobre | Experiência | Projetos | Case | Tecnologias | Contato | Currículo |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| pt | `/pt` | `/pt/sobre` | `/pt/experiencia` | `/pt/projetos` | `/pt/projeto/[slug]` | `/pt/stack` | `/pt/contato` | `/pt/curriculo` |
+| pt | `/pt` | `/pt/sobre` | `/pt/experiencia` | `/pt/projetos` | `/pt/projeto/[slug]` | `/pt/tecnologias` | `/pt/contato` | `/pt/curriculo` |
 | en | `/en` | `/en/about` | `/en/experience` | `/en/projects` | `/en/project/[slug]` | `/en/stack` | `/en/contact` | `/en/resume` |
 
 - `/` detecta o idioma apenas na primeira visita e respeita o cookie `NEXT_LOCALE`; bots recebem `/pt` com **200 e sem redirect**.
-- URLs antigas sem prefixo (`/sobre`, `/projetos`, `/projeto/[slug]`, `/curriculo`) redirecionam para pt.
+- URLs antigas sem prefixo (`/sobre`, `/projetos`, `/projeto/[slug]`, `/stack`, `/curriculo`) redirecionam para pt; `/pt/stack` redireciona para `/pt/tecnologias`.
 - Caminhos sem locale válido usam o idioma atual (cookie/`Accept-Language`) e caem no 404 localizado; um prefixo reconhecível é respeitado (`/ena` → `/en/a`). Bots sem prefixo usam pt.
 - Cada página tem canonical, `hreflang` (`pt-BR`, `en`, `x-default`), metadata e JSON-LD próprios.
 - A troca de idioma é navegação client-side e preserva a página atual.

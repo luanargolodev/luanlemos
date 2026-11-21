@@ -128,7 +128,7 @@ export function proxy(request: NextRequest) {
 export const config = {
   matcher: [
     '/((?!pt(?:/|$)|en(?:/|$)|_next|api|.*\\..*).*)',
-    '/pt/((?!sobre(?:/|$)|experiencia(?:/|$)|projetos(?:/|$)|projeto(?:/|$)|stack(?:/|$)|contato(?:/|$)|curriculo(?:/|$)|cv(?:/|$)|opengraph-image(?:/|$)|.*\\..*).*)',
+    '/pt/((?!sobre(?:/|$)|experiencia(?:/|$)|projetos(?:/|$)|projeto(?:/|$)|tecnologias(?:/|$)|stack(?:/|$)|contato(?:/|$)|curriculo(?:/|$)|cv(?:/|$)|opengraph-image(?:/|$)|.*\\..*).*)',
     '/en/((?!about(?:/|$)|experience(?:/|$)|projects(?:/|$)|project(?:/|$)|stack(?:/|$)|contact(?:/|$)|resume(?:/|$)|cv(?:/|$)|opengraph-image(?:/|$)|.*\\..*).*)',
   ],
 }

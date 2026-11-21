@@ -27,7 +27,12 @@ const legacyRoutes = [
 
 const legacyRedirects = legacyRoutes.map((source) => ({
   source,
-  destination: source === '/curriculo' ? '/pt/curriculo' : `/pt${source}`,
+  destination:
+    source === '/curriculo'
+      ? '/pt/curriculo'
+      : source === '/stack'
+        ? '/pt/tecnologias'
+        : `/pt${source}`,
   permanent: true,
 }))
 
@@ -41,6 +46,7 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...legacyRedirects,
+      { source: '/pt/stack', destination: '/pt/tecnologias', permanent: true },
       ...cvRedirects,
       { source: '/llms.txt', destination: '/pt/llms.txt', permanent: true },
       { source: '/cv.json', destination: '/pt/cv.json', permanent: true },
