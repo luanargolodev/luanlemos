@@ -2,7 +2,7 @@
 
 import { useTheme } from 'next-themes'
 
-export function ThemeToggle() {
+export function ThemeToggle({ label }: { label: string }) {
   const { resolvedTheme, setTheme } = useTheme()
 
   return (
@@ -10,7 +10,7 @@ export function ThemeToggle() {
       type="button"
       onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
       className="grid size-9 cursor-pointer place-items-center rounded-full border border-line/70 text-muted transition-colors hover:border-accent/50 hover:text-fg"
-      aria-label="Alternar tema"
+      aria-label={label}
     >
       <svg
         aria-hidden="true"

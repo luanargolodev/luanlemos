@@ -1,41 +1,68 @@
-import { experiences } from '@/data/experience'
-import { formatPeriod, getExperienceDuration } from '@/lib/dates'
+import type { Content } from '@/content/types'
+import {
+  formatDuration,
+  formatMonth,
+  formatPeriod,
+  getExperienceMonths,
+} from '@/i18n/format'
+import { getLocaleMeta } from '@/i18n/config'
+import { interpolate, type Messages } from '@/i18n/messages'
 
 import { Tag } from '@/components/ui/Tag'
 
-export function Experience() {
-  const duration = getExperienceDuration()
+export function Experience({
+  locale,
+  messages,
+  content,
+}: {
+  locale: string
+  messages: Messages
+  content: Content
+}) {
+  const { dateLocale } = getLocaleMeta(locale)
+  const duration = formatDuration(
+    getExperienceMonths(content.profile.startDate),
+    messages.common,
+    locale === 'en' ? 'and' : 'e',
+  )
+  const companies = new Set(content.experience.map((item) => item.company)).size
 
   return (
-    <section id="experiencia" className="section border-t border-line/60">
+    <section
+      id={messages.home.sections.experience}
+      className="section border-t border-line/60"
+    >
       <div className="container-page">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div data-reveal>
-            <p className="eyebrow">Linha do tempo</p>
+            <p className="eyebrow">{messages.experience.timeline}</p>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight md:text-[2.5rem]">
-              Onde construí.
+              {messages.experience.title}
             </h2>
           </div>
           <p className="max-w-xl text-base leading-relaxed text-muted lg:justify-self-end">
-            {duration} de trabalho em front-end, dos primeiros projetos em
-            agência à operação de uma marca de alcance nacional. Abaixo, o que
-            cada etapa me ensinou.
+            {interpolate(messages.experience.intro, { duration })}
           </p>
         </div>
 
         <ol className="mt-14 border-t border-line/70">
-          {experiences.map((item) => {
+          {content.experience.map((item) => {
             const isCurrent = !item.end
 
             return (
               <li
-                key={`${item.company}-${item.start}`}
+                key={item.id}
                 data-reveal
                 className="grid gap-5 border-b border-line/70 py-8 md:grid-cols-[200px_1fr] md:gap-10 md:py-10"
               >
                 <div className="flex items-start justify-between gap-3 md:flex-col md:justify-start md:gap-1.5">
                   <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
-                    {formatPeriod(item.start, item.end)}
+                    {formatPeriod(
+                      item.start,
+                      item.end,
+                      dateLocale,
+                      messages.common.present,
+                    )}
                   </p>
                   <p className="font-mono text-[10px] uppercase tracking-[0.08em] text-faint">
                     {item.location}
@@ -50,7 +77,7 @@ export function Experience() {
                     {isCurrent ? (
                       <span className="inline-flex items-center gap-1.5 rounded-full border border-status/30 bg-status/10 px-2.5 py-1 font-mono text-[10px] uppercase tracking-[0.1em] text-status">
                         <span className="size-1.5 rounded-full bg-status" />
-                        Atual
+                        {messages.experience.current}
                       </span>
                     ) : null}
                   </div>
@@ -64,7 +91,10 @@ export function Experience() {
                         className="link-underline"
                       >
                         {item.company}
-                        <span className="sr-only"> (abre em nova aba)</span>
+                        <span className="sr-only">
+                          {' '}
+                          {messages.common.externalLink}
+                        </span>
                       </a>
                     ) : (
                       item.company
@@ -105,9 +135,12 @@ export function Experience() {
           data-reveal
           className="mt-8 font-mono text-[10px] uppercase tracking-[0.12em] text-faint"
         >
-          {experiences.length} posições ·{' '}
-          {new Set(experiences.map((item) => item.company)).size} empresas ·
-          jun/2022 — hoje
+          {interpolate(messages.experience.summary, {
+            positions: content.experience.length,
+            companies,
+            start: formatMonth(content.profile.startDate, dateLocale),
+            present: messages.common.present,
+          })}
         </p>
       </div>
     </section>

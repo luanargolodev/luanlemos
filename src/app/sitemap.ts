@@ -1,40 +1,65 @@
 import type { MetadataRoute } from 'next'
 
-import { profile } from '@/data/profile'
-import { projects } from '@/data/projects'
+import { projectFacts } from '@/content/facts'
+import { locales, navRoutes, type RouteKey } from '@/i18n/config'
+import { alternateLinks, href } from '@/i18n/routing'
 import { site } from '@/data/site'
 
-const pages = [
-  { path: '', priority: 1, changeFrequency: 'monthly' as const },
-  { path: '/sobre', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/experiencia', priority: 0.9, changeFrequency: 'monthly' as const },
-  { path: '/projetos', priority: 0.9, changeFrequency: 'monthly' as const },
-  { path: '/stack', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/contato', priority: 0.7, changeFrequency: 'yearly' as const },
-  { path: '/curriculo', priority: 0.8, changeFrequency: 'monthly' as const },
-]
+const priorities: Record<RouteKey, number> = {
+  home: 1,
+  about: 0.8,
+  experience: 0.9,
+  projects: 0.9,
+  project: 0.7,
+  stack: 0.8,
+  contact: 0.7,
+  resume: 0.8,
+}
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const lastModified = new Date()
+  const entries: MetadataRoute.Sitemap = []
 
-  return [
-    ...pages.map((page) => ({
-      url: `${site.url}${page.path}`,
-      lastModified,
-      changeFrequency: page.changeFrequency,
-      priority: page.priority,
-    })),
-    ...projects.map((project) => ({
-      url: `${site.url}/projeto/${project.slug}`,
-      lastModified,
-      changeFrequency: 'yearly' as const,
-      priority: 0.7,
-    })),
-    {
-      url: `${site.url}${profile.cvUrl}`,
-      lastModified,
-      changeFrequency: 'yearly',
-      priority: 0.6,
-    },
-  ]
+  const routeKeys: RouteKey[] = ['home', ...navRoutes, 'resume']
+
+  for (const key of routeKeys) {
+    for (const locale of locales) {
+      const path = href(locale.code, key)
+      entries.push({
+        url: `${site.url}${path}`,
+        lastModified,
+        changeFrequency: key === 'contact' ? 'yearly' : 'monthly',
+        priority: priorities[key],
+        alternates: {
+          languages: Object.fromEntries(
+            Object.entries(alternateLinks(key)).map(([code, localePath]) => [
+              code,
+              `${site.url}${localePath}`,
+            ]),
+          ),
+        },
+      })
+    }
+  }
+
+  for (const project of projectFacts) {
+    const params = { slug: project.slug }
+    for (const locale of locales) {
+      entries.push({
+        url: `${site.url}${href(locale.code, 'project', params)}`,
+        lastModified,
+        changeFrequency: 'yearly',
+        priority: priorities.project,
+        alternates: {
+          languages: Object.fromEntries(
+            Object.entries(alternateLinks('project', params)).map(
+              ([code, localePath]) => [code, `${site.url}${localePath}`],
+            ),
+          ),
+        },
+      })
+    }
+  }
+
+  return entries
 }

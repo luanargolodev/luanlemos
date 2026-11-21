@@ -1,4 +1,5 @@
-import { profile } from '@/data/profile'
+import type { Content } from '@/content/types'
+import { interpolate, type Messages } from '@/i18n/messages'
 
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import { CopyEmail } from '@/components/ui/CopyEmail'
@@ -12,36 +13,47 @@ import {
   WhatsApp,
 } from '@/components/ui/icons'
 
-const contactRows = [
-  {
-    label: 'LinkedIn',
-    value: 'in/luanargolo',
-    href: profile.socials[0].href,
-    icon: LinkedIn,
-  },
-  {
-    label: 'GitHub',
-    value: 'luanargolodev',
-    href: profile.socials[1].href,
-    icon: GitHub,
-  },
-  {
-    label: 'WhatsApp',
-    value: profile.phone,
-    href: profile.whatsapp,
-    icon: WhatsApp,
-  },
-  {
-    label: 'Currículo',
-    value: 'PDF · 2 páginas',
-    href: profile.cvUrl,
-    icon: Download,
-  },
-]
+export function Contact({
+  messages,
+  content,
+}: {
+  messages: Messages
+  content: Content
+}) {
+  const { profile } = content
 
-export function Contact() {
+  const contactRows = [
+    {
+      label: messages.contact.rows.linkedin,
+      value: profile.socials[0].handle,
+      href: profile.socials[0].href,
+      icon: LinkedIn,
+    },
+    {
+      label: messages.contact.rows.github,
+      value: profile.socials[1].handle,
+      href: profile.socials[1].href,
+      icon: GitHub,
+    },
+    {
+      label: messages.contact.rows.whatsapp,
+      value: profile.phone,
+      href: profile.whatsapp,
+      icon: WhatsApp,
+    },
+    {
+      label: messages.contact.rows.curriculum,
+      value: messages.contact.rows.curriculumValue,
+      href: profile.cvUrl,
+      icon: Download,
+    },
+  ]
+
   return (
-    <section id="contato" className="section border-t border-line/60">
+    <section
+      id={messages.home.sections.contact}
+      className="section border-t border-line/60"
+    >
       <div className="container-page">
         <div
           data-reveal
@@ -58,15 +70,13 @@ export function Contact() {
 
           <div className="relative grid gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
             <div>
-              <p className="eyebrow">Networking</p>
+              <p className="eyebrow">{messages.contact.eyebrow}</p>
               <h2 className="mt-5 font-display text-4xl font-semibold leading-[0.98] tracking-[-0.03em] md:text-[3.6rem]">
-                Vamos conversar
+                {messages.contact.heading}
                 <span className="text-accent">.</span>
               </h2>
               <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
-                Gosto de conversar sobre front-end, performance e arquitetura
-                de interfaces. Se quiser trocar uma ideia ou falar sobre um
-                projeto, me chama.
+                {messages.contact.sectionDescription}
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
@@ -89,7 +99,7 @@ export function Contact() {
                   variant="accent"
                   icon={<Mail />}
                 >
-                  Enviar e-mail
+                  {messages.contact.sendEmail}
                 </ButtonLink>
                 <ButtonLink
                   href={profile.whatsapp}
@@ -97,7 +107,7 @@ export function Contact() {
                   external
                   icon={<WhatsApp />}
                 >
-                  WhatsApp
+                  {messages.contact.whatsapp}
                 </ButtonLink>
               </div>
 
@@ -108,7 +118,14 @@ export function Contact() {
                 >
                   {profile.email}
                 </a>
-                <CopyEmail email={profile.email} />
+                <CopyEmail
+                  email={profile.email}
+                  labels={{
+                    copy: messages.common.copy,
+                    copied: messages.common.copied,
+                    announcement: messages.common.copiedAnnouncement,
+                  }}
+                />
               </div>
             </div>
 
@@ -140,7 +157,10 @@ export function Contact() {
                         </span>
                         <ArrowUpRight className="size-4 text-faint transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-accent" />
                         <span className="sr-only">
-                          {row.label} de Luan Lemos (abre em nova aba)
+                          {interpolate(messages.contact.rowAria, {
+                            label: row.label,
+                          })}{' '}
+                          {messages.common.externalLink}
                         </span>
                       </a>
                     </li>
@@ -149,14 +169,9 @@ export function Contact() {
               </ul>
 
               <p className="mt-6 text-[13px] leading-relaxed text-muted">
-                Prefere e-mail? Escreva para{' '}
-                <a
-                  href={`mailto:${profile.email}`}
-                  className="text-fg underline decoration-line underline-offset-4 transition-colors hover:decoration-accent"
-                >
-                  {profile.email}
-                </a>
-                . Respondo o mais rápido possível.
+                {interpolate(messages.contact.emailNote, {
+                  email: profile.email,
+                })}
               </p>
             </div>
           </div>

@@ -1,12 +1,27 @@
 'use client'
 
+import Link from 'next/link'
 import { useEffect, useId, useRef, useState } from 'react'
-
-import { profile } from '@/data/profile'
 
 import { ArrowUpRight, FileText } from '@/components/ui/icons'
 
-export function CvMenu() {
+interface CvMenuLabels {
+  button: string
+  webTitle: string
+  webDescription: string
+  pdfTitle: string
+  pdfDescription: string
+}
+
+export function CvMenu({
+  labels,
+  webHref,
+  pdfHref,
+}: {
+  labels: CvMenuLabels
+  webHref: string
+  pdfHref: string
+}) {
   const [open, setOpen] = useState(false)
   const menuId = useId()
   const containerRef = useRef<HTMLDivElement>(null)
@@ -51,7 +66,7 @@ export function CvMenu() {
         aria-haspopup="true"
         className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-line/80 px-4 py-2 text-[13px] font-medium text-fg transition-colors hover:border-accent/60 hover:bg-accent-soft"
       >
-        Currículo
+        {labels.button}
         <svg
           aria-hidden="true"
           viewBox="0 0 16 16"
@@ -73,8 +88,8 @@ export function CvMenu() {
           id={menuId}
           className="cv-menu absolute right-0 top-[calc(100%+0.5rem)] z-[60] w-60 overflow-hidden rounded-xl border border-line/80 bg-surface p-1.5 shadow-2xl shadow-black/20"
         >
-          <a
-            href="/curriculo"
+          <Link
+            href={webHref}
             onClick={close}
             className="flex items-start gap-3 rounded-lg px-3 py-2.5 transition-colors hover:bg-surface-2"
           >
@@ -83,16 +98,16 @@ export function CvMenu() {
             </span>
             <span>
               <span className="block text-[13px] font-medium text-fg">
-                Versão web
+                {labels.webTitle}
               </span>
               <span className="mt-0.5 block text-[11px] leading-snug text-muted">
-                Ler no navegador, com todos os detalhes
+                {labels.webDescription}
               </span>
             </span>
-          </a>
+          </Link>
 
           <a
-            href={profile.cvUrl}
+            href={pdfHref}
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
@@ -103,10 +118,10 @@ export function CvMenu() {
             </span>
             <span>
               <span className="block text-[13px] font-medium text-fg">
-                Versão PDF
+                {labels.pdfTitle}
               </span>
               <span className="mt-0.5 block text-[11px] leading-snug text-muted">
-                Visualizar o arquivo no navegador
+                {labels.pdfDescription}
               </span>
             </span>
           </a>

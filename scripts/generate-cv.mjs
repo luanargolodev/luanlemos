@@ -4,13 +4,15 @@ import path from 'node:path'
 import { PDFDocument } from 'pdf-lib'
 import { chromium } from 'playwright-core'
 
-const cvUrl = process.env.CV_URL ?? 'http://localhost:3000/curriculo'
-const output = path.join(
-  process.cwd(),
-  'public/cv/luan-argolo-lemos-desenvolvedor-front-end.pdf',
+const root = process.cwd()
+const baseUrl = process.env.CV_BASE_URL ?? 'http://localhost:3000'
+const config = JSON.parse(
+  await readFile(path.join(root, 'src/i18n/locales.json'), 'utf8'),
 )
+const locales = config.locales
+const outputDir = path.join(root, 'public/cv')
 
-await mkdir(path.dirname(output), { recursive: true })
+await mkdir(outputDir, { recursive: true })
 
 const executablePath = process.env.CHROME_PATH
 const browser = await chromium.launch({
@@ -18,51 +20,55 @@ const browser = await chromium.launch({
   headless: true,
 })
 
-const page = await browser.newPage({
-  viewport: { width: 1200, height: 1600 },
-  locale: 'pt-BR',
-})
+for (const locale of locales) {
+  const url = `${baseUrl}/${locale.code}/${locale.cvPath}`
+  const output = path.join(outputDir, locale.cvFile)
 
-await page.goto(cvUrl, { waitUntil: 'networkidle' })
-await page.evaluate(() => document.fonts.ready)
-await page.waitForTimeout(400)
+  const page = await browser.newPage({
+    viewport: { width: 1200, height: 1600 },
+    locale: locale.dateLocale,
+  })
 
-await page.pdf({
-  path: output,
-  format: 'A4',
-  printBackground: true,
-  preferCSSPageSize: true,
-})
+  await page.goto(url, { waitUntil: 'networkidle' })
+  await page.evaluate(() => document.fonts.ready)
+  await page.waitForTimeout(400)
+
+  const meta = await page.evaluate(() => ({
+    title: document.title,
+    description:
+      document.querySelector('meta[name="description"]')?.getAttribute(
+        'content',
+      ) ?? '',
+    keywords:
+      document.querySelector('meta[name="keywords"]')?.getAttribute('content') ??
+      '',
+    lang: document.documentElement.lang,
+  }))
+
+  await page.pdf({
+    path: output,
+    format: 'A4',
+    printBackground: true,
+    preferCSSPageSize: true,
+  })
+  await page.close()
+
+  const pdf = await PDFDocument.load(await readFile(output))
+  pdf.setTitle(meta.title)
+  pdf.setAuthor('Luan Argolo Lemos')
+  pdf.setSubject(meta.description)
+  pdf.setKeywords(
+    meta.keywords
+      .split(',')
+      .map((keyword) => keyword.trim())
+      .filter(Boolean),
+  )
+  pdf.setLanguage(locale.dateLocale)
+  pdf.setCreator('luanlemos.dev')
+  pdf.setProducer('luanlemos.dev')
+
+  await writeFile(output, await pdf.save())
+  process.stdout.write(`PDF ${locale.code} gerado: ${output}\n`)
+}
 
 await browser.close()
-
-const pdf = await PDFDocument.load(await readFile(output))
-pdf.setTitle(
-  'Currículo — Luan Argolo Lemos — Desenvolvedor Front-end Pleno',
-)
-pdf.setAuthor('Luan Argolo Lemos')
-pdf.setSubject(
-  'Currículo de Luan Argolo Lemos, Desenvolvedor Front-end Pleno',
-)
-pdf.setKeywords([
-  'desenvolvedor front-end',
-  'desenvolvedor front-end pleno',
-  'React',
-  'Next.js',
-  'TypeScript',
-  'JavaScript',
-  'Preact',
-  'Tailwind CSS',
-  'Deco.cx',
-  'VTEX',
-  'Shopify',
-  'Liquid',
-  'Deno',
-  'e-commerce',
-])
-pdf.setCreator('luanlemos.dev')
-pdf.setProducer('luanlemos.dev')
-
-await writeFile(output, await pdf.save())
-
-process.stdout.write(`PDF gerado: ${output}\n`)

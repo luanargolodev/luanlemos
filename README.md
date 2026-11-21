@@ -1,10 +1,10 @@
 # Luan Lemos — Portfólio
 
-Portfólio pessoal de Luan Lemos, desenvolvedor front-end. O site é focado em recrutamento e networking: apresenta quem ele é, a trajetória, os projetos selecionados, a stack e os canais de contato.
+Portfólio pessoal de Luan Lemos, desenvolvedor front-end. O site é focado em recrutamento, networking e descoberta por buscadores/IA: apresenta quem ele é, a trajetória, os projetos selecionados, a stack e os canais de contato em **português e inglês**.
 
 ## Documentação
 
-O plano completo do site está em [`docs/PLAN.md`](docs/PLAN.md): objetivo, plano inicial, histórico de fases, arquitetura, decisões, invariantes de conteúdo/SEO/acessibilidade, checklist de validação e roadmap. Leia antes de mudanças estruturais.
+O plano completo do site está em [`docs/PLAN.md`](docs/PLAN.md): objetivo, histórico de fases, arquitetura, decisões, invariantes de conteúdo/SEO/acessibilidade, checklist de validação e roadmap. Leia antes de mudanças estruturais.
 
 ## Stack
 
@@ -13,6 +13,7 @@ O plano completo do site está em [`docs/PLAN.md`](docs/PLAN.md): objetivo, plan
 - Tailwind CSS 4 (CSS-first, tokens em `src/app/globals.css`)
 - `next-themes` para dark/light sem flash
 - `next/font` para Bricolage Grotesque, Inter e JetBrains Mono
+- i18n próprio, tipado e server-only (sem biblioteca no bundle do cliente)
 - Vercel Analytics
 
 ## Rodando localmente
@@ -24,98 +25,119 @@ npm install
 npm run dev
 ```
 
-O site fica em `http://localhost:3000`.
+O site fica em `http://localhost:3000` e redireciona `/` para `/pt` ou `/en` conforme o idioma do navegador/cookie.
 
 ## Scripts
 
 ```bash
-npm run dev        # ambiente de desenvolvimento
-npm run build      # build de produção (gera páginas estáticas)
-npm run start      # serve o build de produção
-npm run lint       # oxlint
-npm run typecheck  # TypeScript sem emitir arquivos
-npm run images     # otimiza screenshots e avatar para WebP + blur placeholders
-npm run cv         # regenera o PDF do currículo a partir de /curriculo
-npm run brand      # regenera favicon, apple icon, ícone 512 e marca do OG
+npm run dev         # ambiente de desenvolvimento
+npm run build       # build de produção (todas as páginas estáticas)
+npm run start       # serve o build de produção
+npm run lint        # oxlint
+npm run typecheck   # TypeScript sem emitir arquivos
+npm run i18n:check  # valida locale, rotas, arquivos de tradução e bandeiras
+npm run verify      # lint + typecheck + i18n + build
+npm run images      # otimiza screenshots e avatar para WebP + blur placeholders
+npm run cv          # regenera os PDFs de currículo (pt e en) a partir das páginas
+npm run brand       # regenera favicon, apple icon, ícone 512 e marca do OG
 ```
+
+## Idiomas e rotas
+
+| Idioma | Home | Sobre | Experiência | Projetos | Case | Stack | Contato | Currículo |
+| --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| pt | `/pt` | `/pt/sobre` | `/pt/experiencia` | `/pt/projetos` | `/pt/projeto/[slug]` | `/pt/stack` | `/pt/contato` | `/pt/curriculo` |
+| en | `/en` | `/en/about` | `/en/experience` | `/en/projects` | `/en/project/[slug]` | `/en/stack` | `/en/contact` | `/en/resume` |
+
+- `/` detecta o idioma apenas na primeira visita e respeita o cookie `NEXT_LOCALE`; bots recebem `/pt` com **200 e sem redirect**.
+- URLs antigas sem prefixo (`/sobre`, `/projetos`, `/projeto/[slug]`, `/curriculo`) redirecionam para pt.
+- Cada página tem canonical, `hreflang` (`pt-BR`, `en`, `x-default`), metadata e JSON-LD próprios.
+- A troca de idioma é navegação client-side e preserva a página atual.
 
 ## Estrutura
 
 ```text
 src/
   app/
-    (site)/             # shell com header/footer + páginas
-      page.tsx          # home
-      sobre/
-      experiencia/
-      projetos/
-      projeto/[slug]/   # cases estáticos
-      stack/
-      contato/
-    curriculo/          # currículo web (fora do shell)
+    [locale]/
+      layout.tsx              # root layout: html lang, fontes, tema, motion, JSON-LD
+      (site)/
+        layout.tsx            # header + main + footer
+        [[...path]]/page.tsx  # resolve rotas localizadas + metadata
+      cv/page.tsx             # currículo web (sem shell)
+      cv.json/route.ts        # currículo JSON por idioma
+      llms.txt/route.ts       # resumo para LLMs por idioma
+      opengraph-image.tsx     # OG localizada
+      not-found.tsx
+    global-not-found.tsx      # 404 global (fora do layout)
     sitemap.ts
     robots.ts
-    llms.txt/
-    cv.json/
   components/
-    layout/             # header, nav, menu mobile, tema, footer, marca
-    sections/           # Hero, previews, Experience, TechStack, Contact...
-    ui/                 # botões, breadcrumbs, PageHero, PageCTA, cards
-  data/                 # TODO o conteúdo do site (edite aqui)
-  lib/                  # datas, SEO/JSON-LD, utilitários
-  types/
+    i18n/                     # seletor de idioma + bandeiras SVG
+    layout/                   # header, nav, menu mobile, CV, tema, footer, marca
+    sections/                 # Hero, previews, Experience, TechStack, Contact...
+    ui/                       # botões, breadcrumbs, PageCTA, cards
+  content/
+    facts.ts                  # fatos compartilhados (slugs, datas, URLs, stack)
+    pt.ts / en.ts             # conteúdo estruturado por idioma
+    types.ts
+    index.ts                  # getContent(locale)
+  i18n/
+    locales.json             # ÚNICA configuração de idiomas e rotas
+    config.ts                 # helpers de locale
+    routing.ts                # href(), matchPath(), alternates()
+    static-paths.ts
+    format.ts                 # Intl: datas, duração, números
+    messages/
+      pt.ts / en.ts           # UI, labels, SEO
+      index.ts                # getMessages(locale), fallback pt
+  views/                      # Home, About, Experience, Projects, Project, Stack, Contact, Resume
+  proxy.ts                    # detecção de idioma só em "/"
 public/
-  images/projects/      # screenshots otimizados (WebP)
-  images/projects/cover/ # capas 1200w usadas nos cases
-  icons/tech/           # ícones das tecnologias
-  cv/                   # currículo em PDF
+  images/projects/            # screenshots otimizados (WebP)
+  images/projects/cover/      # capas 1200w usadas nos cases
+  icons/tech/                 # ícones das tecnologias
+  cv/                         # currículos PDF pt/en
 assets/
-  project-images/       # screenshots originais (não são servidos)
-  profile/              # avatar original
+  project-images/             # screenshots originais
+  profile/                    # avatar original
 scripts/
-  optimize-images.mjs   # gera WebP + blur placeholders
-  generate-cv.mjs       # gera o PDF do currículo
-  generate-brand.mjs    # gera ícones da marca
+  optimize-images.mjs
+  generate-cv.mjs             # gera PDFs por idioma
+  generate-brand.mjs
+  check-i18n.mjs
 ```
 
-## Rotas
+## Conteúdo e tradução
 
-| Rota | Conteúdo |
-| --- | --- |
-| `/` | home resumida com destaques e CTAs |
-| `/sobre` | perfil completo, princípios e formação |
-| `/experiencia` | trajetória, BFF, analytics e certificações |
-| `/projetos` | todos os cases com filtros por categoria |
-| `/projeto/[slug]` | case individual com contexto, desafio, abordagem e resultado |
-| `/stack` | tecnologias por área e aplicação prática |
-| `/contato` | canais de contato e currículo |
-| `/curriculo` | currículo web para recrutadores e IA |
+- Fatos compartilhados ficam em `src/content/facts.ts` (slugs, anos, stack, imagens, empresas, links).
+- Textos ficam em `src/content/pt.ts` e `src/content/en.ts`, tipados por `ContentText`.
+- UI/SEO ficam em `src/i18n/messages/pt.ts` e `en.ts`, tipados por `Messages`.
+- Se faltar uma chave, o build falha; em runtime há fallback para pt.
+- `npm run i18n:check` valida arquivos, rotas, flags e o registro em `locales.json`.
 
-## Atualizando o conteúdo
+### Adicionar um idioma
 
-Todo o conteúdo fica em `src/data/`:
+1. Adicionar o idioma em `src/i18n/locales.json` (código, nome, bandeira, `htmlLang`, `ogLocale`, `dateLocale`, caminhos e arquivo do CV).
+2. Criar `src/i18n/messages/<code>.ts` e `src/content/<code>.ts`.
+3. Adicionar a bandeira em `src/components/i18n/flags.tsx` se ainda não existir.
+4. Rodar `npm run verify && npm run cv`.
 
-| Arquivo | O que atualizar |
-| --- | --- |
-| `profile.ts` | nome, bio, e-mail, telefone, links, CV, formação, início da carreira |
-| `experience.ts` | cargos, empresas, períodos, resultados e stack |
-| `projects.ts` | projetos em destaque (nacionais e internacionais) |
-| `tech.ts` | grupos de tecnologias e ícones |
-| `certifications.ts` | certificados, hackathons e reconhecimentos |
-| `resume.ts` | resumo, competências e projetos do currículo |
-| `site.ts` | URL canônica, navegação, keywords e textos de SEO |
+Rotas, hreflang, sitemap, seletor, OG e currículo passam a funcionar sem alterar componentes.
 
-O tempo total de experiência é calculado automaticamente a partir de `profile.startDate` em `src/lib/dates.ts`. Para atualizar o valor, basta ajustar a data de início (formato `AAAA-MM`). O cálculo é feito em tempo de build; um novo deploy atualiza o número.
+## Currículo
 
-### Imagens de projeto
+- **Web:** `/pt/curriculo` e `/en/resume` — HTML semântico, indexável, com hreflang e JSON-LD.
+- **PDF:** `public/cv/luan-argolo-lemos-desenvolvedor-front-end.pdf` e `...-front-end-developer.pdf` — uma coluna, Arial no print, texto selecionável, metadados e idioma do PDF.
+- **JSON:** `/pt/cv.json` e `/en/cv.json`.
 
-Os screenshots originais ficam em `assets/project-images/`. Depois de adicionar ou trocar uma imagem:
+Os três formatos derivam do mesmo conteúdo localizado. Depois de editar `src/content/*` ou `src/views/resume.tsx`:
 
 ```bash
-npm run images
+npm run build
+npm start           # em outro terminal
+npm run cv
 ```
-
-O script gera as versões WebP em `public/images/projects/` e os blur placeholders em `src/data/image-blur.json`. Se o slug do projeto mudar, atualize o campo `image` em `projects.ts`.
 
 ## Motion
 
@@ -123,62 +145,38 @@ O script gera as versões WebP em `public/images/projects/` e os blur placeholde
 - Marquee de tecnologias, progresso de leitura e item ativo na navegação.
 - Glow que segue o cursor no hero, tilt + spotlight nos cards e parallax sutil no retrato.
 - Menu mobile com wipe, stagger dos itens e morph do ícone hambúrguer ↔ X.
-- Botão “voltar ao topo” no canto inferior direito, com scroll suave e respeito a `prefers-reduced-motion`.
+- Seletor de idioma com links reais, `hreflang`, `lang` e cookie.
+- Botão “voltar ao topo”, com scroll suave e respeito a `prefers-reduced-motion`.
 - Tudo desativado em `prefers-reduced-motion`; sem JavaScript, o conteúdo continua visível.
-
-## Currículo
-
-O currículo tem três formatos, todos gerados a partir do mesmo conteúdo:
-
-- **Web:** `/curriculo` — HTML semântico, indexável e fácil de ler por agentes.
-- **PDF:** `/cv/luan-argolo-lemos-desenvolvedor-front-end.pdf` — layout de uma coluna, fonte padrão e texto selecionável, pensado para ATS/Gupy.
-- **JSON:** `/cv.json` — dados estruturados para automações e agentes de IA.
-
-Para regenerar o PDF depois de editar `src/data/resume.ts` ou `/curriculo`:
-
-```bash
-npm run build
-npm start          # em outro terminal
-npm run cv
-```
-
-O script usa o Chrome instalado (`channel: 'chrome'`) ou o caminho em `CHROME_PATH`, imprime a página `/curriculo` em A4 e grava os metadados do PDF.
-
-## Marca
-
-O símbolo combina o **L** de Luan com um **prompt de terminal** (`>`), dentro de um tile squircle indigo. A paleta usa `#4F46E5`, `#F6F3EC` e `#C7D2FE`, os mesmos tokens da interface.
-
-Os assets da marca são gerados por `npm run brand`:
-
-- `src/app/icon.svg` / `public/favicon.svg` — favicon vetorial
-- `src/app/apple-icon.png` — apple touch icon
-- `public/icon-512.png` — manifest/maskable
-- `src/assets/logo-mark.png` — marca usada no OG image
 
 ## SEO
 
-- Metadata completa em `src/app/layout.tsx` (via `src/lib/seo.ts`)
-- Open Graph dinâmico em `src/app/opengraph-image.tsx` (1200×630)
-- JSON-LD global (`Person`, `WebSite`, `ProfilePage`) e por página (`AboutPage`, `CollectionPage` + `ItemList`, `CreativeWork`, `ContactPage`, `BreadcrumbList`)
-- `sitemap.xml`, `robots.txt` (com crawlers de IA liberados) e `llms.txt`
-- Conteúdo principal renderizado estaticamente, com HTML semântico
+- Metadata, canonical e Open Graph únicos por página e idioma.
+- `hreflang` recíproco com `x-default` em pt; `og:locale`/`alternate`.
+- JSON-LD global (`Person`, `WebSite`) e por página (`AboutPage`, `CollectionPage` + `ItemList`, `CreativeWork`, `ContactPage`, `ProfilePage`, `BreadcrumbList`).
+- `sitemap.xml` com todas as URLs e alternates absolutos.
+- `robots.txt` liberando buscadores e crawlers de IA.
+- `llms.txt` e `cv.json` por idioma.
+- Filtros de projeto client-side mantendo todos os cards no HTML.
 
 ## Deploy
 
 O deploy é feito na [Vercel](https://vercel.com), a partir do repositório `luanargolodev/luanlemos`.
 
-1. Importe o repositório na Vercel (framework detectado automaticamente: Next.js).
-2. Configure `NEXT_PUBLIC_SITE_URL=https://luanlemos.dev` nas variáveis de ambiente.
-3. Aponte o domínio `luanlemos.dev` (e redirecione `www` para o domínio principal).
-4. Ative o Vercel Analytics no projeto.
-5. Após o deploy, envie `https://luanlemos.dev/sitemap.xml` no Google Search Console.
+1. Fazer merge do PR `v3` → `main`.
+2. Configurar `NEXT_PUBLIC_SITE_URL=https://luanlemos.dev`.
+3. Apontar o domínio e o DNS (incluindo `www` → apex).
+4. Ativar Vercel Analytics.
+5. Enviar `https://luanlemos.dev/sitemap.xml` no Google Search Console e validar os idiomas.
 
 Pull requests e branches geram preview deployments automaticamente.
 
 ## Checklist de qualidade
 
-- WCAG 2.1 AA validado com axe (dark, light e mobile)
-- Lighthouse ≥ 95 nas quatro categorias (executar sobre `npm run build && npm run start`)
+- WCAG 2.1 AA validado com axe (pt/en, dark/light, mobile e menu aberto)
+- Lighthouse ≥ 90 nas quatro categorias; home e desktop em 100 na medição local
+- LCP/CLS monitorados; CLS 0
 - Respeito a `prefers-reduced-motion` e `prefers-color-scheme`
 - Imagens em WebP, com `sizes` e blur placeholder
 - Navegação por teclado, skip link e foco visível
+- HTML completo e traduzido no primeiro carregamento (sem depender de JS)

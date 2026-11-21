@@ -3,41 +3,43 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { cn } from '@/lib/utils'
+import type { RouteKey } from '@/i18n/config'
+import { matchPathname, navKeyForRoute } from '@/i18n/routing'
 
-interface NavLink {
+export interface NavItem {
+  key: RouteKey
   href: string
   label: string
 }
 
-function isActive(pathname: string, href: string) {
-  if (href === '/') return pathname === '/'
-  if (href === '/projetos' && pathname.startsWith('/projeto/')) return true
-  return pathname === href || pathname.startsWith(`${href}/`)
-}
-
-export function DesktopNav({ links }: { links: readonly NavLink[] }) {
+export function DesktopNav({
+  items,
+  label,
+}: {
+  items: NavItem[]
+  label: string
+}) {
   const pathname = usePathname()
+  const match = matchPathname(pathname)
+  const activeKey = match ? navKeyForRoute(match.key) : null
 
   return (
     <nav
-      aria-label="Navegação principal"
-      className="hidden items-center gap-7 md:flex"
+      aria-label={label}
+      className="hidden items-center gap-4 md:flex lg:gap-7"
     >
-      {links.map((link) => {
-        const active = isActive(pathname, link.href)
-
+      {items.map((item) => {
+        const active = item.key === activeKey
         return (
           <Link
-            key={link.href}
-            href={link.href}
+            key={item.key}
+            href={item.href}
             aria-current={active ? 'page' : undefined}
-            className={cn(
-              'nav-link text-[13px] text-muted transition-colors hover:text-fg',
-              active && 'nav-link-active',
-            )}
+            className={`nav-link text-[13px] transition-colors hover:text-fg ${
+              active ? 'nav-link-active text-fg' : 'text-muted'
+            }`}
           >
-            {link.label}
+            {item.label}
           </Link>
         )
       })}

@@ -4,7 +4,13 @@ import { useEffect, useState } from 'react'
 
 import { Check, Copy } from '@/components/ui/icons'
 
-export function CopyEmail({ email }: { email: string }) {
+export function CopyEmail({
+  email,
+  labels,
+}: {
+  email: string
+  labels: { copy: string; copied: string; announcement: string }
+}) {
   const [copied, setCopied] = useState(false)
 
   useEffect(() => {
@@ -30,9 +36,9 @@ export function CopyEmail({ email }: { email: string }) {
       className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-line/80 px-2.5 py-1 font-mono text-[9px] uppercase tracking-[0.1em] text-muted transition-colors hover:border-accent/50 hover:text-fg"
     >
       {copied ? <Check className="size-3" /> : <Copy className="size-3" />}
-      {copied ? 'Copiado' : 'Copiar'}
+      {copied ? labels.copied : labels.copy}
       <span aria-live="polite" className="sr-only">
-        {copied ? 'E-mail copiado para a área de transferência' : ''}
+        {copied ? labels.announcement : ''}
       </span>
     </button>
   )

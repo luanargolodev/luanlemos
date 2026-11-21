@@ -1,66 +1,158 @@
 import type { Metadata } from 'next'
 
-import { certifications } from '@/data/certifications'
-import { profile } from '@/data/profile'
-import type { Project } from '@/data/projects'
+import type { Content, Project } from '@/content/types'
+import { getLocaleMeta, locales, type RouteKey } from '@/i18n/config'
+import type { Messages } from '@/i18n/messages/pt'
+import {
+  alternateLinks,
+  href,
+  homeHref,
+  projectHref,
+} from '@/i18n/routing'
 import { site } from '@/data/site'
-import { techGroups } from '@/data/tech'
 
-export const metadata: Metadata = {
-  metadataBase: new URL(site.url),
-  title: {
-    default: site.title,
-    template: `%s — ${profile.name}`,
-  },
-  description: site.description,
-  keywords: [...site.keywords],
-  authors: [{ name: profile.fullName, url: site.url }],
-  creator: profile.fullName,
-  publisher: profile.fullName,
-  applicationName: site.name,
-  alternates: {
-    canonical: '/',
-    types: {
-      'application/pdf': profile.cvUrl,
-      'application/json': '/cv.json',
-    },
-  },
-  openGraph: {
-    type: 'profile',
-    locale: site.locale,
-    url: '/',
-    siteName: site.name,
-    title: site.title,
-    description: site.description,
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: site.title,
-    description: site.description,
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-      'max-video-preview': -1,
-    },
-  },
+export const metadataBase = new URL(site.url)
+
+export interface SeoBreadcrumb {
+  name: string
+  path: string
 }
 
-const knowAbout = [
-  ...techGroups.flatMap((group) => group.items.map((item) => item.name)),
-  'E-commerce',
-  'Performance web',
-  'Acessibilidade',
-]
+export function buildMetadata({
+  locale,
+  key,
+  params = {},
+  content,
+  messages,
+}: {
+  locale: string
+  key: RouteKey
+  params?: Record<string, string>
+  content: Content
+  messages: Messages
+}): Metadata {
+  const meta = getLocaleMeta(locale)
+  const path =
+    key === 'home'
+      ? homeHref(locale)
+      : key === 'project'
+        ? projectHref(locale, params.slug)
+        : href(locale, key)
 
-export function buildJsonLd() {
+  const project =
+    key === 'project'
+      ? content.projects.find((item) => item.slug === params.slug)
+      : undefined
+
+  const base = messages.meta[
+    key === 'project' ? 'projects' : key
+  ] as { title: string; description: string }
+
+  const title =
+    key === 'project' && project
+      ? messages.project.metaTitle
+          .replace('{title}', project.title)
+          .replace('{suffix}', messages.project.metaSuffix)
+      : key === 'home'
+        ? messages.meta.home.title
+        : base.title
+
+  const description =
+    key === 'project' && project
+      ? project.summary
+      : key === 'home'
+        ? messages.meta.home.description
+        : base.description
+
+  const image =
+    key === 'project' && project
+      ? {
+          url: project.image,
+          width: 1600,
+          height: 1000,
+          alt: project.imageAlt,
+        }
+      : {
+          url: `/${locale}/opengraph-image`,
+          width: 1200,
+          height: 630,
+          alt: messages.meta.ogAlt,
+        }
+
+  const keywords = messages.meta.keywords
+    .split(',')
+    .map((keyword) => keyword.trim())
+    .filter(Boolean)
+
+  if (project) {
+    keywords.push(...project.stack, project.client, project.title, 'case')
+  }
+
+  return {
+    metadataBase,
+    title: { absolute: title },
+    description,
+    keywords,
+    alternates: {
+      canonical: path,
+      languages: alternateLinks(key, params),
+      ...(key === 'resume'
+        ? {
+            types: {
+              'application/pdf': content.profile.cvUrl,
+              'application/json': `/${locale}/cv.json`,
+            },
+          }
+        : {}),
+    },
+    openGraph: {
+      type: key === 'project' ? 'article' : 'profile',
+      locale: meta.ogLocale,
+      alternateLocale: locales
+        .filter((item) => item.code !== locale)
+        .map((item) => item.ogLocale),
+      url: path,
+      siteName: site.name,
+      title,
+      description,
+      images: [image],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title,
+      description,
+      images: [{ url: image.url, alt: image.alt }],
+    },
+  }
+}
+
+export function defaultOgImage(locale: string, messages: Messages) {
+  return {
+    url: `/${locale}/opengraph-image`,
+    width: 1200,
+    height: 630,
+    alt: messages.meta.ogAlt,
+  }
+}
+
+export function buildJsonLd({
+  locale,
+  content,
+}: {
+  locale: string
+  content: Content
+}) {
+  const meta = getLocaleMeta(locale)
   const personId = `${site.url}/#person`
-  const websiteId = `${site.url}/#website`
+  const websiteId = `${site.url}/${locale}#website`
+  const { profile, certifications, techGroups } = content
+
+  const knowAbout = [
+    ...techGroups.flatMap((group) => group.items.map((item) => item.name)),
+    'E-commerce',
+    'Web performance',
+    'Accessibility',
+  ]
 
   return {
     '@context': 'https://schema.org',
@@ -82,7 +174,7 @@ export function buildJsonLd() {
           name: profile.role,
           occupationLocation: {
             '@type': 'Country',
-            name: 'Brasil',
+            name: 'Brazil',
           },
           skills: knowAbout.join(', '),
         },
@@ -107,9 +199,10 @@ export function buildJsonLd() {
         })),
         subjectOf: {
           '@type': 'DigitalDocument',
-          name: 'Currículo — Luan Argolo Lemos — Desenvolvedor Front-end Pleno',
+          name: content.resume.title,
           encodingFormat: 'application/pdf',
-          url: `${site.url}${profile.cvUrl}`,
+          url: content.resume.links.pdf,
+          inLanguage: meta.htmlLang,
         },
         address: {
           '@type': 'PostalAddress',
@@ -120,25 +213,13 @@ export function buildJsonLd() {
       {
         '@type': 'WebSite',
         '@id': websiteId,
-        url: site.url,
+        url: `${site.url}/${locale}`,
         name: site.name,
-        inLanguage: 'pt-BR',
+        inLanguage: meta.htmlLang,
         publisher: { '@id': personId },
       },
     ],
   }
-}
-
-export const defaultOgImage = {
-  url: '/opengraph-image',
-  width: 1200,
-  height: 630,
-  alt: site.ogAlt,
-}
-
-export interface SeoBreadcrumb {
-  name: string
-  path: string
 }
 
 export function buildBreadcrumbJsonLd(items: SeoBreadcrumb[]) {
@@ -159,14 +240,17 @@ export function buildWebPageJsonLd({
   name,
   description,
   path,
+  locale,
   about,
 }: {
   type?: 'WebPage' | 'AboutPage' | 'CollectionPage' | 'ContactPage' | 'ProfilePage'
   name: string
   description: string
   path: string
+  locale: string
   about?: string
 }) {
+  const meta = getLocaleMeta(locale)
   return {
     '@context': 'https://schema.org',
     '@type': type,
@@ -174,30 +258,40 @@ export function buildWebPageJsonLd({
     url: `${site.url}${path}`,
     name,
     description,
-    inLanguage: 'pt-BR',
-    isPartOf: { '@id': `${site.url}/#website` },
+    inLanguage: meta.htmlLang,
+    isPartOf: { '@id': `${site.url}/${locale}#website` },
     ...(about ? { about: { '@id': about } } : {}),
   }
 }
 
-export function buildProjectJsonLd(project: Project) {
+export function buildProjectJsonLd({
+  locale,
+  project,
+  path,
+}: {
+  locale: string
+  project: Project
+  path: string
+}) {
+  const meta = getLocaleMeta(locale)
   return {
     '@context': 'https://schema.org',
     '@type': 'CreativeWork',
-    '@id': `${site.url}/projeto/${project.slug}#work`,
+    '@id': `${site.url}${path}#work`,
     name: project.title,
     headline: `${project.title} — ${project.client}`,
     description: project.summary,
-    url: `${site.url}/projeto/${project.slug}`,
+    url: `${site.url}${path}`,
     image: `${site.url}${project.image}`,
     dateCreated: String(project.year),
+    inLanguage: meta.htmlLang,
     author: { '@id': `${site.url}/#person` },
     about: {
       '@type': 'Organization',
       name: project.client,
     },
     keywords: project.stack.join(', '),
-    isPartOf: { '@id': `${site.url}/#website` },
+    isPartOf: { '@id': `${site.url}/${locale}#website` },
     ...(project.url ? { sameAs: project.url } : {}),
   }
 }

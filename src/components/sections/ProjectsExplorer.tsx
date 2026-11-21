@@ -2,22 +2,37 @@
 
 import { useState, type ReactNode } from 'react'
 
+import { interpolate } from '@/i18n/interpolate'
+
 const filters = [
-  { key: 'todos', label: 'Todos' },
-  { key: 'brasil', label: 'Brasil' },
-  { key: 'internacional', label: 'Internacional' },
-  { key: 'shopify', label: 'Shopify & Liquid' },
-  { key: 'deco', label: 'Deco.cx' },
+  { key: 'todos', labelKey: 'all' },
+  { key: 'brasil', labelKey: 'brasil' },
+  { key: 'internacional', labelKey: 'internacional' },
+  { key: 'shopify', labelKey: 'shopify' },
+  { key: 'deco', labelKey: 'deco' },
 ] as const
 
 type FilterKey = (typeof filters)[number]['key']
 
+export interface ProjectsExplorerLabels {
+  filtersLabel: string
+  filters: Record<
+    'all' | 'brasil' | 'internacional' | 'shopify' | 'deco',
+    string
+  >
+  count: string
+  filterAllAnnouncement: string
+  filterAnnouncement: string
+}
+
 export function ProjectsExplorer({
   children,
   total,
+  labels,
 }: {
   children: ReactNode
   total: number
+  labels: ProjectsExplorerLabels
 }) {
   const [active, setActive] = useState<FilterKey>('todos')
 
@@ -27,7 +42,7 @@ export function ProjectsExplorer({
         <div
           className="flex flex-wrap gap-2"
           role="group"
-          aria-label="Filtrar projetos"
+          aria-label={labels.filtersLabel}
         >
           {filters.map((filter) => {
             const isActive = filter.key === active
@@ -44,20 +59,22 @@ export function ProjectsExplorer({
                     : 'border-line/80 bg-transparent text-muted hover:border-accent/50 hover:text-fg'
                 }`}
               >
-                {filter.label}
+                {labels.filters[filter.labelKey]}
               </button>
             )
           })}
         </div>
         <span className="ml-auto font-mono text-[10px] uppercase tracking-[0.1em] text-faint">
-          {total} projetos
+          {interpolate(labels.count, { count: total })}
         </span>
       </div>
 
       <p className="sr-only" aria-live="polite">
         {active === 'todos'
-          ? `Mostrando todos os ${total} projetos`
-          : `Filtrando projetos por ${filters.find((filter) => filter.key === active)?.label}`}
+          ? interpolate(labels.filterAllAnnouncement, { count: total })
+          : interpolate(labels.filterAnnouncement, {
+              label: labels.filters[active],
+            })}
       </p>
 
       <div

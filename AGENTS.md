@@ -12,6 +12,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 Antes de mudanças estruturais, leia [`docs/PLAN.md`](docs/PLAN.md). Ele descreve o objetivo do site, os planos já executados, a arquitetura, os invariantes de conteúdo/SEO/acessibilidade, o checklist de validação e o roadmap.
 
-- Conteúdo vive em `src/data/`; não invente fatos, clientes ou métricas.
+- Conteúdo vive em `src/content/` e traduções de UI/SEO em `src/i18n/messages/`; não invente fatos, clientes ou métricas.
+- Idiomas são registrados em `src/i18n/locales.json`; rotas, sitemap, hreflang, seletor e CV derivam dele.
 - Commits pequenos, em pt-BR ou inglês, seguindo o histórico (`feat:`, `fix:`, `copy:`, `chore:`).
-- Antes de concluir: `npm run lint`, `npm run typecheck`, `npm run build` e teste de navegação (scroll ao topo, reveals, menu mobile).
+- Antes de concluir: `npm run verify` e teste de navegação (pt/en, scroll ao topo, reveals, menu mobile, seletor de idioma).

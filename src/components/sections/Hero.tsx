@@ -1,7 +1,11 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
-import { profile } from '@/data/profile'
-import { getExperienceYears } from '@/lib/dates'
+import type { Content } from '@/content/types'
+import { getExperienceYears } from '@/i18n/format'
+import type { Messages } from '@/i18n/messages/pt'
+import { interpolate } from '@/i18n/messages'
+import { href } from '@/i18n/routing'
 
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import {
@@ -15,8 +19,17 @@ import {
 
 const currentYear = new Date().getFullYear()
 
-export function Hero() {
-  const years = getExperienceYears()
+export function Hero({
+  locale,
+  messages,
+  content,
+}: {
+  locale: string
+  messages: Messages
+  content: Content
+}) {
+  const { profile } = content
+  const years = getExperienceYears(profile.startDate)
   const [headlineBefore, headlineAfter] = profile.headline.split(
     profile.headlineHighlight,
   )
@@ -53,7 +66,8 @@ export function Hero() {
               <span className="mb-4 block font-mono text-[11px] font-normal uppercase tracking-[0.22em] text-accent md:text-xs">
                 {profile.role}
               </span>
-              Luan Lemos<span className="text-accent">.</span>
+              {profile.name}
+              <span className="text-accent">.</span>
             </h1>
 
             <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted md:text-xl">
@@ -65,8 +79,12 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <ButtonLink href="/projetos" variant="accent" icon={<ArrowRight />}>
-                Ver projetos
+              <ButtonLink
+                href={href(locale, 'projects')}
+                variant="accent"
+                icon={<ArrowRight />}
+              >
+                {messages.hero.seeProjects}
               </ButtonLink>
               <ButtonLink
                 href={profile.cvUrl}
@@ -74,7 +92,7 @@ export function Hero() {
                 external
                 icon={<Download />}
               >
-                Currículo
+                {messages.hero.cv}
               </ButtonLink>
               <a
                 href={profile.socials[0].href}
@@ -83,50 +101,62 @@ export function Hero() {
                 className="inline-flex items-center gap-2 rounded-full px-3 py-3 text-sm font-medium text-muted transition-colors hover:text-fg"
               >
                 <LinkedIn className="size-4" />
-                LinkedIn
-                <span className="sr-only">(abre em nova aba)</span>
+                {messages.hero.linkedin}
+                <span className="sr-only">{messages.common.externalLink}</span>
               </a>
             </div>
 
-            <dl className="mt-12 grid max-w-lg grid-cols-3 gap-4 border-t border-line/70 pt-6">
+            <dl
+              aria-label={messages.a11y.stats}
+              className="mt-12 grid max-w-lg grid-cols-3 gap-4 border-t border-line/70 pt-6"
+            >
               <div>
                 <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-                  Experiência
+                  {messages.hero.stats.experience}
                 </dt>
                 <dd className="mt-1.5 whitespace-nowrap font-display text-[17px] font-semibold tracking-tight md:text-2xl">
-                  {years}+ anos
+                  {interpolate(messages.hero.years, { years })}
                 </dd>
               </div>
               <div>
                 <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-                  Especialidade
+                  {messages.hero.stats.specialty}
                 </dt>
                 <dd className="mt-1.5 whitespace-nowrap font-display text-[17px] font-semibold tracking-tight md:text-2xl">
-                  E-commerce
+                  {messages.hero.specialtyValue}
                 </dd>
               </div>
               <div>
                 <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-                  Base
+                  {messages.hero.stats.base}
                 </dt>
                 <dd className="mt-1.5 whitespace-nowrap font-display text-[17px] font-semibold tracking-tight md:text-2xl">
-                  Brasil
+                  {profile.location.split(' · ')[0]}
                 </dd>
               </div>
             </dl>
           </div>
 
-          <div className="animate-rise-delay-2 relative mx-auto w-full max-w-sm lg:mx-0" data-parallax="0.05">
+          <div
+            className="animate-rise-delay-2 relative mx-auto w-full max-w-sm lg:mx-0"
+            data-parallax="0.05"
+          >
             <div
               aria-hidden="true"
               className="absolute -inset-6 rounded-[2.5rem] bg-glow blur-2xl"
             />
 
-            <div className="relative rounded-[1.75rem] border border-line/80 bg-surface/80 p-3 shadow-2xl shadow-black/5 backdrop-blur-xl" data-tilt data-tilt-strength="2">
+            <div
+              className="relative rounded-[1.75rem] border border-line/80 bg-surface/80 p-3 shadow-2xl shadow-black/5 backdrop-blur-xl"
+              data-tilt
+              data-tilt-strength="2"
+            >
               <div className="relative aspect-square overflow-hidden rounded-[1.35rem] bg-surface-2">
                 <Image
                   src={profile.avatar}
-                  alt={`Retrato de ${profile.name}`}
+                  alt={interpolate(messages.hero.photoAlt, {
+                    name: profile.name,
+                  })}
                   fill
                   priority
                   sizes="(min-width: 1024px) 340px, (min-width: 640px) 384px, 80vw"
@@ -145,10 +175,10 @@ export function Hero() {
 
                 <div className="absolute inset-x-4 bottom-4 text-white">
                   <p className="font-mono text-[9px] uppercase tracking-[0.16em] text-white/60">
-                    Atualmente
+                    {messages.hero.current}
                   </p>
                   <p className="mt-1 text-sm font-medium">
-                    Front-end Pleno · Zee.Dog
+                    {messages.hero.currentRole}
                   </p>
                 </div>
               </div>
@@ -157,7 +187,7 @@ export function Hero() {
                 <dl className="grid grid-cols-2 gap-4">
                   <div>
                     <dt className="font-mono text-[9px] uppercase tracking-[0.12em] text-faint">
-                      Base
+                      {messages.hero.base}
                     </dt>
                     <dd className="mt-1 flex items-center gap-1.5 text-[13px] text-fg">
                       <MapPin className="size-3.5 text-accent" />
@@ -166,10 +196,10 @@ export function Hero() {
                   </div>
                   <div>
                     <dt className="font-mono text-[9px] uppercase tracking-[0.12em] text-faint">
-                      Foco
+                      {messages.hero.focus}
                     </dt>
                     <dd className="mt-1 text-[13px] text-fg">
-                      E-commerce & performance
+                      {messages.hero.focusValue}
                     </dd>
                   </div>
                 </dl>
@@ -180,7 +210,7 @@ export function Hero() {
                       href={profile.socials[0].href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="LinkedIn de Luan Lemos (abre em nova aba)"
+                      aria-label={`LinkedIn — ${profile.name} ${messages.a11y.opensInNewTab}`}
                       className="grid size-8 place-items-center rounded-full text-muted transition-colors hover:bg-accent-soft hover:text-fg"
                     >
                       <LinkedIn className="size-4" />
@@ -189,14 +219,16 @@ export function Hero() {
                       href={profile.socials[1].href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label="GitHub de Luan Lemos (abre em nova aba)"
+                      aria-label={`GitHub — ${profile.name} ${messages.a11y.opensInNewTab}`}
                       className="grid size-8 place-items-center rounded-full text-muted transition-colors hover:bg-accent-soft hover:text-fg"
                     >
                       <GitHub className="size-4" />
                     </a>
                   </div>
                   <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint">
-                    portfólio · {currentYear}
+                    {interpolate(messages.hero.portfolio, {
+                      year: currentYear,
+                    })}
                   </span>
                 </div>
               </div>
@@ -204,15 +236,15 @@ export function Hero() {
           </div>
         </div>
 
-        <a
-          href="#sobre"
+        <Link
+          href={`#${messages.home.sections.about}`}
           className="scroll-cue mt-16 hidden items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-faint transition-colors hover:text-fg md:inline-flex"
         >
           <span className="grid size-8 place-items-center rounded-full border border-line/80">
             <ArrowDown className="size-3.5" />
           </span>
-          Role para explorar
-        </a>
+          {messages.hero.scroll}
+        </Link>
       </div>
     </section>
   )

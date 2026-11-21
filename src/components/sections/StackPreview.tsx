@@ -1,34 +1,48 @@
 import Link from 'next/link'
 
-import { techGroups, techIcons } from '@/data/tech'
+import { techIcons } from '@/content'
+import type { Content } from '@/content/types'
+import type { Messages } from '@/i18n/messages/pt'
+import { href } from '@/i18n/routing'
 
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { ArrowRight } from '@/components/ui/icons'
 
-export function StackPreview() {
+export function StackPreview({
+  locale,
+  messages,
+  content,
+}: {
+  locale: string
+  messages: Messages
+  content: Content
+}) {
   return (
-    <section id="stack" className="section border-t border-line/60">
+    <section
+      id={messages.home.sections.stack}
+      className="section border-t border-line/60"
+    >
       <div className="container-page">
         <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
-            index="04"
-            label="Stack"
-            title="Ferramentas do dia a dia."
-            description="A base técnica que uso para colocar interfaces em produção e integrar lojas."
+            index={messages.stack.index}
+            label={messages.stack.label}
+            title={messages.stack.title}
+            description={messages.stack.description}
           />
           <Link
-            href="/stack"
+            href={href(locale, 'stack')}
             className="group inline-flex shrink-0 items-center gap-2 text-sm font-medium text-fg"
           >
-            Ver stack completa
+            {messages.stack.viewAll}
             <ArrowRight className="size-4 text-accent transition-transform group-hover:translate-x-1" />
           </Link>
         </div>
 
         <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {techGroups.map((group) => (
+          {content.techGroups.map((group) => (
             <article
-              key={group.label}
+              key={group.id}
               data-reveal
               className="rounded-2xl border border-line/80 bg-surface p-5"
             >

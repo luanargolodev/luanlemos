@@ -1,13 +1,13 @@
 import type { MetadataRoute } from 'next'
 
-import { profile } from '@/data/profile'
 import { site } from '@/data/site'
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: `${profile.name} — ${profile.role}`,
-    short_name: profile.name,
-    description: site.description,
+    name: `${site.name} — Portfolio`,
+    short_name: site.name,
+    description:
+      'Portfólio de Luan Lemos, desenvolvedor front-end pleno com experiência em e-commerce.',
     start_url: '/',
     display: 'standalone',
     background_color: '#0a0a0c',

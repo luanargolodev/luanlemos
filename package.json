@@ -10,7 +10,9 @@
     "typecheck": "tsc --noEmit",
     "images": "node scripts/optimize-images.mjs",
     "cv": "node scripts/generate-cv.mjs",
-    "brand": "node scripts/generate-brand.mjs"
+    "brand": "node scripts/generate-brand.mjs",
+    "i18n:check": "node scripts/check-i18n.mjs",
+    "verify": "npm run lint && npm run typecheck && npm run i18n:check && npm run build"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

@@ -1,26 +1,36 @@
-import { techGroups, techIcons } from '@/data/tech'
+import { techIcons } from '@/content'
+import type { Content } from '@/content/types'
+import type { Messages } from '@/i18n/messages/pt'
 
-export function TechStack() {
+export function TechStack({
+  messages,
+  content,
+}: {
+  messages: Messages
+  content: Content
+}) {
   return (
-    <section id="stack" className="section border-t border-line/60">
+    <section
+      id={messages.home.sections.stack}
+      className="section border-t border-line/60"
+    >
       <div className="container-page">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <div data-reveal>
-            <p className="eyebrow">Stack detalhada</p>
+            <p className="eyebrow">{messages.stack.label}</p>
             <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight md:text-[2.5rem]">
-              Ferramentas por área.
+              {messages.stack.detailedTitle}
             </h2>
           </div>
           <p className="max-w-xl text-base leading-relaxed text-muted lg:justify-self-end">
-            Agrupadas por onde entram no trabalho: interface, loja, backend e
-            mensuração.
+            {messages.stack.detailedDescription}
           </p>
         </div>
 
         <div className="mt-12 border-t border-line/70">
-          {techGroups.map((group) => (
+          {content.techGroups.map((group) => (
             <div
-              key={group.label}
+              key={group.id}
               data-reveal
               className="grid gap-5 border-b border-line/70 py-8 md:grid-cols-[230px_1fr] md:gap-10 md:py-10"
             >
@@ -28,24 +38,24 @@ export function TechStack() {
                 <h3 className="font-display text-lg font-semibold tracking-tight">
                   {group.label}
                 </h3>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-muted">
+                <p className="mt-1 text-[12px] leading-relaxed text-muted">
                   {group.description}
                 </p>
               </div>
 
-              <ul className="flex flex-wrap items-start gap-2.5 self-start">
+              <ul className="grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
                 {group.items.map((item) => (
                   <li
                     key={item.name}
-                    className="flex items-center gap-2.5 rounded-xl border border-line/70 bg-surface px-3 py-2 text-[13px] text-fg transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
+                    className="flex items-center gap-2.5 rounded-lg border border-line/70 bg-surface px-3 py-2 text-[13px] text-muted"
                   >
                     <img
                       src={techIcons[item.icon]}
                       alt=""
-                      width={20}
-                      height={20}
+                      width={18}
+                      height={18}
                       loading="lazy"
-                      className="size-5 shrink-0 object-contain"
+                      className="size-[18px] object-contain"
                     />
                     {item.name}
                   </li>
@@ -54,14 +64,6 @@ export function TechStack() {
             </div>
           ))}
         </div>
-
-        <p
-          data-reveal
-          className="mt-6 font-mono text-[10px] uppercase tracking-[0.12em] text-faint"
-        >
-          Sempre estudando performance, acessibilidade e arquitetura de
-          front-end.
-        </p>
       </div>
     </section>
   )

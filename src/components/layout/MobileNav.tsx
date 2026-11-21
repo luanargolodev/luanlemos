@@ -4,39 +4,56 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { useEffect, useId, useRef, useState, type CSSProperties } from 'react'
 
+import { LanguageSwitcher } from '@/components/i18n/LanguageSwitcher'
+import type { LocaleMeta } from '@/i18n/config'
+import { matchPathname, navKeyForRoute } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 
+import type { NavItem } from './DesktopNav'
 import { ThemeToggle } from './ThemeToggle'
 
-interface NavLink {
-  href: string
-  label: string
-}
-
 interface MobileNavProps {
-  links: readonly NavLink[]
-  cvUrl: string
-}
-
-function isActive(pathname: string, href: string) {
-  if (href === '/') return pathname === '/'
-  if (href === '/projetos' && pathname.startsWith('/projeto/')) return true
-  return pathname === href || pathname.startsWith(`${href}/`)
+  items: NavItem[]
+  navLabel: string
+  locale: string
+  locales: LocaleMeta[]
+  cvWebHref: string
+  cvPdfHref: string
+  labels: {
+    openMenu: string
+    closeMenu: string
+    theme: string
+    cvWeb: string
+    cvWebHint: string
+    cvPdf: string
+    cvPdfHint: string
+    language: string
+    languageNav: string
+    currentLanguage: string
+  }
 }
 
 function menuItemStyle(index: number) {
   return { '--menu-index': index } as CSSProperties
 }
 
-export function MobileNav({ links, cvUrl }: MobileNavProps) {
+export function MobileNav({
+  items,
+  navLabel,
+  locale,
+  locales,
+  cvWebHref,
+  cvPdfHref,
+  labels,
+}: MobileNavProps) {
   const pathname = usePathname()
   const [openPath, setOpenPath] = useState<string | null>(null)
   const panelId = useId()
   const buttonRef = useRef<HTMLButtonElement>(null)
 
-  // Closing when the route changes keeps the panel from surviving a
-  // back/forward navigation, without syncing state inside an effect.
   const open = openPath !== null && openPath === pathname
+  const match = matchPathname(pathname)
+  const activeKey = match ? navKeyForRoute(match.key) : null
 
   const close = () => setOpenPath(null)
   const toggle = () => setOpenPath(open ? null : pathname)
@@ -63,7 +80,7 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
         onClick={toggle}
         aria-expanded={open}
         aria-controls={panelId}
-        aria-label={open ? 'Fechar menu' : 'Abrir menu'}
+        aria-label={open ? labels.closeMenu : labels.openMenu}
         className="grid size-9 cursor-pointer place-items-center rounded-full border border-line/70 text-muted transition-colors hover:border-accent/50 hover:text-fg"
       >
         <span aria-hidden="true" className="menu-icon" data-open={open}>
@@ -80,14 +97,13 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
         inert={!open}
         className="mobile-menu-panel absolute inset-x-0 top-16 max-h-[calc(100svh-4rem)] overflow-y-auto border-b border-line bg-canvas px-5 py-5 shadow-2xl"
       >
-        <nav aria-label="Navegação principal" className="flex flex-col">
-          {links.map((link, index) => {
-            const active = isActive(pathname, link.href)
-
+        <nav aria-label={navLabel} className="flex flex-col">
+          {items.map((item, index) => {
+            const active = item.key === activeKey
             return (
               <Link
-                key={link.href}
-                href={link.href}
+                key={item.key}
+                href={item.href}
                 onClick={close}
                 aria-current={active ? 'page' : undefined}
                 style={menuItemStyle(index)}
@@ -96,7 +112,7 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
                   active ? 'text-accent' : 'text-fg',
                 )}
               >
-                {link.label}
+                {item.label}
                 <span
                   aria-hidden="true"
                   className={cn(
@@ -113,40 +129,59 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
 
         <div
           className="mobile-menu-item mt-5 grid grid-cols-2 gap-2"
-          style={menuItemStyle(links.length)}
+          style={menuItemStyle(items.length)}
         >
           <Link
-            href="/curriculo"
+            href={cvWebHref}
             onClick={close}
             className="inline-flex flex-col items-center justify-center gap-0.5 rounded-xl border border-line bg-surface px-3 py-3 text-[13px] font-semibold text-fg"
           >
-            Currículo
+            {labels.cvWeb}
             <span className="font-mono text-[9px] font-normal uppercase tracking-[0.12em] text-muted">
-              Versão web
+              {labels.cvWebHint}
             </span>
           </Link>
           <a
-            href={cvUrl}
+            href={cvPdfHref}
             target="_blank"
             rel="noopener noreferrer"
             onClick={close}
             className="inline-flex flex-col items-center justify-center gap-0.5 rounded-xl bg-fg px-3 py-3 text-[13px] font-semibold text-canvas"
           >
-            Currículo
+            {labels.cvPdf}
             <span className="font-mono text-[9px] font-normal uppercase tracking-[0.12em] text-canvas/70">
-              Versão PDF
+              {labels.cvPdfHint}
             </span>
           </a>
         </div>
 
         <div
+          className="mobile-menu-item mt-4 border-t border-line/60 pt-4"
+          style={menuItemStyle(items.length + 1)}
+        >
+          <p className="mb-2 font-mono text-[9px] uppercase tracking-[0.14em] text-faint">
+            {labels.language}
+          </p>
+          <LanguageSwitcher
+            locale={locale}
+            locales={locales}
+            labels={{
+              language: labels.language,
+              languageNav: labels.languageNav,
+              currentLanguage: labels.currentLanguage,
+            }}
+            variant="inline"
+          />
+        </div>
+
+        <div
           className="mobile-menu-item mt-4 flex items-center justify-between border-t border-line/60 pt-4"
-          style={menuItemStyle(links.length + 1)}
+          style={menuItemStyle(items.length + 2)}
         >
           <span className="font-mono text-[9px] uppercase tracking-[0.14em] text-faint">
-            Tema
+            {labels.theme}
           </span>
-          <ThemeToggle />
+          <ThemeToggle label={labels.theme} />
         </div>
       </div>
     </div>

@@ -8,11 +8,11 @@
 
 ## TL;DR para agentes (English)
 
-This repository is the personal portfolio of **Luan Lemos**, a Brazilian front-end developer specialised in e-commerce. Its single job is to help recruiters and peers understand, in under 30 seconds, who he is, what he has shipped, and how to contact him — and to make that same information readable by search engines, ATS software and LLMs.
+This repository is the personal portfolio of **Luan Lemos**, a Brazilian front-end developer specialised in e-commerce. Its job is to help recruiters and peers understand, in under 30 seconds, who he is, what he has shipped, and how to contact him — and to make that same information readable by search engines, ATS software and LLMs.
 
-The site is a **statically rendered Next.js 16 App Router** project. All copy and structured content live in `src/data/`; pages compose that data. Never invent facts, metrics or clients. Keep it accessible (WCAG 2.1 AA, axe = 0), fast (Lighthouse ≥ 95), Portuguese-only (pt-BR), and motion-safe (`prefers-reduced-motion`). Deploy is blocked on the Vercel account, not on the code.
+The site is a **statically rendered Next.js 16 App Router** project with **two locales, Portuguese (`/pt`) and English (`/en`)**, using a small, typed, server-only i18n layer. All copy lives in `src/content` and `src/i18n/messages`; facts live in `src/content/facts.ts`. Never invent facts, metrics or clients. Keep it accessible (WCAG 2.1 AA, axe = 0), fast (Lighthouse ≥ 90, ideally 95+), fully translated (pt-BR + en), and motion-safe.
 
-Read sections 4–7 before changing code, and section 8 for the roadmap.
+Read sections 4–7 before changing code, section 8 for the roadmap, and section 10 before adding a language.
 
 ---
 
@@ -20,40 +20,37 @@ Read sections 4–7 before changing code, and section 8 for the roadmap.
 
 ### 1.1 Em uma frase
 
-Um portfólio de **front-end de e-commerce** que prova, com trabalho real, que o Luan entrega lojas rápidas, acessíveis e fáceis de manter — e que facilita o contato de recrutadores, times de produto e pares.
+Um portfólio de **front-end de e-commerce**, em português e inglês, que prova com trabalho real que o Luan entrega lojas rápidas, acessíveis e fáceis de manter — e que facilita o contato de recrutadores, times de produto e pares.
 
 ### 1.2 Por que ele existe
 
 - **Recrutamento:** substituir um currículo estático por evidência de trabalho (cases, stack, decisões).
-- **Networking:** dar contexto a quem chega pelo LinkedIn/GitHub antes de uma conversa.
-- **Descoberta:** ser encontrável no Google e legível por ATS, LLMs e agentes (`/llms.txt`, `/cv.json`, HTML semântico).
+- **Alcance internacional:** permitir que recrutadores e empresas de fora leiam tudo em inglês, com URLs e currículo próprios.
+- **Descoberta:** ser encontrável no Google e legível por ATS, LLMs e agentes (`/llms.txt`, `/cv.json`, HTML semântico, hreflang).
 - **Autoria:** mostrar identidade visual e cuidado de execução, já que o site é, ele mesmo, uma peça de front-end.
 
-### 1.3 Público e o que cada um precisa
+### 1.3 Público
 
 | Público | Precisa entender | Onde encontra |
 | --- | --- | --- |
-| Recrutador técnico | Cargo, senioridade, stack, tempo de experiência, PDF do CV | Home, `/sobre`, `/experiencia`, CV no header |
-| Recrutador não técnico | O que ele faz, para quais marcas, se está disponível | Hero, cards de projeto, `/contato` |
-| Líder de produto/engenharia | Como ele pensa e resolve problemas reais | `/projeto/[slug]` (contexto, desafio, abordagem, resultado) |
+| Recrutador técnico | Cargo, senioridade, stack, tempo de experiência, PDF do CV | Home, `/pt/sobre` ou `/en/about`, `/pt/experiencia`, CV no header |
+| Recrutador não técnico | O que ele faz, para quais marcas, se está disponível | Hero, cards de projeto, contato |
+| Liderança de produto/engenharia | Como ele pensa e resolve problemas reais | `/projeto/[slug]` (contexto, desafio, abordagem, resultado) |
 | Par / comunidade | Stack, posicionamento, links | `/stack`, GitHub, LinkedIn |
-| Máquina (Google, ATS, LLM) | Fatos estruturados, rotas canônicas, JSON | `sitemap.xml`, JSON-LD, `/llms.txt`, `/cv.json` |
+| Máquina (Google, ATS, LLM) | Fatos estruturados, rotas canônicas, idioma | `sitemap.xml`, JSON-LD, `/llms.txt`, `/cv.json` |
 
 ### 1.4 Métricas de sucesso
 
-Não há métricas inventadas nem analytics histórico. O sucesso é avaliado por:
-
-1. **Clareza em 30s:** em uma olhada no hero + header, dá para dizer cargo, especialidade, stack e como baixar o CV.
+1. **Clareza em 30s:** cargo, especialidade, stack e download do CV visíveis de imediato.
 2. **Profundidade:** 8 cases reais navegáveis, com papel, stack e resultado.
-3. **Qualidade técnica:** Lighthouse ≥ 95 nas quatro categorias (home = 100 em medição local) e axe = 0 violações em dark, light e mobile.
-4. **Legibilidade por máquina:** todas as rotas estáticas, um `h1` por página, canonical/OG únicos, JSON-LD válido, `sitemap.xml` e `llms.txt` completos.
+3. **Qualidade técnica:** Lighthouse ≥ 90 nas quatro categorias (home/desktop em 100 na medição local) e axe = 0 em pt/en, dark/light, mobile.
+4. **Legibilidade por máquina:** rotas estáticas, um `h1` por página, canonical/OG/hreflang únicos, JSON-LD válido, sitemap e `llms.txt`.
 5. **Conversão:** contato direto a um clique (e-mail, WhatsApp, LinkedIn, currículo).
 
-### 1.5 Fora de escopo (até segunda ordem)
+### 1.5 Fora de escopo
 
 - Blog, CMS ou painel administrativo.
-- Formulário de contato com backend (o contato é por links diretos).
-- Versão em inglês (não decidida).
+- Formulário de contato com backend.
 - Página de serviços/freelancer e depoimentos.
 - Deploy automatizado dentro deste workspace (depende de conta/DNS externos).
 
@@ -61,42 +58,43 @@ Não há métricas inventadas nem analytics histórico. O sucesso é avaliado po
 
 ## 2. Plano inicial (o que foi combinado no começo)
 
-> Não existia um arquivo de plano versionado. Esta seção reconstrói o plano original a partir do PR #1, dos READMEs e dos commits `cab36c0` em diante. Trate como o contrato fundador do site.
+> Não existia um arquivo de plano versionado. Esta seção reconstrói o plano original a partir do PR #1, dos READMEs e dos commits `cab36c0` em diante.
 
 ### 2.1 Ponto de partida
 
-O projeto nasceu como um **SPA em React + Vite** (commit `7e8a97e`, jul/2026): hero, sobre, projetos com modal de imagem, skills, timeline e contato, com tema claro/escuro e paleta indigo (`ab8c4a6`). Funcionava como cartão de visitas, mas tinha limites: uma única página, pouco SEO, nenhum currículo estruturado e nenhuma leitura por ATS/IA.
+O projeto nasceu como um **SPA em React + Vite** (commit `7e8a97e`, jul/2026): hero, sobre, projetos com modal, skills, timeline e contato, com tema claro/escuro e paleta indigo. Funcionava como cartão de visitas, mas tinha limites: uma única página, pouco SEO, nenhum currículo estruturado e nenhuma leitura por ATS/IA.
 
 ### 2.2 Objetivo do plano de estruturação
 
-Recomeçar o site em **Next.js App Router com renderização estática**, mantendo o conteúdo e a identidade, mas com foco explícito em:
+Recomeçar o site em **Next.js App Router estático**, com foco em:
 
 1. **Recrutamento** — hierarquia clara, CV acessível, prova de trabalho.
 2. **SEO e descoberta** — metadata, OG, JSON-LD, sitemap, robots e `llms.txt`.
-3. **Conteúdo centralizado** — todo o texto em `src/data/`, sem duplicação entre seções.
+3. **Conteúdo centralizado** — todo o texto em `src/content`, sem duplicação.
 4. **Execução de front-end** — performance, acessibilidade, dark/light e motion com propósito.
 5. **Marca própria** — símbolo de código/terminal, tipografia e paleta consistentes.
 
-### 2.3 Requisitos não-negociáveis definidos na época
+### 2.3 Requisitos não-negociáveis
 
-- **Estático por padrão:** todo o conteúdo principal no HTML, sem dependência de JS para ler.
+- **Estático por padrão:** conteúdo principal no HTML, sem dependência de JS para ler.
 - **Acessível:** WCAG 2.1 AA, foco visível, skip link, `prefers-reduced-motion`.
 - **Rápido:** imagens WebP com `sizes`, blur placeholder e orçamento de performance.
 - **Honesto:** nada de métricas, clientes ou resultados inventados.
-- **Português do Brasil**, tom direto e profissional, sem superlativos de marketing.
+- **Português do Brasil** como idioma base; inglês completo como segundo idioma.
 - **Currículo em três formatos** a partir do mesmo conteúdo: web, PDF (ATS) e JSON.
 
 ### 2.4 Entregáveis previstos e o que virou realidade
 
 | Entregável do plano | Status | Onde está |
 | --- | --- | --- |
-| Home com hero, sobre, experiência, projetos, stack, contato | Entregue (evoluiu para home resumida + páginas) | `src/app/(site)/page.tsx` e previews |
-| Conteúdo centralizado | Entregue | `src/data/*` |
-| SEO técnico | Entregue e ampliado | `src/lib/seo.ts`, `sitemap.ts`, `robots.ts`, `llms.txt` |
-| Currículo web + PDF + JSON | Entregue | `/curriculo`, `public/cv/…pdf`, `/cv.json`, `scripts/generate-cv.mjs` |
-| Motion layer | Entregue | `src/components/motion/MotionEffects.tsx`, `globals.css` |
+| Home com hero, sobre, experiência, projetos, stack, contato | Entregue (home resumida + páginas) | `src/app/[locale]/(site)/[[...path]]/page.tsx` e views |
+| Conteúdo centralizado | Entregue | `src/content/*`, `src/i18n/messages/*` |
+| SEO técnico | Entregue e ampliado (multilíngue) | `src/lib/seo.ts`, `sitemap.ts`, `robots.ts`, `llms.txt` |
+| Currículo web + PDF + JSON | Entregue nos dois idiomas | `/pt/curriculo`, `/en/resume`, `public/cv/*.pdf`, `/cv.json` |
+| Motion layer | Entregue | `MotionEffects`, `globals.css` |
 | Marca | Entregue | `src/app/icon.svg`, `scripts/generate-brand.mjs` |
-| Páginas dedicadas e cases | Entregue na fase 6 | `(site)/sobre`, `experiencia`, `projetos`, `projeto/[slug]`, `stack`, `contato` |
+| Páginas dedicadas e cases | Entregue | `sobre`, `experiencia`, `projetos`, `projeto/[slug]`, `stack`, `contato` |
+| i18n pt/en | Entregue | `src/i18n`, `src/content`, `src/proxy.ts`, seletor de idioma |
 | Deploy em produção | **Pendente (bloqueio externo)** | Seção 8.1 |
 
 ---
@@ -105,24 +103,26 @@ Recomeçar o site em **Next.js App Router com renderização estática**, manten
 
 | Fase | Quando | Commit(s) | Plano / escopo | Resultado |
 | --- | --- | --- | --- | --- |
-| 0. v1 SPA | jul/2026 | `7e8a97e`, `49a3fa2`, `ab8c4a6` | Portfólio em React + Vite, uma página, modal de projetos, tema e paleta indigo | Base visual e de conteúdo; sem SEO/ATS |
-| 1. Rebuild Next.js | 20/11/2026 | `cab36c0` | Reestruturar em Next.js App Router estático, foco recrutador, dados em `src/data`, SEO, fontes e analytics | Fundação atual do site |
-| 2. Projetos reais | 20/11/2026 | `87108f5`, `7a06796` | Atualizar screenshots, adicionar lojas internacionais e case Nannacay | 8 cases com dados reais |
-| 3. Motion | 20/11/2026 | `8b8666b` | Reveals no scroll, marquee, tilt/spotlight, parallax, glow, progresso de leitura | Site com movimento sem perder legibilidade |
-| 4. Currículo/ATS | 20/11/2026 | `b959b8c`, `5eefb60`, `3f10269`, `4ad94c7`, `7331772` | CV web, PDF e JSON; dropdown no header; palavras-chave para Gupy/ATS | 3 formatos sincronizados |
-| 5. Marca e polimento | 20–21/11/2026 | `495ce66`, `bef17ff`, `b866bf2`, `7c3e414`, `2ec6011`, `663a886`, `35802c2` | Cursor/ícones, chips, back-to-top, nova marca, skills de BFF/GTM/GA4, copy de networking | Identidade e acabamento |
-| 6. Páginas SEO + cases | 21/11/2026 | `23c704f` | Home resumida; `/sobre`, `/experiencia`, `/projetos`, `/projeto/[slug]`, `/stack`, `/contato`; filtros; breadcrumbs; JSON-LD por página; sitemap/llms | Arquitetura editorial atual |
-| 7. Correções de navegação | 21/11/2026 | `2c54c71` | Reveals reinicializados por rota; scroll ao topo em navegação client-side | Fim das “páginas pretas” e do scroll residual |
-| 8. Menu mobile | 21/11/2026 | `26b8d19` | Painel com wipe + stagger, ícone hambúrguer↔X, `inert`, foco no Escape, fecha ao trocar de rota | Menu suave e acessível |
+| 0. v1 SPA | jul/2026 | `7e8a97e`, `49a3fa2`, `ab8c4a6` | Portfólio React + Vite, uma página, modal, tema, paleta indigo | Base visual e de conteúdo |
+| 1. Rebuild Next.js | 20/11/2026 | `cab36c0` | Next.js App Router estático, foco recrutador, dados centralizados, SEO, fontes, analytics | Fundação atual |
+| 2. Projetos reais | 20/11/2026 | `87108f5`, `7a06796` | Screenshots, lojas internacionais e case Nannacay | 8 cases com dados reais |
+| 3. Motion | 20/11/2026 | `8b8666b` | Reveals, marquee, tilt/spotlight, parallax, glow, progresso | Site com movimento |
+| 4. Currículo/ATS | 20/11/2026 | `b959b8c`, `5eefb60`, `3f10269`, `4ad94c7`, `7331772` | CV web, PDF e JSON; dropdown; palavras-chave Gupy/ATS | 3 formatos sincronizados |
+| 5. Marca e polimento | 20–21/11/2026 | `495ce66`, `bef17ff`, `b866bf2`, `7c3e414`, `2ec6011`, `663a886`, `35802c2` | Cursor, chips, back-to-top, marca, skills BFF/GTM/GA4, copy | Identidade e acabamento |
+| 6. Páginas SEO + cases | 21/11/2026 | `23c704f` | Home resumida; páginas dedicadas; filtros; breadcrumbs; JSON-LD; sitemap/llms | Arquitetura editorial |
+| 7. Correções de navegação | 21/11/2026 | `2c54c71` | Reveals por rota; scroll ao topo; fim das “páginas pretas” | Navegação estável |
+| 8. Menu mobile | 21/11/2026 | `26b8d19` | Wipe, stagger, ícone hambúrguer↔X, inert, foco, fecha na rota | Menu suave e acessível |
+| 9. Documentação | 21/11/2026 | `bcfb40a`, `9091b3a` | `docs/PLAN.md`, README e AGENTS; plano histórico e roadmap | Contexto para agentes |
+| 10. i18n pt/en | 21/11/2026 | _(este trabalho)_ | Rotas localizadas, dicionários tipados, seletor, hreflang, sitemap, OG, CV/PDF em dois idiomas | Site bilíngue |
 
-### 3.1 O que cada fase ensinou (decisões que não devem ser desfeitas)
+### 3.1 O que cada fase ensinou
 
-- **Fase 1:** dados em TypeScript são suficientes; não vale introduzir CMS para um site pessoal.
-- **Fase 3:** motion precisa ser progressivo — sem JS e com `prefers-reduced-motion`, tudo continua visível e legível.
-- **Fase 5:** microdetalhes (cursor, foco, ícones, marca) mudam a percepção de acabamento mais do que novas seções.
-- **Fase 6:** uma página única limita SEO e narrativa; separar em páginas + cases melhorou descoberta e profundidade, mantendo as âncoras antigas na home por compatibilidade.
-- **Fase 7:** em App Router, efeitos globais precisam reagir ao `pathname`; revelações e scroll não podem rodar só no primeiro mount.
-- **Fase 8:** menu mobile não deve desmontar; animar `data-open` evita saltos, e o estado aberto precisa ser derivado da rota para não sobreviver ao back/forward.
+- **Fase 1:** dados TypeScript são suficientes; não vale introduzir CMS para um site pessoal.
+- **Fase 3:** motion precisa ser progressivo — sem JS e com `prefers-reduced-motion`, tudo continua visível.
+- **Fase 6:** uma página única limita SEO; páginas + cases melhoraram descoberta, mantendo âncoras antigas.
+- **Fase 7:** efeitos globais precisam reagir ao `pathname`; revelações e scroll não podem rodar só no primeiro mount.
+- **Fase 8:** menu mobile não deve desmontar; animar `data-open` evita saltos e o estado aberto deve ser derivado da rota.
+- **Fase 10:** i18n não pode entrar no bundle do cliente; texto no servidor e props para componentes client mantêm o JS praticamente igual. Hreflang/canonical/sitemap precisam ser gerados dos mesmos dados das rotas.
 
 ---
 
@@ -132,125 +132,130 @@ Recomeçar o site em **Next.js App Router com renderização estática**, manten
 
 | Rota | Papel | Renderização |
 | --- | --- | --- |
-| `/` | Resumo com hero, sobre/experiência/projetos/stack em preview, CTA e âncoras antigas | Estática |
-| `/sobre` | Perfil completo, formação, princípios, skills | Estática |
-| `/experiencia` | Destaques (BFF, internacional, analytics), timeline, certificações | Estática |
-| `/projetos` | Lista dos 8 cases com filtros por categoria | Estática + filtro client-side |
-| `/projeto/[slug]` | Case: capa, cliente, ano, papel, stack, contexto, desafio, abordagem, resultado | SSG (`generateStaticParams`) |
-| `/stack` | Grupos de tecnologias + aplicação prática | Estática |
-| `/contato` | Canais diretos, WhatsApp, CV | Estática |
-| `/curriculo` | Currículo web sem header/footer, pensado para ATS e agentes | Estática |
-| `/cv.json` | Currículo estruturado | Route handler estático |
-| `/llms.txt` | Resumo do perfil e links para agentes/LLMs | Route handler estático |
-| `/sitemap.xml` | 16 URLs (7 páginas + 8 cases + PDF) | Estática |
-| `/robots.txt` | Crawlers liberados, incluindo IA | Estática |
-| `/opengraph-image`, `/twitter-image`, `/icon.svg`, `/apple-icon.png` | Imagens sociais e ícones | Estática |
+| `/` | Detecta idioma (cookie/`Accept-Language`) para humanos; bots recebem pt | Proxy; 200/307 |
+| `/pt`, `/en` | Home resumida | Estática |
+| `/pt/sobre`, `/en/about` | Perfil, princípios, formação | Estática |
+| `/pt/experiencia`, `/en/experience` | Destaques, timeline, certificações | Estática |
+| `/pt/projetos`, `/en/projects` | 8 cases com filtros | Estática + filtro client-side |
+| `/pt/projeto/[slug]`, `/en/project/[slug]` | Case individual | SSG |
+| `/pt/stack`, `/en/stack` | Tecnologias e aplicação | Estática |
+| `/pt/contato`, `/en/contact` | Contato | Estática |
+| `/pt/curriculo`, `/en/resume` | Currículo web (sem shell) | Estática; rewrite para `/cv` |
+| `/pt/cv.json`, `/en/cv.json` | Currículo estruturado | Route handler estático |
+| `/pt/llms.txt`, `/en/llms.txt` | Resumo para LLMs | Route handler estático |
+| `/sitemap.xml`, `/robots.txt` | 30 URLs com hreflang | Estática |
+| `/pt/opengraph-image`, `/en/opengraph-image` | OG localizada | Estática |
+| `/pt/cv`, `/en/cv` | Alias interno do CV (redireciona para o caminho público) | Redirect |
 
 Slugs dos cases: `zee-dog`, `zee-now`, `blog-zee-now`, `zee-dog-japao`, `zee-dog-europa`, `zee-dog-australia`, `zee-dog-peru`, `nannacay`.
 
 ### 4.2 Arquitetura
 
 ```text
-src/app/
-  layout.tsx              # html/body, fontes, tema, ScrollToTop, MotionEffects, BackToTop, JSON-LD global
-  (site)/                 # shell com SiteHeader + main#conteudo + SiteFooter
-    page.tsx
-    sobre|experiencia|projetos|stack|contato/page.tsx
-    projeto/[slug]/page.tsx
-  curriculo/page.tsx      # fora do shell (documento)
-  sitemap.ts robots.ts llms.txt/route.ts cv.json/route.ts
-src/components/
-  layout/                 # header, DesktopNav, MobileNav, CvMenu, ThemeToggle, footer, LogoMark, ScrollToTop, BackToTop
-  sections/               # Hero, previews, Experience, TechStack, Certifications, Contact, ProjectsExplorer
-  ui/                     # PageHero, PageCTA, Breadcrumbs, ProjectCard, ButtonLink, Tag, CopyEmail, icons
-  motion/MotionEffects.tsx
-  seo/JsonLd.tsx
-src/data/                 # conteúdo (fonte da verdade)
-src/lib/                  # seo.ts, dates.ts, utils.ts
-scripts/                  # imagens, CV em PDF, marca
+src/app/[locale]/
+  layout.tsx                 # root layout: lang, tema, fontes, motion, JSON-LD global
+  (site)/
+    layout.tsx               # header + main + footer
+    [[...path]]/page.tsx     # resolve rota + metadata + view
+  cv/page.tsx                # currículo sem header/footer
+  cv.json/route.ts
+  llms.txt/route.ts
+  opengraph-image.tsx
+  not-found.tsx
+src/app/global-not-found.tsx
+src/app/sitemap.ts robots.ts manifest.ts
+src/proxy.ts                 # matcher "/" apenas
+src/views/                   # Home, About, Experience, Projects, Project, Stack, Contact, Resume
+src/components/              # layout, sections, ui, i18n, seo, motion
+src/content/                 # facts + pt/en + types + getContent
+src/i18n/                    # locales.json, routing, messages pt/en, format
+scripts/                     # imagens, CV, marca, check-i18n
 ```
 
-**Fluxo:** rota (server component) → importa dados de `src/data` → compõe seções/UI → metadata e JSON-LD em `src/lib/seo.ts` → build estático. Interatividade fica isolada em componentes `'use client'` (nav, tema, filtros, menu, motion).
+**Fluxo:** rota → `getContent(locale)`/`getMessages(locale)` no servidor → view → metadata/JSON-LD → HTML estático. Componentes interativos recebem apenas as strings necessárias via props. O dicionário nunca entra no bundle do cliente.
 
-### 4.3 Conteúdo: fonte da verdade
+### 4.3 Conteúdo e i18n: fonte da verdade
 
-| Arquivo | Contém | Observações |
-| --- | --- | --- |
-| `src/data/profile.ts` | Nome, cargo, headline, bio, contato, local, disponibilidade, formação, início de carreira, avatar, CV | `startDate: '2022-06'` alimenta o cálculo de tempo de experiência |
-| `src/data/experience.ts` | 3 experiências com cargo, empresa, período, resumo, conquistas e stack | Atual: Zee.Dog · Grupo PetzCobasi desde 2025-05 |
-| `src/data/projects.ts` | 8 projetos com slug, cliente, ano, resumo, outcome, stack, categorias, imagem, URL e `caseStudy` | Cada case tem `role`, `context[]`, `challenge`, `approach[]`, `highlights[]` |
-| `src/data/tech.ts` | Grupos de tecnologias + mapa de ícones | Usado em `/stack`, home e `/llms.txt` |
-| `src/data/certifications.ts` | Formação, hackathons e reconhecimentos | Deco.cx, 2023–2025 |
-| `src/data/resume.ts` | Objetivo, resumo, competências e projetos do currículo | Alimenta `/curriculo`, `/cv.json` e `/llms.txt` |
-| `src/data/site.ts` | URL canônica, nome, título, descrição, keywords, navegação, alt do OG | `NEXT_PUBLIC_SITE_URL` sobrescreve a URL |
-| `src/data/image-blur.json` | Blur placeholders gerados | Não editar à mão |
+| Arquivo | Contém |
+| --- | --- |
+| `src/i18n/locales.json` | Única configuração: code, label, bandeira, `htmlLang`, `ogLocale`, `dateLocale`, `cvPath`, `cvFile`, rotas localizadas |
+| `src/content/facts.ts` | Fatos compartilhados: slugs, anos, stack, imagens, URLs, empresas, certificações, perfil |
+| `src/content/pt.ts`, `en.ts` | Textos estruturados: perfil, experiências, 8 cases, stack, certificações, CV |
+| `src/content/types.ts` | Contrato de `Content`, `Project`, `Experience`, `Resume`, etc. |
+| `src/content/index.ts` | `getContent(locale)` — carrega só o idioma ativo, mescla fatos + texto |
+| `src/i18n/messages/pt.ts`, `en.ts` | UI, labels, metadados, mensagens de acessibilidade |
+| `src/i18n/messages/index.ts` | `getMessages(locale)` com fallback para pt |
+| `src/i18n/routing.ts` | `href()`, `matchPathname()`, alternates |
+| `src/i18n/format.ts` | Datas, duração e meses via `Intl` |
+| `src/data/image-blur.json` | Blur placeholders gerados |
 
 Regra: **se um fato não está no repositório ou não foi confirmado pelo Luan, ele não entra no site** — especialmente números, cargos, clientes e resultados.
 
 ### 4.4 Design system
 
-- **Tailwind CSS 4 CSS-first**, tokens em `src/app/globals.css` (`@theme inline`).
-- Tokens semânticos: `canvas`, `surface`, `surface-2`, `line`, `fg`, `muted`, `faint`, `accent`, `accent-strong`, `accent-soft`, `accent-contrast`, `status`, `glow`.
-- **Dark/light** via classe `.dark` + `next-themes` (`defaultTheme="system"`, sem flash).
-- Tipografia: **Bricolage Grotesque** (display), **Inter** (texto), **JetBrains Mono** (labels, metadados).
-- Componentes base: `PageHero`, `PageCTA`, `Breadcrumbs`, `ProjectCard`, `SectionHeading`, `Tag`, `ButtonLink`, `CopyEmail`, `LogoMark`.
-- Marca: “L” + prompt de terminal (`>`), tile squircle indigo; assets gerados por `npm run brand`.
-- Estética: grid sutil, bordas de 1px, cantos arredondados, muito espaço, metadados em mono caixa-alta.
+- **Tailwind CSS 4 CSS-first**, tokens em `src/app/globals.css`.
+- Tokens: `canvas`, `surface`, `surface-2`, `line`, `fg`, `muted`, `faint`, `accent`, `accent-strong`, `accent-soft`, `accent-contrast`, `status`, `glow`.
+- **Dark/light** via `.dark` + `next-themes` (system, sem flash).
+- Tipografia: Bricolage Grotesque (display), Inter (texto), JetBrains Mono (labels).
+- Marca: “L” + prompt de terminal (`>`), tile squircle indigo.
+- Seletor de idioma: botão compacto no header (bandeira + sigla), painel com links reais e bandeiras SVG inline; versão inline no menu mobile e no CV.
 
 ### 4.5 Motion
 
-- `MotionEffects` (client) roda por `pathname`: revela `[data-reveal]` com `IntersectionObserver`, com stagger por grupo; também progresso de leitura, parallax, brilho do hero, tilt/spotlight nos cards.
-- `ScrollToTop` força o topo em navegação client-side, com `history.scrollRestoration = 'manual'`, `scroll-behavior: auto` temporário e guarda para links com hash.
-- `BackToTop` aparece após 640px, respeita reduced motion.
-- Navegação ativa por `usePathname` (com `/projeto/*` mantendo “Projetos” ativo).
-- Menu mobile: sempre montado; `data-open` controla wipe (`clip-path`), stagger por `--menu-index` e morph do ícone (3 spans via `translate`/`rotate`/`scale`); `inert`/`aria-hidden` fechado; `Escape` fecha e devolve foco; fecha sozinho ao trocar de rota.
-- **Sem JS ou com `prefers-reduced-motion`, o conteúdo continua visível e o menu abre/fecha instantaneamente.**
+- `MotionEffects` roda por `pathname`: reveals com `IntersectionObserver`, stagger, progresso, parallax, glow, tilt/spotlight.
+- `ScrollToTop` força o topo em navegação client-side, com `scrollRestoration = 'manual'` e guarda para hash.
+- Menu mobile: wipe (`clip-path`), stagger, morph do ícone, `inert`, `Escape` devolve foco, fecha na troca de rota.
+- Seletor de idioma: painel animado, `inert` fechado, links reais, `hreflang`, `lang`, `aria-current`.
+- Com `prefers-reduced-motion`, transições são desligadas; sem JS, o conteúdo permanece visível.
 
 ### 4.6 SEO e dados estruturados
 
-- Metadata global e templates em `src/lib/seo.ts`; cada página define título, descrição, canonical e OG próprios.
-- OG image dinâmica (1200×630); cases usam a capa do projeto como OG.
-- JSON-LD: `Person`, `WebSite` e `ProfilePage` globais; por página: `AboutPage`, `CollectionPage` + `ItemList`, `CreativeWork`, `ContactPage`, `BreadcrumbList`.
-- `sitemap.xml` gerado de dados (inclui cases e PDF).
-- `robots.txt` libera buscadores e crawlers de IA; `llms.txt` resume perfil, experiência, projetos, stack, certificados e links.
-- HTML semântico, um `h1` por página, breadcrumbs visíveis, links internos home → páginas → cases → próximo case → contato.
-- Filtros de `/projetos` são **client-side**: todos os cards permanecem no HTML (SEO) e são escondidos por CSS via `data-filter`.
+- Metadata por página/idioma: title, description, keywords, canonical autorreferente, OG/Twitter.
+- `hreflang`: `pt-BR`, `en`, `x-default` (pt) em todas as páginas, incluindo cases e CV.
+- `og:locale`, `og:locale:alternate`, imagem OG localizada, alt traduzido.
+- JSON-LD: `Person` + `WebSite` global; `AboutPage`, `CollectionPage` + `ItemList`, `CreativeWork`, `ContactPage`, `ProfilePage`, `BreadcrumbList`.
+- `sitemap.xml` com 30 URLs e alternates absolutos; `robots.txt` libera buscadores/IA.
+- `llms.txt` e `cv.json` por idioma; aliases pt na raiz.
+- Filtros de projetos client-side mantendo todos os cards no HTML.
+- `/` não entra no sitemap; bots sempre recebem pt 200.
 
 ### 4.7 Acessibilidade
 
-- Skip link “Pular para o conteúdo”, `main#conteudo` focável.
-- Foco visível global (`:focus-visible`), alvos de toque ≥ 36px.
+- Skip link, `main#conteudo`, foco visível, alvos ≥ 36px.
 - `aria-current="page"`, `aria-expanded`, `aria-controls`, `aria-hidden`, `inert`.
-- Contraste validado em dark e light; axe = 0 violações (WCAG 2.1 A/AA) em desktop e mobile.
-- `prefers-reduced-motion` desliga reveals, marquee, tilt, parallax, transições do menu e scroll suave.
-- Botões com `type`, ícones decorativos com `aria-hidden`, links externos com aviso para leitor de tela.
+- Seletor de idioma com nome acessível, bandeiras decorativas, links `lang`/`hreflang`.
+- axe = 0 em pt/en, dark/light, desktop/mobile e menu aberto.
+- `prefers-reduced-motion` desliga reveals, marquee, tilt, parallax e transições do menu/seletor.
 
 ### 4.8 Performance
 
-- Build estático (26 rotas), sem fetch em runtime.
-- Imagens: originais em `assets/project-images/`, otimizadas para WebP 1600w em `public/images/projects/`, capas 1200w em `cover/`, blur placeholder em JSON.
-- Cards usam `next/image` com `sizes` e blur placeholder; a capa do case usa um arquivo pré-otimizado de 1200w com `unoptimized` (ver 8.2).
-- Baseline local (21/11/2026): home **100/100/100/100**; cases **93–95 em performance**, 100 nas demais; LCP da capa do case ≈ 3.2s em Lighthouse mobile local.
-- Fontes via `next/font` com `display: swap`.
+- Build estático (43 páginas geradas; nenhuma página dinâmica).
+- JS inicial: ~154 KiB (2 KiB acima do baseline pré-i18n).
+- Nenhum dicionário no cliente; nenhuma lib de PDF no bundle.
+- Imagens WebP com `sizes`, blur e prioridade no hero/capa; capas 1200w nos cases.
+- Fontes via `next/font` + `display: swap`.
+- Baseline local (21/11/2026): home pt/en **100/100/100/100**, CV 100, desktop 100, cases 93–94 mobile (LCP 3.1–3.2 s), about 93 mobile; CLS 0.
+- Proxy só em `/`; páginas e CV não passam por função.
 
-### 4.9 Currículo em três formatos
+### 4.9 Currículo
 
-| Formato | Rota | Geração |
-| --- | --- | --- |
-| Web | `/curriculo` | Server component com dados de `resume.ts` |
-| PDF | `/cv/luan-argolo-lemos-desenvolvedor-front-end.pdf` | `npm run cv` imprime `/curriculo` em A4 via Chrome e grava metadados |
-| JSON | `/cv.json` | Route handler estático a partir dos mesmos dados |
+| Formato | pt | en | Geração |
+| --- | --- | --- | --- |
+| Web | `/pt/curriculo` | `/en/resume` | Server component com conteúdo localizado |
+| PDF | `public/cv/luan-argolo-lemos-desenvolvedor-front-end.pdf` | `public/cv/luan-argolo-lemos-front-end-developer.pdf` | `npm run cv` imprime as páginas em A4 via Chrome |
+| JSON | `/pt/cv.json` | `/en/cv.json` | Route handler estático |
 
-O PDF é de uma coluna, fonte padrão e texto selecionável, pensado para ATS/Gupy. **Ao mudar `resume.ts` ou a página do currículo, rode `npm run build && npm start` e depois `npm run cv`** para regenerar o PDF.
+- Um único template (`src/views/resume.tsx`) para qualquer idioma.
+- Datas via `Intl`; inglês com verbos de ação; PDF com metadados, `Language` (`pt-BR`/`en-US`), texto selecionável e Arial no print.
+- PDFs são pré-gerados; nada de biblioteca de PDF no cliente.
 
 ### 4.10 Deploy e repositório
 
 - Repositório: `github.com/luanargolodev/luanlemos`.
-- Branch de trabalho: `v3`; branch padrão: `main` (ainda no SPA antigo, `ab8c4a6`).
-- PR #1 (`v3` → `main`) está aberto e mergeável, com 19 commits no momento da escrita.
-- Deploy previsto na Vercel, com `NEXT_PUBLIC_SITE_URL=https://luanlemos.dev`.
-- Analytics só carrega quando `process.env.VERCEL` existe.
-- **Estado em 21/11/2026:** deploy bloqueado por “Account is blocked” na Vercel e `luanlemos.dev` sem DNS (NXDOMAIN). É bloqueio externo, não de código.
+- Branch de trabalho `v3`; padrão `main` (ainda no SPA antigo).
+- PR #1 (`v3` → `main`) aberto.
+- Vercel + `NEXT_PUBLIC_SITE_URL=https://luanlemos.dev`; Analytics só com `process.env.VERCEL`.
+- **Estado em 21/11/2026:** deploy bloqueado por “Account is blocked” e `luanlemos.dev` sem DNS. Bloqueio externo, não de código.
 
 ---
 
@@ -258,216 +263,171 @@ O PDF é de uma coluna, fonte padrão e texto selecionável, pensado para ATS/Gu
 
 | ID | Decisão | Motivo | Consequência |
 | --- | --- | --- | --- |
-| D1 | Next.js App Router estático, sem CMS | Conteúdo pequeno, versionado e tipado; zero custo operacional | Conteúdo muda via PR + build |
-| D2 | Todo o conteúdo em `src/data/*.ts` | Fonte única, sem duplicação, fácil de revisar | Novas páginas consomem os mesmos dados |
-| D3 | Route group `(site)` com header/footer | Shell compartilhado sem afetar `/curriculo` | Currículo é documento isolado |
-| D4 | Home resumida + páginas dedicadas | SEO, narrativa e links profundos por tema | Âncoras antigas da home foram preservadas |
-| D5 | Filtros client-side por CSS | Cards continuam no HTML para SEO/LLMs | `data-filter` + `data-categories` |
-| D6 | JSON-LD por tipo de página | Melhor entendimento por buscadores | `seo.ts` centraliza os builders |
-| D7 | Scroll ao topo manual + hash guard | App Router restaurava scroll e `smooth` causava salto | `ScrollToTop` roda antes do motion |
-| D8 | Reveals reinicializados por `pathname` | Evitar conteúdo invisível em navegação client-side | Efeito depende da rota |
-| D9 | Menu mobile sempre montado | Evitar unmount rígido e permitir animação de saída | `data-open` + `inert` + `visibility` |
-| D10 | Wipe por `clip-path` + stagger | Abertura perceptível sem ghosting de fundo | Sombra do painel é recortada (trade-off) |
-| D11 | Estado do menu derivado da rota | Fechar em back/forward sem `setState` em effect | `openPath === pathname` |
-| D12 | CV em 3 formatos a partir dos mesmos dados | ATS, leitura humana e agentes | PDF precisa ser regenerado após mudanças |
-| D13 | Sem métricas/resultados inventados | Credibilidade | Cases usam outcomes qualitativos verificáveis |
-| D14 | Analytics só na Vercel | Evitar script em ambiente local/preview sem necessidade | `process.env.VERCEL` |
-| D15 | Marca gerada por script | Consistência entre favicon, apple icon, manifest e OG | `npm run brand` |
+| D1 | Next.js App Router estático, sem CMS | Conteúdo pequeno, versionado e tipado | Conteúdo muda via PR + build |
+| D2 | Conteúdo em `src/content` + `src/i18n` | Fonte única e traduções separadas | Build falha se faltar chave |
+| D3 | Route group `(site)` com header/footer | Shell compartilhado; CV isolado | Currículo é documento |
+| D4 | Páginas dedicadas + cases | SEO, narrativa e links profundos | Âncoras antigas preservadas |
+| D5 | Filtros client-side por CSS | Cards no HTML para SEO/LLMs | `data-filter` + `data-categories` |
+| D6 | JSON-LD por tipo de página e idioma | Melhor entendimento por buscadores | Builders em `seo.ts` |
+| D7 | Scroll ao topo manual + hash guard | App Router restaurava scroll | `ScrollToTop` antes do motion |
+| D8 | Reveals reinicializados por `pathname` | Evitar conteúdo invisível | Efeito depende da rota |
+| D9 | Menu mobile sempre montado | Animação de saída sem unmount | `data-open` + `inert` |
+| D10 | Wipe por `clip-path` + stagger | Abertura perceptível | Sombra recortada (trade-off) |
+| D11 | Estado do menu derivado da rota | Fechar em back/forward | `openPath === pathname` |
+| D12 | CV em 3 formatos, pré-gerado | ATS + performance | `npm run cv` após mudanças |
+| D13 | Sem métricas inventadas | Credibilidade | Outcomes verificáveis |
+| D14 | Analytics só na Vercel | Evitar script desnecessário | `process.env.VERCEL` |
+| D15 | Marca gerada por script | Consistência de assets | `npm run brand` |
+| D16 | i18n próprio, sem next-intl | Zero runtime no cliente; copy simples; controle de SEO | Camada ~200 linhas, tipada |
+| D17 | `/pt` + `/en` com slugs traduzidos | URLs explícitas e simetria | Redirects para URLs antigas |
+| D18 | Proxy só em `/` | Detecção sem custo por página | Bots recebem rewrite pt 200 |
+| D19 | Dicionários server-only + props | Manter JS inicial | Nenhum texto traduzido no cliente |
+| D20 | PDFs por idioma pré-gerados | Performance e ATS | Sem lib de PDF no bundle |
 
 ---
 
-## 6. Invariantes (o que nunca quebrar)
+## 6. Invariantes
 
 ### 6.1 Conteúdo
 
-- Fatos canônicos: **Luan Argolo Lemos**, “Luan Lemos”, Desenvolvedor Front-end Pleno, Brasil · Remoto, início da carreira em **jun/2022**, Zee.Dog · Grupo PetzCobasi desde **mai/2025**, formação ADS/Estácio (2020–2022).
+- Fatos canônicos: **Luan Argolo Lemos**, “Luan Lemos”, Brasil · Remoto, início em **jun/2022**, Zee.Dog · Grupo PetzCobasi desde **mai/2025**, ADS/Estácio (2020–2022).
 - Não inventar clientes, cargos, datas, números, depoimentos ou resultados.
-- Português do Brasil, tom direto, sem “apaixonado por tecnologia” e sem superlativos.
-- O tempo de experiência é calculado em build a partir de `profile.startDate`; não escrever “4 anos” hardcoded.
+- Português do Brasil e inglês natural; sem superlativos; verbos de ação no CV.
+- Tempo de experiência calculado a partir de `profile.startDate`, nunca hardcoded.
 
-### 6.2 Código e estrutura
+### 6.2 Código e i18n
 
-- Rotas devem continuar **estáticas** (sem fetch em runtime, sem CMS).
-- Conteúdo novo entra em `src/data/`, não direto no JSX da página.
-- Reutilizar tokens e componentes existentes; não criar paleta paralela.
-- Componentes interativos precisam de `'use client'`; o resto permanece server component.
-- Não adicionar dependência pesada sem justificar (o site não usa biblioteca de animação).
-- `lint`, `typecheck` e `build` precisam passar antes de qualquer commit.
+- Rotas **estáticas**; sem fetch em runtime, sem CMS.
+- Conteúdo em `src/content/<locale>.ts`; UI/SEO em `src/i18n/messages/<locale>.ts`.
+- Adicionar idioma = `locales.json` + dois arquivos de tradução (+ bandeira, se nova).
+- Componentes client recebem strings por props; nunca importam `messages`/`content`.
+- `src/i18n/routing.ts` é client-safe; não importar fatos/conteúdo nele.
+- `lint`, `typecheck`, `i18n:check` e `build` precisam passar.
 
 ### 6.3 Acessibilidade e motion
 
-- Um `h1` por página; landmarks (`header`, `main`, `footer`, `nav`) e `aria-label` corretos.
-- Nunca remover o skip link, o foco visível ou o respeito a `prefers-reduced-motion`.
-- Conteúdo não pode depender de JS para aparecer.
-- Menu fechado precisa continuar `inert`/`aria-hidden` e não focável.
+- Um `h1` por página; landmarks e labels traduzidos.
+- Nunca remover skip link, foco visível ou `prefers-reduced-motion`.
+- Conteúdo não pode depender de JS.
+- Menu/seletor fechados: `inert`/`aria-hidden` e não focáveis.
 
 ### 6.4 SEO
 
-- Toda rota nova precisa de: metadata + canonical, entrada no `site.nav` (se for navegação principal), `sitemap.ts`, `llms.txt` e JSON-LD adequado.
-- Projeto novo precisa de: slug único, `categories`, `caseStudy`, imagem + alt, entrada no `projects.ts` (sitemap e llms são automáticos).
-- Manter um `h1` por página e breadcrumbs em páginas internas.
-- `NEXT_PUBLIC_SITE_URL` é a única fonte da URL canônica em produção.
+- Toda rota nova: metadata + canonical + hreflang, sitemap e JSON-LD.
+- Projeto novo: slug, categorias, caseStudy, imagem/alt e textos nos dois idiomas.
+- Manter um `h1`, breadcrumbs e links internos localizados.
+- Bots nunca recebem redirect por idioma; `/` é a única rota com detecção.
+- `NEXT_PUBLIC_SITE_URL` é a URL canônica em produção.
 
 ---
 
-## 7. Como validar qualquer mudança
+## 7. Como validar
 
-### 7.1 Comandos obrigatórios
+### 7.1 Comandos
 
 ```bash
-npm install          # Node.js 20.9+ (recomendado 24 LTS)
-npm run lint         # oxlint
-npm run typecheck    # tsc --noEmit
-npm run build        # 26 rotas estáticas
-npm run start        # servir o build em http://localhost:3000
+npm install
+npm run lint
+npm run typecheck
+npm run i18n:check
+npm run build
+npm run start
+npm run verify       # tudo acima em sequência (exceto start)
 ```
 
-Scripts auxiliares:
+Auxiliares:
 
 ```bash
-npm run images       # WebP + capas + blur placeholders
-npm run cv           # regenera o PDF a partir de /curriculo (exige build + start)
-npm run brand        # favicon, apple icon, ícone 512 e marca do OG
+npm run images       # WebP + capas + blur
+npm run cv           # PDFs pt/en (exige build + start)
+npm run brand        # ícones e marca do OG
 ```
 
 ### 7.2 Checklist manual
 
-- [ ] Todas as rotas retornam 200; slug inexistente retorna 404.
-- [ ] Navegação client-side: nova página começa no topo e nenhum `[data-reveal]` visível fica com `opacity: 0`.
-- [ ] Nav ativa correta, inclusive em `/projeto/[slug]`.
+- [ ] `/pt` e `/en` 200; todas as páginas nos dois idiomas.
+- [ ] `/` humano → 307 para idioma; bot → 200 pt sem redirect.
+- [ ] `/pt/about` e `/en/sobre` → 404.
+- [ ] URLs antigas → 301 para pt.
+- [ ] Troca de idioma preserva a página, sem reload, atualiza `html lang` e cookie.
+- [ ] Nenhum `[data-reveal]` visível com opacity 0; scroll começa no topo.
+- [ ] Nav ativa correta, inclusive em cases.
 - [ ] Filtros: Brasil 4, Internacional 4, Shopify & Liquid 5, Deco.cx 7, Todos 8.
-- [ ] Menu mobile: abre/fecha animado, ícone vira X e volta, `Escape` devolve foco, fecha ao navegar, sem overflow em 320px/390px.
-- [ ] Dark e light com contraste; axe sem violações.
-- [ ] Um `h1` por página; canonical e OG corretos; JSON-LD válido.
-- [ ] `sitemap.xml` com 16 URLs e `llms.txt` com todas as páginas e cases.
-- [ ] Sem erros de console.
+- [ ] Menu mobile e seletor: abre/fecha, `Escape`, foco, `inert`, sem overflow em 320/390 px.
+- [ ] Fonte do HTML mostra conteúdo traduzido, title/description/canonical/hreflang/JSON-LD.
+- [ ] `sitemap.xml` com 30 URLs e alternates absolutos; `llms.txt`/`cv.json` por idioma.
+- [ ] axe = 0 em pt/en, dark/light, desktop/mobile e menu aberto.
+- [ ] Lighthouse ≥ 90 mobile/desktop; CLS 0; JS ~154 KiB.
+- [ ] PDFs pt/en: conteúdo, acentos, datas, metadados, `Lang`, texto selecionável e quebras.
 
-### 7.3 Ferramentas usadas nas validações anteriores
+### 7.3 Ferramentas
 
-- **Playwright** (`playwright-core` + Chrome local) para navegar, medir estilos, testar teclado e tirar screenshots (salvos em `.context/`, que é ignorado pelo git).
-- **axe-core** injetado na página para WCAG 2.1 A/AA em dark, light e mobile.
-- **Lighthouse** (`npx lighthouse`) sobre `npm run build && npm run start`.
-- Baseline registrada em 21/11/2026 — revalidar após mudanças grandes.
+- **Playwright** (`playwright-core` + Chrome local) para navegação, teclado, estilos e screenshots em `.context/` (ignorado).
+- **axe-core** para WCAG 2.1 A/AA.
+- **Lighthouse** sobre `npm run build && npm run start`.
+- **PyMuPDF** (local) para inspecionar texto/metadados dos PDFs.
 
 ---
 
 ## 8. Próximos planos (roadmap)
 
-> Prioridade: **P0** bloqueia valor, **P1** melhora direta, **P2** manutenção/robustez, **P3** ideias. Nada aqui está aprovado automaticamente: confirme com o Luan antes de executar itens de produto.
+### 8.1 P0 — Publicar
 
-### 8.1 P0 — Publicar o site
+- Resolver conta Vercel e DNS de `luanlemos.dev`.
+- Merge do PR #1 (`v3` → `main`).
+- Configurar `NEXT_PUBLIC_SITE_URL`, Analytics e Google Search Console.
+- Enviar sitemap e validar os dois idiomas/hreflang em produção.
 
-**Problema:** o código está pronto, mas o site não está no ar. A branch padrão `main` ainda aponta para o SPA antigo; o PR #1 está aberto. A Vercel reportou “Account is blocked” e `luanlemos.dev` está sem DNS.
+**Aceite:** domínio resolve, rotas 200, sitemap aceito, analytics ativo.
 
-**Passos:**
-1. Resolver o acesso à conta Vercel (ou criar projeto em outra conta/plataforma).
-2. Fazer merge do PR #1 (`v3` → `main`) após revisão.
-3. Configurar `NEXT_PUBLIC_SITE_URL=https://luanlemos.dev`.
-4. Configurar o domínio e o DNS (incluindo `www` → apex).
-5. Ativar Vercel Analytics.
-6. Enviar `sitemap.xml` no Google Search Console e validar indexação.
+### 8.2 P1 — LCP dos cases e about
 
-**Aceite:** domínio resolve, todas as rotas 200, canonical/OG absolutos, sitemap aceito, analytics recebendo eventos, preview de PR funcionando.
+- Case mobile ≈ 3.1–3.2 s e about ≈ 3.2 s (performance 93–94).
+- Investigar capa/avatar, srcset, preload, formato e reveal; meta < 2.5 s e ≥ 95 sem regressão.
 
-**Fora do código:** propriedade do domínio, cobrança/verificação da conta e DNS.
+### 8.3 P1 — Conteúdo verificado
 
-### 8.2 P1 — Performance dos cases
+- Levantar métricas reais (LCP/CLS, conversão, tempo de publicação) para os cases.
+- Adicionar somente dados comprováveis; atualizar `llms.txt`/CV.
 
-**Problema:** a capa do case é o LCP e mede ~3.2s no Lighthouse mobile local (performance 93–95). A capa é servida em 1200w com `unoptimized`.
+### 8.4 P1 — Segurança e CI
 
-**Investigar:**
-- `sizes` e `srcset` da capa; testar `next/image` otimizado vs. `unoptimized`.
-- `fetchPriority="high"`/preload correto e dimensões explícitas.
-- Peso real da imagem (cover 1200w) e possibilidade de AVIF.
-- JS não usado (~28 KiB), legado (~14 KiB) e requests que bloqueiam render (~110–150 ms).
+- Resolver 6 alertas do Dependabot (2 high, 3 moderate, 1 low).
+- GitHub Actions: `npm ci`, lint, typecheck, i18n, build; smoke Playwright/axe opcional.
 
-**Aceite:** LCP < 2.5s em mobile no Lighthouse local, performance ≥ 95 nos cases, sem regressão visual.
+### 8.5 P2 — SEO contínuo
 
-### 8.3 P1 — Profundidade de conteúdo (com fatos verificados)
+- Rich Results/Schema Validator; Search Console por idioma.
+- Revisar titles/descriptions com consultas reais.
+- Avaliar OG específica por case.
 
-**Problema:** os cases já contam contexto/desafio/abordagem, mas poucos têm resultado quantificado — justamente porque números não podem ser inventados.
+### 8.6 P2 — Testes
 
-**Plano:**
-- Entrevistar o Luan para levantar métricas reais (LCP/CLS antes/depois, conversão, tempo de publicação, redução de bugs, adoção de componentes).
-- Adicionar somente o que for comprovável; caso contrário, manter outcome qualitativo.
-- Avaliar um bloco “decisões técnicas” ou “o que eu faria diferente” por case.
-- Atualizar `llms.txt` e o resumo do CV quando o conteúdo mudar.
+- Smoke de rotas, troca de idioma, filtros, menu, scroll.
+- axe automatizado em pt/en/dark/light.
 
-**Aceite:** cada case responde “qual era o problema, o que eu fiz, o que mudou” sem inflar resultados.
+### 8.7 P3 — Polimento
 
-### 8.4 P1 — Segurança e dependências
+- Sombra do painel mobile recortada pelo `clip-path`.
+- Enquadramento de capas; hover/focus em toque.
+- Manifest localizado, se necessário.
 
-**Problema:** o GitHub reporta 6 vulnerabilidades no branch padrão (2 high, 3 moderate, 1 low).
+### 8.8 Ideias não aprovadas
 
-**Plano:** revisar Dependabot, atualizar Next/React/dependências transitivas, rodar lint/typecheck/build e revalidar Lighthouse/axe.
-
-**Aceite:** alertas zerados ou justificados, build verde.
-
-### 8.5 P1 — CI mínimo
-
-**Problema:** as validações são manuais (agente + comandos locais).
-
-**Plano:** GitHub Actions em PR com `npm ci`, `lint`, `typecheck`, `build`. Opcional: smoke de rotas com Playwright e axe.
-
-**Aceite:** PR só mergeia com pipeline verde; tempo de CI < 5 min.
-
-### 8.6 P2 — SEO contínuo
-
-- Validar JSON-LD no Rich Results Test e no Schema Markup Validator.
-- Monitorar Search Console (impressões, consultas, páginas não indexadas).
-- Revisar titles/descriptions com base em consultas reais.
-- Manter `llms.txt` sincronizado com `src/data` ao mudar conteúdo (o arquivo é gerado, não editado à mão).
-- Avaliar OG específica por case (hoje usa a capa do projeto).
-
-**Aceite:** zero erros de dados estruturados, sitemap indexado, sem páginas órfãs.
-
-### 8.7 P2 — Testes de navegação e acessibilidade
-
-- Smoke test Playwright: todas as rotas 200, 404, filtros, nav ativa, scroll ao topo, menu mobile (abrir/fechar/Escape/rota).
-- axe automatizado em dark/light/mobile no CI.
-- Teste de teclado do menu e do dropdown de currículo.
-
-**Aceite:** suíte roda em CI e falha o PR em regressão.
-
-### 8.8 P2 — Manutenção e DX
-
-- Acompanhar releases do Next 16/React 19 e aplicar patches.
-- Garantir Node LTS no ambiente de build.
-- Documentar qualquer novo script ou rota neste arquivo e no README.
-- Considerar `npm run verify` agregando lint + typecheck + build.
-
-### 8.9 P3 — Polimento visual
-
-- Avaliar a sombra do painel mobile (recortada pelo `clip-path`): testar wrapper com sombra ou borda inferior mais forte.
-- Revisar enquadramento das capas dos cases (algumas capturas cortam o topo).
-- Estados de hover/focus nos cards em telas de toque.
-- Conferir light theme em todas as páginas novas.
-
-### 8.10 P3 — Ideias não aprovadas
-
-Registrar sem executar:
-
-- Versão em inglês (`/en`) para recrutadores internacionais.
-- Página de “notas”/blog técnico.
-- Depoimentos de colegas/clientes.
-- Estudos de caso em vídeo ou GIFs de interação.
-- Página de serviços/freelancer.
-
-Qualquer uma dessas muda o posicionamento do site; precisam de decisão explícita do Luan.
+- Espanhol, blog técnico, depoimentos, vídeos/GIFs, página de serviços.
 
 ---
 
-## 9. Riscos e questões abertas
+## 9. Riscos
 
-| Risco / questão | Impacto | Mitigação |
-| --- | --- | --- |
-| Conta Vercel bloqueada / domínio sem DNS | Site não publicado | Resolver acesso e DNS; código não depende disso |
-| `main` desatualizado em relação à `v3` | Deploy acidental do SPA antigo | Fazer merge do PR #1 antes de apontar produção |
-| Conteúdo de case sem métricas reais | Cases menos convincentes | Coletar dados verificados; não inventar |
-| Dependências vulneráveis | Segurança/manutenção | Atualizar e revalidar (8.4) |
-| Mudanças de conteúdo não refletidas no PDF/llms | Inconsistência entre formatos | Rodar `npm run cv` e revisar `llms.txt` |
-| Ausência de CI | Regressões passam | Implementar pipeline (8.5) |
-| Performance do LCP nos cases | Lighthouse abaixo de 95 | Otimizar capa (8.2) |
+| Risco | Mitigação |
+| --- | --- |
+| Vercel bloqueada / DNS | Resolver externo; validar localmente |
+| `main` desatualizada | Merge do PR antes do deploy |
+| Tradução sem revisão humana | Revisar inglês, principalmente CV |
+| LCP mobile 3.2 s | Otimizar capa/avatar (8.2) |
+| Alertas de dependência | Atualizar (8.4) |
+| PDF/llms fora de sincronia | `npm run cv`, `npm run i18n:check` |
 
 ---
 
@@ -475,60 +435,66 @@ Qualquer uma dessas muda o posicionamento do site; precisam de decisão explíci
 
 ### 10.1 Ordem de leitura
 
-1. `AGENTS.md` (regras do ambiente/Next).
-2. **Este arquivo** (objetivo, decisões, invariantes, roadmap).
-3. `README.md` (comandos, estrutura, conteúdo).
-4. Código em `src/app`, `src/components`, `src/data`.
+1. `AGENTS.md`.
+2. **Este arquivo**.
+3. `README.md`.
+4. Código em `src/app/[locale]`, `src/views`, `src/content`, `src/i18n`.
 
 ### 10.2 Antes de editar
 
-- `git status` e confirme a branch (`v3`); não trabalhe direto na `main`.
-- Identifique se a mudança é **conteúdo** (`src/data`), **UI** (`components`), **rota** (`app`) ou **token** (`globals.css`).
-- Se for conteúdo, confirme os fatos com o Luan; se for visual, siga os tokens existentes.
-- Verifique se a mudança afeta PDF, `llms.txt`, sitemap, JSON-LD ou OG.
+- `git status`; branch `v3`; não trabalhe na `main`.
+- Identifique: conteúdo (`src/content`), UI/SEO (`src/i18n/messages`), rota (`locales.json`/routing), visual (`globals.css`).
+- Confirme fatos com o Luan.
+- Verifique impacto em PDF, `llms.txt`, sitemap, JSON-LD, OG e hreflang.
 
-### 10.3 Convenções
+### 10.3 Adicionar idioma
 
-- Commits no padrão do histórico: `feat:`, `fix:`, `copy:`, `chore:`, `refactor:`.
-- Código e nomes em inglês; copy e comentários de produto em pt-BR.
-- Componentes server por padrão; `'use client'` só quando há estado/efeito/evento.
-- Sem `any` desnecessário; tipos de conteúdo em `src/types/content.ts`.
-- Não reformatar arquivos não relacionados; diffs pequenos e focados.
+1. Adicionar entrada em `src/i18n/locales.json` com `code`, `label`, `shortLabel`, `flag`, `htmlLang`, `ogLocale`, `dateLocale`, `cvPath`, `cvFile`, `routes`.
+2. Criar `src/i18n/messages/<code>.ts` (tipado como `Messages`) e `src/content/<code>.ts` (tipado como `ContentText`).
+3. Adicionar bandeira em `src/components/i18n/flags.tsx` se necessário.
+4. Rodar `npm run i18n:check`, `npm run verify`, `npm run cv`.
 
-### 10.4 Definição de pronto
+Rotas, sitemap, hreflang, seletor, OG e CV são automáticos.
 
-Uma mudança só está pronta quando:
+### 10.4 Convenções
 
-- [ ] `lint`, `typecheck` e `build` passam.
-- [ ] Rotas afetadas testadas em desktop (1440px) e mobile (390px), dark e light.
-- [ ] Navegação client-side começa no topo e revela conteúdo.
-- [ ] Teclado funciona (Tab, Enter, Escape) e axe = 0.
-- [ ] Metadata/canonical/JSON-LD/sitemap/llms continuam corretos.
-- [ ] Se mexeu em currículo, PDF regenerado.
-- [ ] Screenshots de antes/depois geradas em `.context/` (não commitar).
-- [ ] PR/descrição atualizados com o que mudou e o que ficou pendente.
+- Commits: `feat:`, `fix:`, `copy:`, `chore:`, `refactor:`, `docs:`.
+- Código/nomes em inglês; copy em pt/en.
+- Server components por padrão; `'use client'` só com estado/efeito/evento.
+- Diffs pequenos; não reformatar arquivos não relacionados.
 
-### 10.5 O que não fazer
+### 10.5 Definição de pronto
 
-- Não publicar roadmap ou notas internas no site.
-- Não adicionar CMS, backend ou formulário sem pedido explícito.
-- Não trocar a identidade visual, fontes ou paleta por conta própria.
-- Não “corrigir” textos factuais sem confirmação.
-- Não declarar deploy concluído sem verificar domínio e produção.
-- Não remover as âncoras antigas da home (`#sobre`, `#experiencia`, `#projetos`, `#stack`, `#contato`).
+- [ ] `verify` verde.
+- [ ] Rotas afetadas em pt/en, 1440/390, dark/light.
+- [ ] Navegação começa no topo; reveals visíveis.
+- [ ] Teclado e axe = 0.
+- [ ] Metadata/canonical/hreflang/sitemap/llms corretos.
+- [ ] PDFs regenerados se o CV mudou.
+- [ ] PR/descrição atualizados.
+
+### 10.6 O que não fazer
+
+- Não publicar roadmap no site.
+- Não adicionar CMS/backend sem pedido.
+- Não trocar identidade/paleta por conta própria.
+- Não “corrigir” fatos sem confirmação.
+- Não declarar deploy concluído sem domínio/produção.
+- Não remover as âncoras antigas da home (`#sobre`, `#experiencia`, `#projetos`, `#stack`, `#contato` em pt; equivalentes em en).
 
 ---
 
 ## 11. Glossário
 
-- **Case:** página individual de projeto em `/projeto/[slug]`, com contexto, desafio, abordagem e resultado.
-- **Deco.cx:** plataforma de e-commerce/front-end usada nas lojas Zee.Dog/Zee.Now.
-- **BFF:** Backend for Frontend, camada que orquestra dados para o front-end.
-- **ATS/Gupy:** sistemas de triagem de currículo; o PDF e as palavras-chave são otimizados para eles.
-- **Reveal:** animação de entrada de elementos `[data-reveal]` no scroll.
-- **Wipe:** revelação do painel mobile por recorte (`clip-path`).
-- **Tokens:** variáveis semânticas de cor/espaçamento/fonte definidas em `globals.css`.
-- **Estático (SSG):** HTML gerado no build, sem depender de servidor em runtime.
+- **Case:** página individual em `/pt/projeto/[slug]` ou `/en/project/[slug]`.
+- **Deco.cx:** plataforma de e-commerce usada nas lojas Zee.Dog/Zee.Now.
+- **BFF:** Backend for Frontend.
+- **ATS/Gupy:** triagem de currículo; PDF e palavras-chave otimizados.
+- **Locale:** pt/en; configuração em `locales.json`.
+- **Reveal:** animação de entrada de `[data-reveal]`.
+- **Wipe:** recorte `clip-path` do painel mobile.
+- **Tokens:** variáveis semânticas em `globals.css`.
+- **Estático (SSG):** HTML gerado no build, sem servidor em runtime.
 
 ---
 
@@ -536,4 +502,6 @@ Uma mudança só está pronta quando:
 
 | Data | Mudança |
 | --- | --- |
-| 2026-11-21 | Criação: objetivo, plano inicial, fases 0–8, arquitetura, decisões, invariantes, validação e roadmap |
+| 2026-11-21 | Criação: objetivo, plano inicial, fases, arquitetura, decisões, invariantes, validação e roadmap |
+| 2026-11-21 | Renomeado para `docs/PLAN.md` |
+| 2026-11-21 | Atualizado com i18n pt/en, rotas localizadas, CV em dois idiomas e novas decisões |

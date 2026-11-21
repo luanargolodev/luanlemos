@@ -1,40 +1,62 @@
 import Link from 'next/link'
 
-import { profile } from '@/data/profile'
-import { site } from '@/data/site'
+import type { Content } from '@/content/types'
+import type { Messages } from '@/i18n/messages/pt'
+import { interpolate } from '@/i18n/messages'
+import { cvHref, homeHref, navLinks } from '@/i18n/routing'
 
 import { LogoMark } from './LogoMark'
 
 const currentYear = new Date().getFullYear()
 
-export function SiteFooter() {
+export function SiteFooter({
+  locale,
+  messages,
+  content,
+}: {
+  locale: string
+  messages: Messages
+  content: Content
+}) {
+  const items = navLinks(locale, {
+    about: messages.nav.about,
+    experience: messages.nav.experience,
+    projects: messages.nav.projects,
+    stack: messages.nav.stack,
+    contact: messages.nav.contact,
+  })
+
   return (
     <footer className="border-t border-line/70">
       <div className="container-page py-12 md:py-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <Link href="/" className="inline-flex items-center gap-2">
+            <Link
+              href={homeHref(locale)}
+              className="inline-flex items-center gap-2"
+            >
               <LogoMark className="size-6" />
               <span className="font-display text-lg font-semibold tracking-tight">
-                {profile.name}
+                {content.profile.name}
               </span>
             </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
-              {profile.role} focado em e-commerce, performance e interfaces que
-              funcionam de verdade.
+              {interpolate(messages.footer.tagline, {
+                role: content.profile.role,
+              })}
             </p>
             <p className="mt-4 font-mono text-[11px] uppercase tracking-[0.14em] text-faint">
-              {profile.location}
+              {content.profile.location}
             </p>
           </div>
 
-          <nav aria-label="Navegação do rodapé">
+          <nav aria-label={messages.a11y.footerNav}>
             <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-faint">
-              Navegação
+              {messages.footer.navigation}
             </h2>
             <ul className="mt-4 space-y-2.5">
-              {site.nav.map((link) => (
-                <li key={link.href}>
+              {items.map((link) => (
+                <li key={link.key}>
                   <Link
                     href={link.href}
                     className="text-sm text-muted transition-colors hover:text-fg"
@@ -48,10 +70,10 @@ export function SiteFooter() {
 
           <div>
             <h2 className="font-mono text-[11px] uppercase tracking-[0.16em] text-faint">
-              Contato
+              {messages.footer.contact}
             </h2>
             <ul className="mt-4 space-y-2.5">
-              {profile.socials.map((social) => (
+              {content.profile.socials.map((social) => (
                 <li key={social.href}>
                   <a
                     href={social.href}
@@ -68,10 +90,10 @@ export function SiteFooter() {
               ))}
               <li>
                 <Link
-                  href="/curriculo"
+                  href={cvHref(locale)}
                   className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
                 >
-                  Currículo web
+                  {messages.footer.curriculumWeb}
                   <span aria-hidden="true" className="text-[10px] text-faint">
                     →
                   </span>
@@ -79,12 +101,12 @@ export function SiteFooter() {
               </li>
               <li>
                 <a
-                  href={profile.cvUrl}
+                  href={content.profile.cvUrl}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
                 >
-                  Currículo em PDF
+                  {messages.footer.curriculumPdf}
                   <span aria-hidden="true" className="text-[10px] text-faint">
                     ↗
                   </span>
@@ -92,10 +114,10 @@ export function SiteFooter() {
               </li>
               <li>
                 <a
-                  href={`mailto:${profile.email}`}
+                  href={`mailto:${content.profile.email}`}
                   className="text-sm text-muted transition-colors hover:text-fg"
                 >
-                  {profile.email}
+                  {content.profile.email}
                 </a>
               </li>
             </ul>
@@ -104,10 +126,13 @@ export function SiteFooter() {
 
         <div className="mt-12 flex flex-col gap-3 border-t border-line/70 pt-6 text-xs text-faint sm:flex-row sm:items-center sm:justify-between">
           <p>
-            © {currentYear} {profile.name}. Todos os direitos reservados.
+            {interpolate(messages.footer.rights, {
+              year: currentYear,
+              name: content.profile.name,
+            })}
           </p>
           <p className="font-mono text-[10px] uppercase tracking-[0.14em]">
-            Feito com Next.js, TypeScript e Tailwind CSS
+            {messages.footer.builtWith}
           </p>
         </div>
       </div>

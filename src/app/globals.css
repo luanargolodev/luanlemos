@@ -746,3 +746,34 @@ html.motion-ready [data-reveal].is-revealed {
     transition-delay: 0s;
   }
 }
+
+/* Language switcher */
+.locale-menu {
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px) scale(0.98);
+  transform-origin: top right;
+  transition:
+    opacity 0.16s ease-out,
+    transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0.2s;
+}
+
+.locale-menu[data-open='true'] {
+  visibility: visible;
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+  transition:
+    opacity 0.16s ease-out,
+    transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+    visibility 0s linear 0s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .locale-menu,
+  .locale-menu[data-open='true'] {
+    transition: none;
+  }
+}

@@ -16,7 +16,7 @@ function scrollToTop() {
   })
 }
 
-export function BackToTop() {
+export function BackToTop({ label, hint }: { label: string; hint: string }) {
   const [visible, setVisible] = useState(false)
 
   useEffect(() => {
@@ -44,7 +44,7 @@ export function BackToTop() {
     <button
       type="button"
       onClick={scrollToTop}
-      aria-label="Voltar ao topo"
+      aria-label={label}
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}
       className={cn(
@@ -58,7 +58,7 @@ export function BackToTop() {
         aria-hidden="true"
         className="pointer-events-none absolute right-full mr-3 hidden whitespace-nowrap rounded-full border border-line/80 bg-surface px-3 py-1.5 font-mono text-[9px] uppercase tracking-[0.12em] text-muted opacity-0 shadow-lg transition-opacity duration-200 group-hover:opacity-100 group-focus-visible:opacity-100 md:block"
       >
-        Topo
+        {hint}
       </span>
       <ArrowUp className="size-4 transition-transform duration-300 group-hover:-translate-y-0.5" />
     </button>

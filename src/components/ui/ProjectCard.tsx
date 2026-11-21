@@ -1,8 +1,10 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
+import type { Project } from '@/content/types'
 import blurData from '@/data/image-blur.json'
-import type { Project } from '@/data/projects'
+import { interpolate, type Messages } from '@/i18n/messages'
+import { href } from '@/i18n/routing'
 import { cn } from '@/lib/utils'
 
 import { ArrowRight, ArrowUpRight, Sparkle } from './icons'
@@ -11,7 +13,11 @@ import { Tag } from './Tag'
 const blurPlaceholders = blurData as Record<string, string>
 
 function hostname(url: string) {
-  return new URL(url).hostname.replace(/^www\./, '')
+  try {
+    return new URL(url).hostname.replace(/^www\./, '')
+  } catch {
+    return url
+  }
 }
 
 function imageKey(image: string) {
@@ -20,12 +26,16 @@ function imageKey(image: string) {
 
 export function ProjectCard({
   project,
+  locale,
+  messages,
   wide = false,
 }: {
   project: Project
+  locale: string
+  messages: Messages
   wide?: boolean
 }) {
-  const caseHref = `/projeto/${project.slug}`
+  const caseHref = href(locale, 'project', { slug: project.slug })
   const blur = blurPlaceholders[imageKey(project.image)]
 
   return (
@@ -62,7 +72,9 @@ export function ProjectCard({
         >
           <Link
             href={caseHref}
-            aria-label={`Ver case ${project.title}`}
+            aria-label={interpolate(messages.projects.cardCaseLabel, {
+              title: project.title,
+            })}
             className="relative block h-full w-full"
           >
             <Image
@@ -117,7 +129,7 @@ export function ProjectCard({
           <Sparkle className="mt-0.5 size-3.5 shrink-0 text-accent" />
           <p className="text-[13px] leading-relaxed text-muted">
             <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-faint">
-              O que ficou ·{' '}
+              {messages.projects.outcome} ·{' '}
             </span>
             {project.outcome}
           </p>
@@ -134,7 +146,7 @@ export function ProjectCard({
             href={caseHref}
             className="inline-flex items-center gap-1.5 text-[13px] font-medium text-fg transition-colors hover:text-accent"
           >
-            Ver case
+            {messages.common.viewCase}
             <ArrowRight className="size-3.5" />
           </Link>
 
@@ -145,10 +157,13 @@ export function ProjectCard({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-fg"
             >
-              Ver site
+              {messages.common.viewSite}
               <ArrowUpRight className="size-3.5" />
               <span className="sr-only">
-                de {project.title} (abre em nova aba)
+                {interpolate(messages.projects.cardSiteLabel, {
+                  title: project.title,
+                })}{' '}
+                {messages.common.externalLink}
               </span>
             </a>
           ) : null}
@@ -160,10 +175,13 @@ export function ProjectCard({
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-fg"
             >
-              Código
+              {messages.common.viewCode}
               <ArrowUpRight className="size-3.5" />
               <span className="sr-only">
-                de {project.title} no GitHub (abre em nova aba)
+                {interpolate(messages.projects.cardCodeLabel, {
+                  title: project.title,
+                })}{' '}
+                {messages.common.externalLink}
               </span>
             </a>
           ) : null}

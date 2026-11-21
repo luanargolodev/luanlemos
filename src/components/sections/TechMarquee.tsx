@@ -1,8 +1,18 @@
-import { techGroups, techIcons } from '@/data/tech'
+import { techIcons } from '@/content'
+import type { Content } from '@/content/types'
 
-const items = techGroups.flatMap((group) => group.items)
+interface MarqueeItem {
+  name: string
+  icon: string
+}
 
-function MarqueeGroup({ hidden = false }: { hidden?: boolean }) {
+function MarqueeGroup({
+  items,
+  hidden = false,
+}: {
+  items: MarqueeItem[]
+  hidden?: boolean
+}) {
   return (
     <ul className="marquee-group" aria-hidden={hidden || undefined}>
       {items.map((item) => (
@@ -21,7 +31,15 @@ function MarqueeGroup({ hidden = false }: { hidden?: boolean }) {
   )
 }
 
-export function TechMarquee() {
+export function TechMarquee({
+  content,
+  label,
+}: {
+  content: Content
+  label: string
+}) {
+  const items = content.techGroups.flatMap((group) => group.items)
+
   return (
     <section
       aria-hidden="true"
@@ -29,12 +47,12 @@ export function TechMarquee() {
     >
       <div className="container-page flex items-center gap-8 py-4">
         <span className="hidden shrink-0 font-mono text-[9px] uppercase tracking-[0.16em] text-faint md:block">
-          Stack
+          {label}
         </span>
         <div className="marquee min-w-0 flex-1">
           <div className="marquee-track">
-            <MarqueeGroup />
-            <MarqueeGroup hidden />
+            <MarqueeGroup items={items} />
+            <MarqueeGroup items={items} hidden />
           </div>
         </div>
       </div>

@@ -1,28 +1,37 @@
-import { certifications } from '@/data/certifications'
+import type { Content } from '@/content/types'
+import type { Messages } from '@/i18n/messages/pt'
 
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Award, Sparkle } from '@/components/ui/icons'
 
-export function Certifications() {
+export function Certifications({
+  messages,
+  content,
+}: {
+  messages: Messages
+  content: Content
+}) {
   return (
-    <section id="certificados" className="section border-t border-line/60">
+    <section
+      id={messages.home.sections.certifications}
+      className="section border-t border-line/60"
+    >
       <div className="container-page">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <SectionHeading
-            index="05"
-            label="Reconhecimentos"
-            title="Certificados e hackathons."
+            index={messages.recognitions.index}
+            label={messages.recognitions.label}
+            title={messages.recognitions.title}
           />
           <p className="max-w-xl text-base leading-relaxed text-muted lg:justify-self-end">
-            Formação contínua e desafios fora do trabalho — onde testei ideias
-            rápido, colaborei com outros times e aprendi na prática.
+            {messages.recognitions.description}
           </p>
         </div>
 
         <ul className="mt-12 grid gap-4 md:grid-cols-2">
-          {certifications.map((item) => (
+          {content.certifications.map((item) => (
             <li
-              key={item.title}
+              key={item.id}
               data-reveal
               className="group flex gap-4 rounded-2xl border border-line/80 bg-surface p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 md:p-6"
             >
@@ -30,7 +39,7 @@ export function Certifications() {
                 aria-hidden="true"
                 className="mt-0.5 grid size-10 shrink-0 place-items-center rounded-full border border-line/70 bg-surface-2/50 text-accent"
               >
-                {item.type === 'Reconhecimento' ? (
+                {item.kind === 'recognition' ? (
                   <Award className="size-4" />
                 ) : (
                   <Sparkle className="size-4" />

@@ -1,33 +1,50 @@
 import Link from 'next/link'
 
-import { profile } from '@/data/profile'
+import type { Content } from '@/content/types'
+import type { Messages } from '@/i18n/messages/pt'
+import { href } from '@/i18n/routing'
 
 import { ButtonLink } from '@/components/ui/ButtonLink'
 import { SectionHeading } from '@/components/ui/SectionHeading'
 import { ArrowRight } from '@/components/ui/icons'
 
-export function AboutPreview() {
+export function AboutPreview({
+  locale,
+  messages,
+  content,
+}: {
+  locale: string
+  messages: Messages
+  content: Content
+}) {
+  const { profile } = content
+
   return (
-    <section id="sobre" className="section border-t border-line/60">
+    <section
+      id={messages.home.sections.about}
+      className="section border-t border-line/60"
+    >
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
           <div data-reveal>
             <SectionHeading
-              index="01"
-              label="Sobre"
-              title="Interfaces que funcionam no mundo real."
+              index={messages.about.index}
+              label={messages.about.label}
+              title={messages.about.title}
             />
 
             <dl className="mt-10 space-y-4 border-t border-line/70 pt-6">
               <div className="grid grid-cols-[104px_1fr] gap-4">
                 <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-                  Atualmente
+                  {messages.about.currently}
                 </dt>
-                <dd className="text-sm text-fg">Zee.Dog · Front-end Pleno</dd>
+                <dd className="text-sm text-fg">
+                  {messages.about.currentlyValue}
+                </dd>
               </div>
               <div className="grid grid-cols-[104px_1fr] gap-4">
                 <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-                  Formação
+                  {messages.about.education}
                 </dt>
                 <dd className="text-sm text-fg">
                   {profile.education.course}
@@ -38,17 +55,17 @@ export function AboutPreview() {
               </div>
               <div className="grid grid-cols-[104px_1fr] gap-4">
                 <dt className="font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-                  Base
+                  {messages.about.base}
                 </dt>
                 <dd className="text-sm text-fg">{profile.location}</dd>
               </div>
             </dl>
 
             <Link
-              href="/sobre"
+              href={href(locale, 'about')}
               className="group mt-8 inline-flex items-center gap-2 text-sm font-medium text-fg"
             >
-              Conhecer o Sobre
+              {messages.about.cta}
               <ArrowRight className="size-4 text-accent transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
@@ -62,19 +79,17 @@ export function AboutPreview() {
             </p>
 
             <div className="mt-8 flex flex-wrap gap-x-6 gap-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
-              <span>React</span>
-              <span>Next.js</span>
-              <span>TypeScript</span>
-              <span>Deco.cx</span>
-              <span>VTEX</span>
-              <span>Shopify</span>
-              <span>BFF</span>
-              <span>GTM</span>
-              <span>GA4</span>
+              {profile.skills.map((skill) => (
+                <span key={skill}>{skill}</span>
+              ))}
             </div>
 
-            <ButtonLink href="/sobre" variant="outline" className="mt-8">
-              Ver perfil completo
+            <ButtonLink
+              href={href(locale, 'about')}
+              variant="outline"
+              className="mt-8"
+            >
+              {messages.about.viewProfile}
             </ButtonLink>
           </div>
         </div>
