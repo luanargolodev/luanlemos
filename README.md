@@ -4,7 +4,7 @@ Portfólio pessoal de Luan Lemos, desenvolvedor front-end. O site é focado em r
 
 ## Documentação
 
-O plano completo do site está em [`docs/PLANO-DO-SITE.md`](docs/PLANO-DO-SITE.md): objetivo, plano inicial, histórico de fases, arquitetura, decisões, invariantes de conteúdo/SEO/acessibilidade, checklist de validação e roadmap. Leia antes de mudanças estruturais.
+O plano completo do site está em [`docs/PLAN.md`](docs/PLAN.md): objetivo, plano inicial, histórico de fases, arquitetura, decisões, invariantes de conteúdo/SEO/acessibilidade, checklist de validação e roadmap. Leia antes de mudanças estruturais.
 
 ## Stack
 

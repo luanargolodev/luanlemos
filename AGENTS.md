@@ -10,7 +10,7 @@ This block is written and re-added by `next dev` — verify at `node_modules/nex
 
 ## Contexto do projeto
 
-Antes de mudanças estruturais, leia [`docs/PLANO-DO-SITE.md`](docs/PLANO-DO-SITE.md). Ele descreve o objetivo do site, os planos já executados, a arquitetura, os invariantes de conteúdo/SEO/acessibilidade, o checklist de validação e o roadmap.
+Antes de mudanças estruturais, leia [`docs/PLAN.md`](docs/PLAN.md). Ele descreve o objetivo do site, os planos já executados, a arquitetura, os invariantes de conteúdo/SEO/acessibilidade, o checklist de validação e o roadmap.
 
 - Conteúdo vive em `src/data/`; não invente fatos, clientes ou métricas.
 - Commits pequenos, em pt-BR ou inglês, seguindo o histórico (`feat:`, `fix:`, `copy:`, `chore:`).
