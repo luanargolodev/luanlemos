@@ -22,6 +22,8 @@ export function ProjectCard({
 }) {
   return (
     <article
+      data-tilt
+      data-tilt-strength={wide ? 1.6 : 2.6}
       className={cn(
         'group relative flex flex-col overflow-hidden rounded-2xl border border-line/80 bg-surface transition-colors duration-300 hover:border-accent/40',
         wide && 'lg:grid lg:grid-cols-[0.92fr_1.08fr]',

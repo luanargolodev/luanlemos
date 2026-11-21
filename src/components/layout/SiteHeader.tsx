@@ -44,6 +44,7 @@ export function SiteHeader() {
             <a
               key={link.href}
               href={link.href}
+              data-nav-link
               className="text-[13px] text-muted transition-colors hover:text-fg"
             >
               {link.label}

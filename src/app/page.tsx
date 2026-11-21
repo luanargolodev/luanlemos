@@ -6,6 +6,7 @@ import { Contact } from '@/components/sections/Contact'
 import { Experience } from '@/components/sections/Experience'
 import { Hero } from '@/components/sections/Hero'
 import { Projects } from '@/components/sections/Projects'
+import { TechMarquee } from '@/components/sections/TechMarquee'
 import { TechStack } from '@/components/sections/TechStack'
 
 export default function HomePage() {
@@ -14,6 +15,7 @@ export default function HomePage() {
       <SiteHeader />
       <main id="conteudo" tabIndex={-1}>
         <Hero />
+        <TechMarquee />
         <About />
         <Experience />
         <Projects />

@@ -10,7 +10,7 @@ export function Experience() {
   return (
     <section id="experiencia" className="section border-t border-line/60">
       <div className="container-page">
-        <div className="reveal grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <SectionHeading
             index="02"
             label="Experiência"
@@ -30,7 +30,8 @@ export function Experience() {
             return (
               <li
                 key={`${item.company}-${item.start}`}
-                className="reveal grid gap-5 border-b border-line/70 py-8 md:grid-cols-[200px_1fr] md:gap-10 md:py-10"
+                data-reveal
+                className="grid gap-5 border-b border-line/70 py-8 md:grid-cols-[200px_1fr] md:gap-10 md:py-10"
               >
                 <div className="flex items-start justify-between gap-3 md:flex-col md:justify-start md:gap-1.5">
                   <p className="font-mono text-[11px] uppercase tracking-[0.08em] text-muted">
@@ -100,7 +101,10 @@ export function Experience() {
           })}
         </ol>
 
-        <p className="reveal mt-8 font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
+        <p
+          data-reveal
+          className="mt-8 font-mono text-[10px] uppercase tracking-[0.12em] text-faint"
+        >
           {experiences.length} posições ·{' '}
           {new Set(experiences.map((item) => item.company)).size} empresas ·
           jun/2022 — hoje

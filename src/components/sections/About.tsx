@@ -10,7 +10,7 @@ export function About() {
     <section id="sobre" className="section relative">
       <div className="container-page">
         <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-16">
-          <div className="reveal">
+          <div data-reveal>
             <SectionHeading index="01" label="Sobre" title="Interfaces que funcionam no mundo real." />
 
             <dl className="mt-10 space-y-4 border-t border-line/70 pt-6">
@@ -50,7 +50,7 @@ export function About() {
             </a>
           </div>
 
-          <div className="reveal">
+          <div data-reveal>
             <p className="font-display text-2xl leading-snug tracking-tight text-fg md:text-[1.7rem]">
               {lead}
             </p>

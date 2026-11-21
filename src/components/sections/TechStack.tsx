@@ -6,7 +6,7 @@ export function TechStack() {
   return (
     <section id="stack" className="section border-t border-line/60">
       <div className="container-page">
-        <div className="reveal grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <SectionHeading
             index="04"
             label="Stack"
@@ -18,10 +18,11 @@ export function TechStack() {
           </p>
         </div>
 
-        <div className="reveal mt-12 border-t border-line/70">
+        <div className="mt-12 border-t border-line/70">
           {techGroups.map((group) => (
             <div
               key={group.label}
+              data-reveal
               className="grid gap-5 border-b border-line/70 py-8 md:grid-cols-[230px_1fr] md:gap-10 md:py-10"
             >
               <div>
@@ -37,7 +38,7 @@ export function TechStack() {
                 {group.items.map((item) => (
                   <li
                     key={item.name}
-                    className="flex items-center gap-2.5 rounded-xl border border-line/70 bg-surface px-3 py-2 text-[13px] text-fg transition-colors hover:border-accent/40"
+                    className="flex items-center gap-2.5 rounded-xl border border-line/70 bg-surface px-3 py-2 text-[13px] text-fg transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40"
                   >
                     <img
                       src={techIcons[item.icon]}
@@ -55,7 +56,10 @@ export function TechStack() {
           ))}
         </div>
 
-        <p className="reveal mt-6 font-mono text-[10px] uppercase tracking-[0.12em] text-faint">
+        <p
+          data-reveal
+          className="mt-6 font-mono text-[10px] uppercase tracking-[0.12em] text-faint"
+        >
           Sempre estudando performance, acessibilidade e arquitetura de
           front-end.
         </p>

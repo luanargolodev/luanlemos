@@ -10,7 +10,7 @@ export function Projects() {
   return (
     <section id="projetos" className="section border-t border-line/60">
       <div className="container-page">
-        <div className="reveal flex flex-col justify-between gap-6 md:flex-row md:items-end">
+        <div className="flex flex-col justify-between gap-6 md:flex-row md:items-end">
           <SectionHeading
             index="03"
             label="Projetos"
@@ -31,15 +31,19 @@ export function Projects() {
           </a>
         </div>
 
-        <div className="reveal mt-12 grid gap-5 md:grid-cols-2">
-          <div className="md:col-span-2">
+        <div className="mt-12 grid gap-5 md:grid-cols-2">
+          <div className="md:col-span-2" data-reveal>
             <ProjectCard project={leadProject} wide />
           </div>
           {restProjects.map((project, index) => {
             const isLast = index === restProjects.length - 1
 
             return (
-              <div key={project.slug} className={isLast ? 'md:col-span-2' : ''}>
+              <div
+                key={project.slug}
+                data-reveal
+                className={isLast ? 'md:col-span-2' : ''}
+              >
                 <ProjectCard project={project} wide={isLast} />
               </div>
             )

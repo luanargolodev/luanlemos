@@ -43,7 +43,10 @@ export function Contact() {
   return (
     <section id="contato" className="section border-t border-line/60">
       <div className="container-page">
-        <div className="reveal relative overflow-hidden rounded-3xl border border-line/80 bg-surface px-6 py-10 md:px-12 md:py-14">
+        <div
+          data-reveal
+          className="relative overflow-hidden rounded-3xl border border-line/80 bg-surface px-6 py-10 md:px-12 md:py-14"
+        >
           <div
             aria-hidden="true"
             className="absolute -right-24 -top-24 size-72 rounded-full bg-glow blur-3xl"

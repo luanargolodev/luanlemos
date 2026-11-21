@@ -80,6 +80,13 @@ npm run images
 
 O script gera as versões WebP em `public/images/projects/` e os blur placeholders em `src/data/image-blur.json`. Se o slug do projeto mudar, atualize o campo `image` em `projects.ts`.
 
+## Motion
+
+- Reveals no scroll com `IntersectionObserver` e stagger nos cards.
+- Marquee de tecnologias, progresso de leitura e item ativo na navegação.
+- Glow que segue o cursor no hero, tilt + spotlight nos cards e parallax sutil no retrato.
+- Tudo desativado em `prefers-reduced-motion`; sem JavaScript, o conteúdo continua visível.
+
 ## SEO
 
 - Metadata completa em `src/app/layout.tsx` (via `src/lib/seo.ts`)

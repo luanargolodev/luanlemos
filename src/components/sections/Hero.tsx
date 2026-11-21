@@ -24,13 +24,19 @@ export function Hero() {
   return (
     <section
       id="top"
+      data-glow
       className="relative overflow-hidden pb-16 pt-28 md:pb-24 md:pt-36"
     >
       <div aria-hidden="true" className="grid-bg absolute inset-0" />
       <div
         aria-hidden="true"
-        className="absolute -top-48 left-1/2 h-[520px] w-[min(900px,90vw)] -translate-x-1/2 rounded-full bg-glow blur-3xl"
+        className="animate-drift absolute -top-48 left-1/2 h-[520px] w-[min(900px,90vw)] -translate-x-1/2 rounded-full bg-glow blur-3xl"
       />
+      <div
+        aria-hidden="true"
+        className="animate-drift-slow absolute -bottom-40 -right-24 size-[360px] rounded-full bg-glow blur-3xl"
+      />
+      <div aria-hidden="true" className="hero-cursor-glow" />
 
       <div className="container-page relative">
         <div className="grid items-center gap-14 lg:grid-cols-[1.18fr_0.82fr] lg:gap-16">
@@ -43,7 +49,7 @@ export function Hero() {
               {profile.availability}
             </p>
 
-            <h1 className="mt-7 font-display text-[clamp(3.5rem,10vw,6.25rem)] font-semibold leading-[0.9] tracking-[-0.045em]">
+            <h1 className="hero-title mt-7 font-display text-[clamp(3.5rem,10vw,6.25rem)] font-semibold leading-[0.9] tracking-[-0.045em]">
               <span className="mb-4 block font-mono text-[11px] font-normal uppercase tracking-[0.22em] text-accent md:text-xs">
                 {profile.role}
               </span>
@@ -110,13 +116,13 @@ export function Hero() {
             </dl>
           </div>
 
-          <div className="animate-rise-delay-2 relative mx-auto w-full max-w-sm lg:mx-0">
+          <div className="animate-rise-delay-2 relative mx-auto w-full max-w-sm lg:mx-0" data-parallax="0.05">
             <div
               aria-hidden="true"
               className="absolute -inset-6 rounded-[2.5rem] bg-glow blur-2xl"
             />
 
-            <div className="relative rounded-[1.75rem] border border-line/80 bg-surface/80 p-3 shadow-2xl shadow-black/5 backdrop-blur-xl">
+            <div className="relative rounded-[1.75rem] border border-line/80 bg-surface/80 p-3 shadow-2xl shadow-black/5 backdrop-blur-xl" data-tilt data-tilt-strength="2">
               <div className="relative aspect-square overflow-hidden rounded-[1.35rem] bg-surface-2">
                 <Image
                   src={profile.avatar}
@@ -200,7 +206,7 @@ export function Hero() {
 
         <a
           href="#sobre"
-          className="mt-16 hidden items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-faint transition-colors hover:text-fg md:inline-flex"
+          className="scroll-cue mt-16 hidden items-center gap-3 font-mono text-[10px] uppercase tracking-[0.16em] text-faint transition-colors hover:text-fg md:inline-flex"
         >
           <span className="grid size-8 place-items-center rounded-full border border-line/80">
             <ArrowDown className="size-3.5" />

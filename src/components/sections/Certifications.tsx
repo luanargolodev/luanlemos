@@ -7,7 +7,7 @@ export function Certifications() {
   return (
     <section id="certificados" className="section border-t border-line/60">
       <div className="container-page">
-        <div className="reveal grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
           <SectionHeading
             index="05"
             label="Reconhecimentos"
@@ -19,11 +19,12 @@ export function Certifications() {
           </p>
         </div>
 
-        <ul className="reveal mt-12 grid gap-4 md:grid-cols-2">
+        <ul className="mt-12 grid gap-4 md:grid-cols-2">
           {certifications.map((item) => (
             <li
               key={item.title}
-              className="group flex gap-4 rounded-2xl border border-line/80 bg-surface p-5 transition-colors hover:border-accent/40 md:p-6"
+              data-reveal
+              className="group flex gap-4 rounded-2xl border border-line/80 bg-surface p-5 transition-all duration-300 hover:-translate-y-0.5 hover:border-accent/40 hover:shadow-lg hover:shadow-accent/5 md:p-6"
             >
               <span
                 aria-hidden="true"

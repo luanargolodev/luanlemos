@@ -3,6 +3,7 @@ import { Bricolage_Grotesque, Inter, JetBrains_Mono } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 
 import { ThemeProvider } from '@/components/layout/ThemeProvider'
+import { MotionEffects } from '@/components/motion/MotionEffects'
 import { buildJsonLd, metadata, serializeJsonLd } from '@/lib/seo'
 
 import './globals.css'
@@ -58,6 +59,7 @@ export default function RootLayout({
           </a>
           {children}
         </ThemeProvider>
+        <MotionEffects />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: serializeJsonLd(jsonLd) }}
