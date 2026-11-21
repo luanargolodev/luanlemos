@@ -265,11 +265,11 @@
   will-change: transform;
 }
 
-[data-nav-link] {
+.nav-link {
   position: relative;
 }
 
-[data-nav-link]::after {
+.nav-link::after {
   content: '';
   position: absolute;
   inset-inline: 0;
@@ -281,12 +281,12 @@
   transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-[data-nav-link][data-active='true'] {
+.nav-link-active {
   color: var(--fg);
 }
 
-[data-nav-link]:hover::after,
-[data-nav-link][data-active='true']::after {
+.nav-link:hover::after,
+.nav-link-active::after {
   transform: scaleX(1);
 }
 
@@ -640,4 +640,12 @@ html.motion-ready [data-reveal].is-revealed {
   .cv-menu {
     animation: none;
   }
+}
+
+/* Project filters */
+.projects-grid[data-filter='brasil'] > [data-project]:not([data-categories~='brasil']),
+.projects-grid[data-filter='internacional'] > [data-project]:not([data-categories~='internacional']),
+.projects-grid[data-filter='shopify'] > [data-project]:not([data-categories~='shopify']),
+.projects-grid[data-filter='deco'] > [data-project]:not([data-categories~='deco']) {
+  display: none;
 }

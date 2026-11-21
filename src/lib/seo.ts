@@ -2,6 +2,7 @@ import type { Metadata } from 'next'
 
 import { certifications } from '@/data/certifications'
 import { profile } from '@/data/profile'
+import type { Project } from '@/data/projects'
 import { site } from '@/data/site'
 import { techGroups } from '@/data/tech'
 
@@ -60,7 +61,6 @@ const knowAbout = [
 export function buildJsonLd() {
   const personId = `${site.url}/#person`
   const websiteId = `${site.url}/#website`
-  const pageId = `${site.url}/#page`
 
   return {
     '@context': 'https://schema.org',
@@ -125,17 +125,80 @@ export function buildJsonLd() {
         inLanguage: 'pt-BR',
         publisher: { '@id': personId },
       },
-      {
-        '@type': 'ProfilePage',
-        '@id': pageId,
-        url: site.url,
-        name: site.title,
-        description: site.description,
-        inLanguage: 'pt-BR',
-        isPartOf: { '@id': websiteId },
-        mainEntity: { '@id': personId },
-      },
     ],
+  }
+}
+
+export const defaultOgImage = {
+  url: '/opengraph-image',
+  width: 1200,
+  height: 630,
+  alt: site.ogAlt,
+}
+
+export interface SeoBreadcrumb {
+  name: string
+  path: string
+}
+
+export function buildBreadcrumbJsonLd(items: SeoBreadcrumb[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: items.map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: `${site.url}${item.path}`,
+    })),
+  }
+}
+
+export function buildWebPageJsonLd({
+  type = 'WebPage',
+  name,
+  description,
+  path,
+  about,
+}: {
+  type?: 'WebPage' | 'AboutPage' | 'CollectionPage' | 'ContactPage' | 'ProfilePage'
+  name: string
+  description: string
+  path: string
+  about?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': type,
+    '@id': `${site.url}${path}#page`,
+    url: `${site.url}${path}`,
+    name,
+    description,
+    inLanguage: 'pt-BR',
+    isPartOf: { '@id': `${site.url}/#website` },
+    ...(about ? { about: { '@id': about } } : {}),
+  }
+}
+
+export function buildProjectJsonLd(project: Project) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'CreativeWork',
+    '@id': `${site.url}/projeto/${project.slug}#work`,
+    name: project.title,
+    headline: `${project.title} — ${project.client}`,
+    description: project.summary,
+    url: `${site.url}/projeto/${project.slug}`,
+    image: `${site.url}${project.image}`,
+    dateCreated: String(project.year),
+    author: { '@id': `${site.url}/#person` },
+    about: {
+      '@type': 'Organization',
+      name: project.client,
+    },
+    keywords: project.stack.join(', '),
+    isPartOf: { '@id': `${site.url}/#website` },
+    ...(project.url ? { sameAs: project.url } : {}),
   }
 }
 

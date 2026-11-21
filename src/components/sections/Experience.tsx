@@ -1,7 +1,6 @@
 import { experiences } from '@/data/experience'
 import { formatPeriod, getExperienceDuration } from '@/lib/dates'
 
-import { SectionHeading } from '@/components/ui/SectionHeading'
 import { Tag } from '@/components/ui/Tag'
 
 export function Experience() {
@@ -11,11 +10,12 @@ export function Experience() {
     <section id="experiencia" className="section border-t border-line/60">
       <div className="container-page">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <SectionHeading
-            index="02"
-            label="Experiência"
-            title="Onde construí."
-          />
+          <div data-reveal>
+            <p className="eyebrow">Linha do tempo</p>
+            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight md:text-[2.5rem]">
+              Onde construí.
+            </h2>
+          </div>
           <p className="max-w-xl text-base leading-relaxed text-muted lg:justify-self-end">
             {duration} de trabalho em front-end, dos primeiros projetos em
             agência à operação de uma marca de alcance nacional. Abaixo, o que

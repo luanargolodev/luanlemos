@@ -40,11 +40,11 @@ export const site = {
   ],
   locale: 'pt_BR',
   nav: [
-    { href: '#sobre', label: 'Sobre' },
-    { href: '#experiencia', label: 'Experiência' },
-    { href: '#projetos', label: 'Projetos' },
-    { href: '#stack', label: 'Stack' },
-    { href: '#contato', label: 'Contato' },
+    { href: '/sobre', label: 'Sobre' },
+    { href: '/experiencia', label: 'Experiência' },
+    { href: '/projetos', label: 'Projetos' },
+    { href: '/stack', label: 'Stack' },
+    { href: '/contato', label: 'Contato' },
   ],
   ogAlt:
     'Luan Lemos — Desenvolvedor Front-end Pleno especializado em React, Next.js e e-commerce.',

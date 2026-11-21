@@ -6,11 +6,13 @@ import sharp from 'sharp'
 const root = process.cwd()
 const projectSource = path.join(root, 'assets/project-images')
 const projectOutput = path.join(root, 'public/images/projects')
+const coverOutput = path.join(root, 'public/images/projects/cover')
 const profileSource = path.join(root, 'assets/profile/avatar-source.png')
 const profileOutput = path.join(root, 'public/images/profile/avatar.webp')
 const blurFile = path.join(root, 'src/data/image-blur.json')
 
 await mkdir(projectOutput, { recursive: true })
+await mkdir(coverOutput, { recursive: true })
 
 const projectSlugs = [
   'zeedog',
@@ -33,6 +35,11 @@ for (const slug of projectSlugs) {
     .resize({ width: 1600, withoutEnlargement: true })
     .webp({ quality: 80, effort: 5 })
     .toFile(output)
+
+  await sharp(input)
+    .resize({ width: 1200, withoutEnlargement: true })
+    .webp({ quality: 75, effort: 5 })
+    .toFile(path.join(coverOutput, `${slug}.webp`))
 
   const preview = await sharp(input)
     .resize({ width: 24 })

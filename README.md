@@ -39,23 +39,53 @@ npm run brand      # regenera favicon, apple icon, ícone 512 e marca do OG
 
 ```text
 src/
-  app/                 # rotas, metadata, OG image, robots, sitemap, llms.txt
+  app/
+    (site)/             # shell com header/footer + páginas
+      page.tsx          # home
+      sobre/
+      experiencia/
+      projetos/
+      projeto/[slug]/   # cases estáticos
+      stack/
+      contato/
+    curriculo/          # currículo web (fora do shell)
+    sitemap.ts
+    robots.ts
+    llms.txt/
+    cv.json/
   components/
-    layout/            # header, menu mobile, tema, footer
-    sections/          # Hero, About, Experience, Projects, TechStack, Certifications, Contact
-    ui/                # botões, tags, cards de projeto, ícones, section heading
-  data/                # TODO o conteúdo do site (edite aqui)
-  lib/                 # duração de experiência, SEO/JSON-LD, utilitários
+    layout/             # header, nav, menu mobile, tema, footer, marca
+    sections/           # Hero, previews, Experience, TechStack, Contact...
+    ui/                 # botões, breadcrumbs, PageHero, PageCTA, cards
+  data/                 # TODO o conteúdo do site (edite aqui)
+  lib/                  # datas, SEO/JSON-LD, utilitários
   types/
 public/
-  images/projects/     # screenshots otimizados (WebP)
-  icons/tech/          # ícones das tecnologias
+  images/projects/      # screenshots otimizados (WebP)
+  images/projects/cover/ # capas 1200w usadas nos cases
+  icons/tech/           # ícones das tecnologias
+  cv/                   # currículo em PDF
 assets/
-  project-images/      # screenshots originais (não são servidos)
-  profile/             # avatar original
+  project-images/       # screenshots originais (não são servidos)
+  profile/              # avatar original
 scripts/
-  optimize-images.mjs  # gera WebP + blur placeholders a partir das imagens originais
+  optimize-images.mjs   # gera WebP + blur placeholders
+  generate-cv.mjs       # gera o PDF do currículo
+  generate-brand.mjs    # gera ícones da marca
 ```
+
+## Rotas
+
+| Rota | Conteúdo |
+| --- | --- |
+| `/` | home resumida com destaques e CTAs |
+| `/sobre` | perfil completo, princípios e formação |
+| `/experiencia` | trajetória, BFF, analytics e certificações |
+| `/projetos` | todos os cases com filtros por categoria |
+| `/projeto/[slug]` | case individual com contexto, desafio, abordagem e resultado |
+| `/stack` | tecnologias por área e aplicação prática |
+| `/contato` | canais de contato e currículo |
+| `/curriculo` | currículo web para recrutadores e IA |
 
 ## Atualizando o conteúdo
 

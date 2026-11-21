@@ -72,46 +72,11 @@ export function MotionEffects() {
       cleanups.push(() => revealObserver.disconnect())
     }
 
-    // Active navigation item
-    const navLinks = Array.from(
-      document.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'),
-    )
+    // Scroll progress + hero parallax
     const parallaxElements = reducedMotion
       ? []
       : Array.from(document.querySelectorAll<HTMLElement>('[data-parallax]'))
 
-    const setActive = (id: string) => {
-      for (const link of navLinks) {
-        const isActive = Boolean(id) && link.getAttribute('href') === `#${id}`
-        if (isActive) {
-          link.dataset.active = 'true'
-          link.setAttribute('aria-current', 'location')
-        } else {
-          delete link.dataset.active
-          link.removeAttribute('aria-current')
-        }
-      }
-    }
-
-    const updateActive = () => {
-      let activeId = ''
-      const threshold = window.scrollY + window.innerHeight * 0.38
-
-      for (const link of navLinks) {
-        const href = link.getAttribute('href')
-        if (!href?.startsWith('#')) continue
-
-        const section = document.querySelector<HTMLElement>(href)
-        if (!section) continue
-
-        const top = section.getBoundingClientRect().top + window.scrollY
-        if (top <= threshold) activeId = section.id
-      }
-
-      setActive(activeId)
-    }
-
-    // Scroll progress + active section
     let frame = 0
     const updateOnFrame = () => {
       frame = 0
@@ -126,8 +91,6 @@ export function MotionEffects() {
         const offset = Math.min(window.scrollY, window.innerHeight) * speed
         element.style.translate = `0 ${offset.toFixed(1)}px`
       }
-
-      updateActive()
     }
     const onScroll = () => {
       if (!frame) frame = requestAnimationFrame(updateOnFrame)

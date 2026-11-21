@@ -65,7 +65,7 @@ export function Hero() {
             </p>
 
             <div className="mt-8 flex flex-wrap items-center gap-3">
-              <ButtonLink href="#projetos" variant="accent" icon={<ArrowRight />}>
+              <ButtonLink href="/projetos" variant="accent" icon={<ArrowRight />}>
                 Ver projetos
               </ButtonLink>
               <ButtonLink

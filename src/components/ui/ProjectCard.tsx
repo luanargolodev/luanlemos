@@ -1,16 +1,21 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import blurData from '@/data/image-blur.json'
 import type { Project } from '@/data/projects'
 import { cn } from '@/lib/utils'
 
-const blurPlaceholders = blurData as Record<string, string>
-
-import { ArrowUpRight, Sparkle } from './icons'
+import { ArrowRight, ArrowUpRight, Sparkle } from './icons'
 import { Tag } from './Tag'
+
+const blurPlaceholders = blurData as Record<string, string>
 
 function hostname(url: string) {
   return new URL(url).hostname.replace(/^www\./, '')
+}
+
+function imageKey(image: string) {
+  return image.split('/').pop()?.replace(/\.webp$/, '') ?? ''
 }
 
 export function ProjectCard({
@@ -20,9 +25,14 @@ export function ProjectCard({
   project: Project
   wide?: boolean
 }) {
+  const caseHref = `/projeto/${project.slug}`
+  const blur = blurPlaceholders[imageKey(project.image)]
+
   return (
     <article
       data-tilt
+      data-project
+      data-categories={project.categories.join(' ')}
       data-tilt-strength={wide ? 1.6 : 2.6}
       className={cn(
         'group relative flex flex-col overflow-hidden rounded-2xl border border-line/80 bg-surface transition-colors duration-300 hover:border-accent/40',
@@ -39,7 +49,7 @@ export function ProjectCard({
           <span className="size-1.5 rounded-full bg-line" />
           <span className="size-1.5 rounded-full bg-line" />
           <span className="size-1.5 rounded-full bg-line" />
-          <span className="ml-2 truncate font-mono text-[9px] uppercase tracking-[0.08em] text-faint">
+          <span className="ml-2 truncate font-mono text-[9px] uppercase tracking-[0.08em] text-muted">
             {project.url ? hostname(project.url) : 'case'}
           </span>
         </div>
@@ -50,20 +60,26 @@ export function ProjectCard({
             wide && 'lg:aspect-auto lg:h-[calc(100%-38px)] lg:min-h-[300px]',
           )}
         >
-          <Image
-            src={project.image}
-            alt={project.imageAlt}
-            fill
-            sizes={
-              wide
-                ? '(min-width: 1024px) 620px, 100vw'
-                : '(min-width: 1024px) 480px, (min-width: 768px) 45vw, 100vw'
-            }
-            quality={82}
-            placeholder={blurPlaceholders[project.slug] ? 'blur' : 'empty'}
-            blurDataURL={blurPlaceholders[project.slug]}
-            className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.025]"
-          />
+          <Link
+            href={caseHref}
+            aria-label={`Ver case ${project.title}`}
+            className="relative block h-full w-full"
+          >
+            <Image
+              src={project.image}
+              alt={project.imageAlt}
+              fill
+              sizes={
+                wide
+                  ? '(min-width: 1024px) 620px, 100vw'
+                  : '(min-width: 1024px) 480px, (min-width: 768px) 45vw, 100vw'
+              }
+              quality={82}
+              placeholder={blur ? 'blur' : 'empty'}
+              blurDataURL={blur}
+              className="object-cover object-left-top transition-transform duration-700 ease-out group-hover:scale-[1.025]"
+            />
+          </Link>
           <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-canvas/10 to-transparent" />
         </div>
       </div>
@@ -88,7 +104,9 @@ export function ProjectCard({
             wide ? 'text-3xl md:text-[2.1rem]' : 'text-xl',
           )}
         >
-          {project.title}
+          <Link href={caseHref} className="transition-colors hover:text-accent">
+            {project.title}
+          </Link>
         </h3>
 
         <p className="mt-3 text-sm leading-relaxed text-muted">
@@ -111,23 +129,29 @@ export function ProjectCard({
           ))}
         </div>
 
-        <div className="mt-auto flex items-center gap-4 pt-6">
+        <div className="mt-auto flex flex-wrap items-center gap-4 pt-6">
+          <Link
+            href={caseHref}
+            className="inline-flex items-center gap-1.5 text-[13px] font-medium text-fg transition-colors hover:text-accent"
+          >
+            Ver case
+            <ArrowRight className="size-3.5" />
+          </Link>
+
           {project.url ? (
             <a
               href={project.url}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1.5 text-[13px] font-medium text-fg transition-colors hover:text-accent"
+              className="inline-flex items-center gap-1.5 text-[13px] font-medium text-muted transition-colors hover:text-fg"
             >
               Ver site
               <ArrowUpRight className="size-3.5" />
-              <span className="sr-only">de {project.title} (abre em nova aba)</span>
+              <span className="sr-only">
+                de {project.title} (abre em nova aba)
+              </span>
             </a>
-          ) : (
-            <span className="font-mono text-[10px] uppercase tracking-[0.1em] text-faint">
-              Case sem link público
-            </span>
-          )}
+          ) : null}
 
           {project.repo ? (
             <a

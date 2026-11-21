@@ -1,5 +1,7 @@
 'use client'
 
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 import { useEffect, useId, useState } from 'react'
 
 import { ThemeToggle } from './ThemeToggle'
@@ -14,9 +16,18 @@ interface MobileNavProps {
   cvUrl: string
 }
 
+function isActive(pathname: string, href: string) {
+  if (href === '/') return pathname === '/'
+  if (href === '/projetos' && pathname.startsWith('/projeto/')) return true
+  return pathname === href || pathname.startsWith(`${href}/`)
+}
+
 export function MobileNav({ links, cvUrl }: MobileNavProps) {
+  const pathname = usePathname()
   const [open, setOpen] = useState(false)
   const panelId = useId()
+
+  const path = pathname
 
   useEffect(() => {
     if (!open) return
@@ -62,23 +73,35 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
           className="absolute inset-x-0 top-16 max-h-[calc(100svh-4rem)] overflow-y-auto border-b border-line bg-canvas px-5 py-5 shadow-2xl"
         >
           <nav aria-label="Navegação principal" className="flex flex-col">
-            {links.map((link) => (
-              <a
-                key={link.href}
-                href={link.href}
-                onClick={() => setOpen(false)}
-                className="flex items-center justify-between border-b border-line/60 py-3 text-base text-fg last:border-none"
-              >
-                {link.label}
-                <span aria-hidden="true" className="font-mono text-xs text-faint">
-                  ↗
-                </span>
-              </a>
-            ))}
+            {links.map((link) => {
+              const active = isActive(path, link.href)
+
+              return (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setOpen(false)}
+                  aria-current={active ? 'page' : undefined}
+                  className={`flex items-center justify-between border-b border-line/60 py-3 text-base last:border-none ${
+                    active ? 'text-accent' : 'text-fg'
+                  }`}
+                >
+                  {link.label}
+                  <span
+                    aria-hidden="true"
+                    className={`font-mono text-xs ${
+                      active ? 'text-accent' : 'text-faint'
+                    }`}
+                  >
+                    ↗
+                  </span>
+                </Link>
+              )
+            })}
           </nav>
 
           <div className="mt-5 grid grid-cols-2 gap-2">
-            <a
+            <Link
               href="/curriculo"
               onClick={() => setOpen(false)}
               className="inline-flex flex-col items-center justify-center gap-0.5 rounded-xl border border-line bg-surface px-3 py-3 text-[13px] font-semibold text-fg"
@@ -87,7 +110,7 @@ export function MobileNav({ links, cvUrl }: MobileNavProps) {
               <span className="font-mono text-[9px] font-normal uppercase tracking-[0.12em] text-muted">
                 Versão web
               </span>
-            </a>
+            </Link>
             <a
               href={cvUrl}
               target="_blank"

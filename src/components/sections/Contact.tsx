@@ -58,7 +58,7 @@ export function Contact() {
 
           <div className="relative grid gap-12 lg:grid-cols-[1.08fr_0.92fr] lg:gap-16">
             <div>
-              <p className="eyebrow">06 — Contato</p>
+              <p className="eyebrow">Networking</p>
               <h2 className="mt-5 font-display text-4xl font-semibold leading-[0.98] tracking-[-0.03em] md:text-[3.6rem]">
                 Vamos conversar
                 <span className="text-accent">.</span>

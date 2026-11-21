@@ -1,20 +1,19 @@
 import { techGroups, techIcons } from '@/data/tech'
 
-import { SectionHeading } from '@/components/ui/SectionHeading'
-
 export function TechStack() {
   return (
     <section id="stack" className="section border-t border-line/60">
       <div className="container-page">
         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
-          <SectionHeading
-            index="04"
-            label="Stack"
-            title="Ferramentas do dia a dia."
-          />
+          <div data-reveal>
+            <p className="eyebrow">Stack detalhada</p>
+            <h2 className="mt-4 font-display text-3xl font-semibold leading-tight tracking-tight md:text-[2.5rem]">
+              Ferramentas por área.
+            </h2>
+          </div>
           <p className="max-w-xl text-base leading-relaxed text-muted lg:justify-self-end">
-            Não é uma lista de logos: é o que uso para colocar interfaces em
-            produção, integrar lojas e manter o código sustentável.
+            Agrupadas por onde entram no trabalho: interface, loja, backend e
+            mensuração.
           </p>
         </div>
 

@@ -1,7 +1,7 @@
 import { certifications } from '@/data/certifications'
 import { experiences } from '@/data/experience'
 import { profile } from '@/data/profile'
-import { featuredProjects } from '@/data/projects'
+import { projects } from '@/data/projects'
 import { resume } from '@/data/resume'
 import { site } from '@/data/site'
 import { techGroups } from '@/data/tech'
@@ -42,10 +42,19 @@ export function GET() {
     ]),
     '',
     '## Projetos selecionados',
-    ...featuredProjects.flatMap((project) => [
-      `- ${project.title} — ${project.client} (${project.year}): ${project.summary} Stack: ${project.stack.join(', ')}.${project.url ? ` Link: ${project.url}` : ' Case sem link público.'}`,
+    ...projects.flatMap((project) => [
+      `- ${project.title} — ${project.client} (${project.year}): ${project.summary} Stack: ${project.stack.join(', ')}. Case: ${site.url}/projeto/${project.slug}.${project.url ? ` Site: ${project.url}` : ' Case sem link público.'}`,
     ]),
     '',
+    '## Páginas',
+    `- Sobre: ${site.url}/sobre`,
+    `- Experiência: ${site.url}/experiencia`,
+    `- Projetos: ${site.url}/projetos`,
+    `- Stack: ${site.url}/stack`,
+    `- Contato: ${site.url}/contato`,
+    `- Currículo web: ${site.url}/curriculo`,
+    `- Currículo PDF: ${site.url}${profile.cvUrl}`,
+    `- Currículo JSON: ${site.url}/cv.json`,
     '## Stack',
     ...techGroups.map(
       (group) => `- ${group.label}: ${group.items.map((item) => item.name).join(', ')}`,

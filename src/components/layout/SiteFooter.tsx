@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 import { profile } from '@/data/profile'
 import { site } from '@/data/site'
 
@@ -11,12 +13,12 @@ export function SiteFooter() {
       <div className="container-page py-12 md:py-16">
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
-            <a href="#top" className="inline-flex items-center gap-2">
+            <Link href="/" className="inline-flex items-center gap-2">
               <LogoMark className="size-6" />
               <span className="font-display text-lg font-semibold tracking-tight">
                 {profile.name}
               </span>
-            </a>
+            </Link>
             <p className="mt-4 max-w-xs text-sm leading-relaxed text-muted">
               {profile.role} focado em e-commerce, performance e interfaces que
               funcionam de verdade.
@@ -33,12 +35,12 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2.5">
               {site.nav.map((link) => (
                 <li key={link.href}>
-                  <a
+                  <Link
                     href={link.href}
                     className="text-sm text-muted transition-colors hover:text-fg"
                   >
                     {link.label}
-                  </a>
+                  </Link>
                 </li>
               ))}
             </ul>
@@ -65,7 +67,7 @@ export function SiteFooter() {
                 </li>
               ))}
               <li>
-                <a
+                <Link
                   href="/curriculo"
                   className="inline-flex items-center gap-1.5 text-sm text-muted transition-colors hover:text-fg"
                 >
@@ -73,7 +75,7 @@ export function SiteFooter() {
                   <span aria-hidden="true" className="text-[10px] text-faint">
                     →
                   </span>
-                </a>
+                </Link>
               </li>
               <li>
                 <a
