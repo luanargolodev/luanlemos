@@ -15,10 +15,9 @@ export function GET() {
     location: resume.location,
     availability: resume.availability,
     updatedAt: resume.updatedAt,
-    desiredRole: resume.desiredRole,
     objective: resume.objective,
     keySkills: resume.keySkills,
-    seeks: 'Desenvolvedor Front-end Pleno ou Sênior',
+    openTo: 'Networking e conversas sobre front-end, e-commerce e produto',
     site: site.url,
     links: resume.links,
     contact: {

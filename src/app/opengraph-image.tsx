@@ -125,7 +125,7 @@ export default async function OpengraphImage() {
                 backgroundColor: '#4ade80',
               }}
             />
-            Aberto a oportunidades
+            {profile.availability}
           </div>
         </div>
 

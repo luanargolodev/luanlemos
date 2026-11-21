@@ -64,9 +64,9 @@ export function Contact() {
                 <span className="text-accent">.</span>
               </h2>
               <p className="mt-5 max-w-md text-base leading-relaxed text-muted">
-                Estou aberto a oportunidades em times de produto e e-commerce,
-                além de conversas sobre front-end, performance e arquitetura de
-                interfaces.
+                Gosto de conversar sobre front-end, performance e arquitetura
+                de interfaces. Se quiser trocar uma ideia ou falar sobre um
+                projeto, me chama.
               </p>
 
               <div className="mt-6 flex flex-wrap items-center gap-x-5 gap-y-2 font-mono text-[10px] uppercase tracking-[0.12em] text-faint">

@@ -77,12 +77,6 @@ export function buildJsonLd() {
         email: `mailto:${profile.email}`,
         telephone: profile.phone,
         knowsAbout: knowAbout,
-        seeks: {
-          '@type': 'Demand',
-          name: 'Oportunidade como Desenvolvedor Front-end Pleno ou Sênior',
-          description:
-            'Oportunidades em times de produto ou e-commerce, em modelo remoto ou híbrido.',
-        },
         hasOccupation: {
           '@type': 'Occupation',
           name: profile.role,

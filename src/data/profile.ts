@@ -20,7 +20,7 @@ export const profile: Profile = {
   whatsapp:
     'https://wa.me/5573991933732?text=Ol%C3%A1%2C%20Luan!%20Vi%20seu%20portf%C3%B3lio%20e%20gostaria%20de%20conversar.',
   location: 'Brasil · Remoto',
-  availability: 'Aberto a oportunidades',
+  availability: 'Aberto a networking',
   startDate: '2022-06',
   avatar: '/images/profile/avatar.webp',
   cvUrl:

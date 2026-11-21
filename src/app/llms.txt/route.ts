@@ -28,7 +28,7 @@ export function GET() {
     `- Disponibilidade: ${profile.availability}`,
     `- Objetivo: ${resume.objective}`,
     `- Competências principais: ${resume.keySkills}`,
-    `- Busca: oportunidade como Desenvolvedor Front-end Pleno ou Sênior, remoto ou híbrido`,
+    `- Interesses: networking e conversas sobre front-end, e-commerce e produto`,
     `- E-mail: ${profile.email}`,
     `- WhatsApp: ${profile.phone}`,
     `- LinkedIn: ${profile.socials[0].href}`,

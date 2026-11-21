@@ -121,7 +121,9 @@ export default function ResumePage() {
               {resume.title}
             </p>
             <p className="mt-1 text-[12.5px] leading-relaxed text-zinc-600">
-              <strong className="font-semibold text-zinc-700">Objetivo:</strong>{' '}
+              <strong className="font-semibold text-zinc-700">
+                Especialidade:
+              </strong>{' '}
               {resume.objective}
             </p>
             <p className="mt-3 text-[13px] leading-relaxed text-zinc-600">
@@ -313,8 +315,8 @@ export default function ResumePage() {
           </section>
 
           <footer className="cv-footer mt-8 border-t border-zinc-200 pt-4 text-[11px] leading-relaxed text-zinc-500">
-            Disponível para oportunidades como Desenvolvedor Front-end Pleno ou
-            Sênior. Este currículo também está disponível em{' '}
+            Aberto a networking e conversas sobre front-end, e-commerce e
+            produto. Este currículo também está disponível em{' '}
             <a className="cv-link" href={resume.links.cv}>
               luanlemos.dev/curriculo
             </a>{' '}
