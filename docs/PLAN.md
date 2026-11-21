@@ -113,7 +113,7 @@ Recomeçar o site em **Next.js App Router estático**, com foco em:
 | 7. Correções de navegação | 21/11/2026 | `2c54c71` | Reveals por rota; scroll ao topo; fim das “páginas pretas” | Navegação estável |
 | 8. Menu mobile | 21/11/2026 | `26b8d19` | Wipe, stagger, ícone hambúrguer↔X, inert, foco, fecha na rota | Menu suave e acessível |
 | 9. Documentação | 21/11/2026 | `bcfb40a`, `9091b3a` | `docs/PLAN.md`, README e AGENTS; plano histórico e roadmap | Contexto para agentes |
-| 10. i18n pt/en | 21/11/2026 | _(este trabalho)_ | Rotas localizadas, dicionários tipados, seletor, hreflang, sitemap, OG, CV/PDF em dois idiomas | Site bilíngue |
+| 10. i18n pt/en | 21/11/2026 | `d9895b6` | Rotas localizadas, dicionários tipados, seletor, hreflang, sitemap, OG, CV/PDF em dois idiomas | Site bilíngue |
 
 ### 3.1 O que cada fase ensinou
 
