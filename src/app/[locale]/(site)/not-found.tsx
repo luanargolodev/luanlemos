@@ -1,3 +1,4 @@
+import type { Metadata } from 'next'
 import Link from 'next/link'
 import { locale as rootLocale } from 'next/root-params'
 
@@ -8,6 +9,13 @@ import { ArrowRight } from '@/components/ui/icons'
 import { defaultLocale, navRoutes } from '@/i18n/config'
 import { getMessages } from '@/i18n/messages'
 import { href, homeHref } from '@/i18n/routing'
+
+
+export const metadata: Metadata = {
+  title: { absolute: '404 — Luan Lemos' },
+  description: 'Página não encontrada / Page not found',
+  robots: { index: false, follow: false },
+}
 
 export default async function NotFound() {
   let locale = defaultLocale
