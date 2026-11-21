@@ -5,6 +5,17 @@ import { useEffect, useState } from 'react'
 import { ArrowUp } from '@/components/ui/icons'
 import { cn } from '@/lib/utils'
 
+function scrollToTop() {
+  const reducedMotion = window.matchMedia(
+    '(prefers-reduced-motion: reduce)',
+  ).matches
+
+  window.scrollTo({
+    top: 0,
+    behavior: reducedMotion ? 'auto' : 'smooth',
+  })
+}
+
 export function BackToTop() {
   const [visible, setVisible] = useState(false)
 
@@ -29,21 +40,10 @@ export function BackToTop() {
     }
   }, [])
 
-  const handleClick = () => {
-    const reducedMotion = window.matchMedia(
-      '(prefers-reduced-motion: reduce)',
-    ).matches
-
-    window.scrollTo({
-      top: 0,
-      behavior: reducedMotion ? 'auto' : 'smooth',
-    })
-  }
-
   return (
     <button
       type="button"
-      onClick={handleClick}
+      onClick={scrollToTop}
       aria-label="Voltar ao topo"
       aria-hidden={!visible}
       tabIndex={visible ? 0 : -1}

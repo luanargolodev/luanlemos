@@ -32,6 +32,7 @@ npm run lint       # oxlint
 npm run typecheck  # TypeScript sem emitir arquivos
 npm run images     # otimiza screenshots e avatar para WebP + blur placeholders
 npm run cv         # regenera o PDF do currículo a partir de /curriculo
+npm run brand      # regenera favicon, apple icon, ícone 512 e marca do OG
 ```
 
 ## Estrutura
@@ -107,6 +108,17 @@ npm run cv
 ```
 
 O script usa o Chrome instalado (`channel: 'chrome'`) ou o caminho em `CHROME_PATH`, imprime a página `/curriculo` em A4 e grava os metadados do PDF.
+
+## Marca
+
+O símbolo combina o **L** de Luan com um **prompt de terminal** (`>`), dentro de um tile squircle indigo. A paleta usa `#4F46E5`, `#F6F3EC` e `#C7D2FE`, os mesmos tokens da interface.
+
+Os assets da marca são gerados por `npm run brand`:
+
+- `src/app/icon.svg` / `public/favicon.svg` — favicon vetorial
+- `src/app/apple-icon.png` — apple touch icon
+- `public/icon-512.png` — manifest/maskable
+- `src/assets/logo-mark.png` — marca usada no OG image
 
 ## SEO
 

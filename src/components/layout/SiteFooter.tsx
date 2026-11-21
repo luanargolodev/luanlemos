@@ -1,7 +1,7 @@
 import { profile } from '@/data/profile'
 import { site } from '@/data/site'
 
-import { LogoMark } from './SiteHeader'
+import { LogoMark } from './LogoMark'
 
 const currentYear = new Date().getFullYear()
 
@@ -12,9 +12,7 @@ export function SiteFooter() {
         <div className="grid gap-10 md:grid-cols-[1.4fr_1fr_1fr]">
           <div>
             <a href="#top" className="inline-flex items-center gap-2">
-              <span className="text-accent">
-                <LogoMark className="size-6" />
-              </span>
+              <LogoMark className="size-6" />
               <span className="font-display text-lg font-semibold tracking-tight">
                 {profile.name}
               </span>

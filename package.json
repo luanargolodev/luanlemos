@@ -9,7 +9,8 @@
     "lint": "oxlint src scripts",
     "typecheck": "tsc --noEmit",
     "images": "node scripts/optimize-images.mjs",
-    "cv": "node scripts/generate-cv.mjs"
+    "cv": "node scripts/generate-cv.mjs",
+    "brand": "node scripts/generate-brand.mjs"
   },
   "dependencies": {
     "@vercel/analytics": "^2.0.1",

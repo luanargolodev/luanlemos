@@ -91,7 +91,7 @@ export default async function OpengraphImage() {
                 backgroundColor: '#4f46e5',
               }}
             >
-              <img src={markSrc} width={26} height={25} alt="" />
+              <img src={markSrc} width={34} height={34} alt="" />
             </div>
             <div
               style={{
